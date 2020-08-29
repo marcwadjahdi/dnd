@@ -1,6 +1,7 @@
 const prefix = '/assets/layers/';
 export const BATTLE_MAPS = [
   'blank.png',
+  'Irrandia.png',
   'magamar/area.jpg',
   'magamar/angmar/keep/lvl_0.jpg',
   'magamar/angmar/keep/lvl_1.jpg',

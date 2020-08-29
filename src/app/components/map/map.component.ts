@@ -73,7 +73,7 @@ export class MapComponent implements OnInit {
       view: new View({
         projection: PROJ,
         center: getCenter(EXTENT),
-        zoom: 2,
+        zoom: 3.5,
         minZoom: 2,
         maxZoom: 3.5,
       }),
@@ -101,6 +101,8 @@ export class MapComponent implements OnInit {
     this.removeInteractions();
     this.currentTool = this.isCurrentTool(tool) ? null : tool;
     if (!this.currentTool) {
+      this.addSnap();
+      this.addModify();
       return;
     }
     switch (tool) {
@@ -113,6 +115,8 @@ export class MapComponent implements OnInit {
       case this.TOOLS.line:
       case this.TOOLS.polygon:
       case this.TOOLS.circle:
+        this.addSnap();
+        this.addModify();
         this.useDrawTool(tool);
         break;
     }
@@ -161,12 +165,16 @@ export class MapComponent implements OnInit {
 
     this.draw = new Draw({source: this.vectorSource, type: geometry});
     this.map.addInteraction(this.draw);
+  }
 
-    this.snap = new Snap({source: this.vectorSource});
-    this.map.addInteraction(this.snap);
-
+  private addModify() {
     this.modify = new Modify({source: this.vectorSource});
     this.map.addInteraction(this.modify);
+  }
+
+  private addSnap() {
+    this.snap = new Snap({source: this.vectorSource});
+    this.map.addInteraction(this.snap);
   }
 
   changeBasemap() {

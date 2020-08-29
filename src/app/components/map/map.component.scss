@@ -1,12 +1,17 @@
 .map {
-  display: grid;
-  grid-template-columns: 1fr 25%;
-  grid-template-rows: 1fr;
-  height: 90vh !important;
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 90vh;
 }
 .map menu {
+  background-color: #3e3e5255;
+  border: 2px dotted #3e3e52a0;
+  position: absolute;
+  top: 0;
+  right: 0;
   height: 100%;
-  width: 100%;
+  width: 25%;
   z-index: 2;
 }
 .map #battle_map {

@@ -1,1 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~bootswatch/dist/superhero/bootstrap.min.css';
+@import "~bootswatch/dist/superhero/variables";
+@import "~bootstrap/scss/bootstrap";
+@import "~bootswatch/dist/superhero/bootswatch";
+
+body::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+body::-webkit-scrollbar-track {
+  background: #3e3e5252;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #3e3e52;
+}

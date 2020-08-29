@@ -1,0 +1,29 @@
+.map {
+  display: grid;
+  grid-template-columns: 1fr 25%;
+  grid-template-rows: 1fr;
+  height: 90vh !important;
+}
+.map menu {
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+}
+.map #battle_map {
+  width: 100% !important;
+  height: 100%;
+  z-index: 1;
+}
+
+.tools {
+  width: 100%;
+}
+.tools .btn {
+  margin: 1rem;
+  height: 3rem;
+  width: 3rem;
+  display: inline-grid;
+  place-items: center;
+  color: #3e3e52;
+  font-size: 1.5rem;
+}

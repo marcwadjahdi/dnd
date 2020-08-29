@@ -1,0 +1,22 @@
+<section>
+    <header class="border-bottom mb-sm-4">
+        <h2>Your Characters</h2>
+    </header>
+    <article>
+        <div class="container-fluid">
+            <div class="row row-cols-3">
+                <div *ngFor="let hero of heroes$ | async" class="col-md-4">
+                    <div class="card border-secondary mb-3">
+                        <div class="card-header">{{hero.name}}</div>
+                        <div class="card-body">
+                            <h4 class="card-title">{{hero.id}}</h4>
+                            <p class="card-text">
+                                Text
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+</section>

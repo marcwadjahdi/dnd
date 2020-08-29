@@ -7,24 +7,16 @@
     <div class="navbar p-0">
         <ul class="nav nav-pills">
             <li class="nav-item">
-                <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="'/home'">Home</a>
+                <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="'/home'">
+                  <fa-icon [icon]="'home'"></fa-icon>
+                  <span>Home</span>
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="'/heroes'">Heroes</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="'/bestiary'">Bestiary</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle"
-                   [routerLinkActive]="['active']"
-                   data-toggle="dropdown" role="button"
-                   aria-haspopup="true" aria-expanded="false">Account</a>
-                <div class="dropdown-menu" style="">
-                    <a class="dropdown-item" [hidden]="" [routerLinkActive]="['active']" [routerLink]="'/log-in'">Log in</a>
-                    <a class="dropdown-item" [routerLinkActive]="['active']" [routerLink]="'/log-out'">Log out</a>
-                    <a class="dropdown-item" [routerLinkActive]="['active']" [routerLink]="'/sign-up'">Sign up</a>
-                </div>
+                <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="'/map'">
+                  <fa-icon [icon]="'map'"></fa-icon>
+                  <span>Map</span>
+                </a>
             </li>
         </ul>
     </div>

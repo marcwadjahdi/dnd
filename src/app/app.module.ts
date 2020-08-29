@@ -1,18 +1,27 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+// DnD Modules
+import {SharedModule} from './shared/shared.module';
+import {AppRoutingModule} from './app-routing.module';
+import {DndStoreModule} from './shared/store/dnd-store.module';
+import {DndModule} from './components/dnd.module';
+// Components
+import {MainComponent} from './shared/layouts/main/main.component';
+import {HomeComponent} from './components/home/home.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    SharedModule,
+    DndModule,
+    AppRoutingModule,
+    DndStoreModule,
   ],
+  exports: [],
   providers: [],
-  bootstrap: [AppComponent]
+  declarations: [],
+  bootstrap: [MainComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AppModule { }
+export class AppModule {
+}

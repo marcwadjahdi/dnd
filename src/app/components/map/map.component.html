@@ -1,26 +1,44 @@
-<section>
-    <header>
-        <h2>Intro</h2>
-    </header>
-    <article>
-        <h4>What's this ?</h4>
-        <p>
-            My little program to help you play and enjoy <strong class="text-primary">DnD 5e</strong>.
-            <br/>
-            Lots of feature incoming :
-        </p>
-        <ul>
-            <li>Battle initiative handler</li>
-            <li>Bestiary</li>
-            <li>Character creation</li>
-            <li>Interactive battle map</li>
-        </ul>
-    </article>
-    <article>
-        <h4>Why this ?</h4>
-        <p>
-            Mostly learning Angular / Redux / NodeJS.
-            But also ease the <em class="text-warning">tedious</em> managing a GM have to do.
-        </p>
-    </article>
+<section class="map">
+  <main id="battle_map">
+  </main>
+  <menu>
+    <section class="tools">
+      <a class="btn" (click)="useTool(TOOLS.player)"
+         [class.btn-primary]="!isCurrentTool(TOOLS.player)" [class.btn-secondary]="isCurrentTool(TOOLS.player)">
+        <fa-icon [icon]="'user-plus'"></fa-icon>
+      </a>
+      <a class="btn" (click)="useTool(TOOLS.monster)"
+         [class.btn-primary]="!isCurrentTool(TOOLS.monster)" [class.btn-secondary]="isCurrentTool(TOOLS.monster)">
+        <fa-icon [icon]="'ghost'"></fa-icon>
+      </a>
+      <a class="btn" (click)="useTool(TOOLS.pointer)"
+         [class.btn-primary]="!isCurrentTool(TOOLS.pointer)" [class.btn-secondary]="isCurrentTool(TOOLS.pointer)">
+        <fa-icon [icon]="'map-marker'"></fa-icon>
+      </a>
+      <a class="btn" (click)="useTool(TOOLS.line)"
+         [class.btn-primary]="!isCurrentTool(TOOLS.line)" [class.btn-secondary]="isCurrentTool(TOOLS.line)">
+        <fa-icon [icon]="'pencil-ruler'"></fa-icon>
+      </a>
+      <a class="btn" (click)="useTool(TOOLS.polygon)"
+         [class.btn-primary]="!isCurrentTool(TOOLS.polygon)" [class.btn-secondary]="isCurrentTool(TOOLS.polygon)">
+        <fa-icon [icon]="'draw-polygon'"></fa-icon>
+      </a>
+      <a class="btn" (click)="useTool(TOOLS.circle)"
+         [class.btn-primary]="!isCurrentTool(TOOLS.circle)" [class.btn-secondary]="isCurrentTool(TOOLS.circle)">
+        <fa-icon [icon]="'circle'"></fa-icon>
+      </a>
+      <a class="btn" (click)="useTool(TOOLS.eraser)"
+         [class.btn-primary]="!isCurrentTool(TOOLS.eraser)" [class.btn-secondary]="isCurrentTool(TOOLS.eraser)">
+        <fa-icon [icon]="'eraser'"></fa-icon>
+      </a>
+    </section>
+    <section class="layers">
+      <fa-icon [icon]="'dungeon'"></fa-icon>&nbsp;
+      <select [(ngModel)]="basemap" name="basemap" (change)="changeBasemap()">
+        <option [value]="null">Aucun</option>
+        <option *ngFor="let b of baseMaps" [value]="b">{{ basemapName(b)}}</option>
+      </select>
+    </section>
+  </menu>
 </section>
+

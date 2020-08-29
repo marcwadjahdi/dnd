@@ -44,7 +44,7 @@ export class MapComponent implements OnInit {
   /* Map */
   private map: Map;
   /* Layers */
-  basemap: string;
+  basemap = BATTLE_MAPS[0];
   private basemapLayer: ImageLayer;
   private vectorSource: VectorSource;
   private vectorLayer: VectorLayer;
@@ -54,6 +54,7 @@ export class MapComponent implements OnInit {
   private eraser: Select;
   private draw: Draw;
   private snap: Snap;
+  collapsed = true;
 
   constructor() {
   }
@@ -61,6 +62,7 @@ export class MapComponent implements OnInit {
   ngOnInit(): void {
     this.buildDrawLayer();
     this.buildMap();
+    this.changeBasemap();
   }
 
 
@@ -206,4 +208,9 @@ export class MapComponent implements OnInit {
       .join(' ');
   }
 
+  expandOrCollapse() {
+    this.collapsed = !this.collapsed;
+  }
+
+  arrowIcon = () => this.collapsed ? 'chevron-circle-left' : 'chevron-circle-right';
 }

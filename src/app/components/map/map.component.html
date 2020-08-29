@@ -1,7 +1,11 @@
-<section class="map">
+<section class="map" [class.collapsed]="collapsed">
   <main id="battle_map">
   </main>
   <menu>
+    <div class="collapse-btn-bg">&nbsp;</div>
+    <a class="collapse-btn" (click)="expandOrCollapse()">
+      <fa-icon [icon]="arrowIcon()"></fa-icon>
+    </a>
     <section class="tools">
       <a class="btn" (click)="useTool(TOOLS.player)"
          [class.btn-primary]="!isCurrentTool(TOOLS.player)" [class.btn-secondary]="isCurrentTool(TOOLS.player)">
@@ -33,9 +37,11 @@
       </a>
     </section>
     <section class="layers">
-      <fa-icon [icon]="'dungeon'"></fa-icon>&nbsp;
+      <a class="dugeon-picker">
+        <fa-icon class="fa-2x" [icon]="'dungeon'"></fa-icon>
+      </a>
+
       <select [(ngModel)]="basemap" name="basemap" (change)="changeBasemap()">
-        <option [value]="null">Aucun</option>
         <option *ngFor="let b of baseMaps" [value]="b">{{ basemapName(b)}}</option>
       </select>
     </section>

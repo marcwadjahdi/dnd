@@ -88,8 +88,6 @@ export class MapComponent implements OnInit {
       style: this.getStyle(),
       zIndex: this.VECTOR_INDEX,
     });
-    this.modify = new Modify({source: this.vectorSource});
-    this.snap = new Snap({source: this.vectorSource});
   }
 
   private getStyle() {
@@ -123,6 +121,7 @@ export class MapComponent implements OnInit {
   private removeInteractions() {
     this.removeInteraction(this.draw);
     this.removeInteraction(this.snap);
+    this.removeInteraction(this.modify);
     this.removeInteraction(this.eraser);
   }
 
@@ -160,12 +159,13 @@ export class MapComponent implements OnInit {
       geometry = this.TOOLS.pointer;
     }
 
-    this.draw = new Draw({
-      source: this.vectorSource,
-      type: geometry
-    });
+    this.draw = new Draw({source: this.vectorSource, type: geometry});
     this.map.addInteraction(this.draw);
+
+    this.snap = new Snap({source: this.vectorSource});
     this.map.addInteraction(this.snap);
+
+    this.modify = new Modify({source: this.vectorSource});
     this.map.addInteraction(this.modify);
   }
 
@@ -191,6 +191,7 @@ export class MapComponent implements OnInit {
     return b
       .replace('/assets/layers', '')
       .replace('.jpg', '')
+      .replace('.png', '')
       .split('/')
       .filter(it => !!it)
       .map(it => `${it[0].toUpperCase()}${it.substr(1).toLocaleLowerCase()}`)

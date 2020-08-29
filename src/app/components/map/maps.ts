@@ -1,8 +1,15 @@
+const prefix = '/assets/layers/';
 export const BATTLE_MAPS = [
-  '/assets/layers/Magamar/Magamar.jpg',
-  '/assets/layers/Magamar/Angmar/Keep/lvl_0.jpg',
-  '/assets/layers/Magamar/Angmar/Keep/lvl_1.jpg',
-  '/assets/layers/Magamar/Angmar/Mines/1/entry.jpg',
-  '/assets/layers/Magamar/Angmar/Mines/1/mid.jpg',
-  '/assets/layers/Magamar/Angmar/Mines/1/end.jpg',
-];
+  'blank.png',
+  'magamar/area.jpg',
+  'magamar/angmar/keep/lvl_0.jpg',
+  'magamar/angmar/keep/lvl_1.jpg',
+  'magamar/angmar/mines/mine_101.png',
+  'magamar/angmar/mines/mine_201.png',
+  'magamar/angmar/mines/mine_202.png',
+  'magamar/angmar/mines/mine_301.png',
+  'magamar/angmar/mines/mine_302.png',
+  'magamar/angmar/mines/mine_401.png',
+  'magamar/angmar/mines/mine_501.png',
+  'magamar/angmar/passage/passage.jpg',
+].map(it => `${prefix}${it}`);

@@ -32,11 +32,11 @@
     "bootswatch": "^4.5.2",
     "jquery": "^3.5.1",
     "ol": "^6.4.3",
-    "ol-layerswitcher": "^3.6.0",
+    "ol-ext": "^3.1.14",
+    "popper.js": "^1.16.1",
     "rxjs": "~6.6.2",
     "tslib": "^2.0.1",
     "yarn": "^1.22.4",
-    "popper.js": "^1.16.1",
     "zone.js": "~0.10.3"
   },
   "devDependencies": {

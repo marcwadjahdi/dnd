@@ -8,6 +8,8 @@ import {DndModule} from './components/dnd.module';
 // Components
 import {MainComponent} from './shared/layouts/main/main.component';
 import {HomeComponent} from './components/home/home.component';
+import { CreateCharacterModalComponent } from './create-character-modal/create-character-modal.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -16,10 +18,11 @@ import {HomeComponent} from './components/home/home.component';
     DndModule,
     AppRoutingModule,
     DndStoreModule,
+    NgbModule,
   ],
   exports: [],
   providers: [],
-  declarations: [],
+  declarations: [CreateCharacterModalComponent],
   bootstrap: [MainComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

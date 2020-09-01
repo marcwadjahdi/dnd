@@ -1,0 +1,33 @@
+<div class="modal-header">
+  <h4 class="modal-title">Character Creation</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p>What do you want to create ?</p>
+  <form>
+    <div class="form-group">
+      <label for="CharacterName">Character Name</label>
+      <input type="text" id="CharacterName" class="form-control" name="name-field" placeholder="Pierre Marin" required [(ngModel)]="character.name">
+    </div>
+    <div class="form-group">
+      <label for="selectType">Type of Character</label>
+      <select class="form-control" id="selectType" name="single-select" required [(ngModel)]="character.type">
+        <option *ngFor="let type of characterType.values()">{{type}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="HPCharacter">Actual HP</label>
+      <input type="number" class="form-control" id="HPCharacter" name="maxHealth-field" required [(ngModel)]="character.actualHealth">
+    </div>
+    <div class="form-group">
+      <label for="MaxHPCharacter">Maximum HP</label>
+      <input type="number" class="form-control" id="MaxHPCharacter" name="actualHealth-field" required [(ngModel)]="character.maxHealth">
+    </div>
+    <button [disabled]="canSumbit()" (click)="onSubmit()" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+<div class="modal-footer">
+
+</div>

@@ -11,8 +11,12 @@ import {click} from 'ol/events/condition';
 import {Draw, Modify, Select, Snap} from 'ol/interaction';
 import {Vector as VectorSource} from 'ol/source';
 import {Vector as VectorLayer} from 'ol/layer';
+import {Style, Fill, Text, Stroke, Circle} from 'ol/style'
 import {BATTLE_MAPS} from './maps';
 import {STYLES} from './styles';
+import {CreateCharacterModalComponent} from "../../create-character-modal/create-character-modal.component";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {MyCharacter, Type} from "../../shared/dnd/character/common";
 
 const EXTENT = [0, 0, 1151, 1151];
 const PROJ = new Projection({
@@ -32,7 +36,6 @@ export class MapComponent implements OnInit {
   readonly TOOLS = {
     eraser: 'eraser',
     player: 'player',
-    monster: 'monster',
     pointer: 'Point',
     line: 'LineString',
     polygon: 'Polygon',
@@ -56,7 +59,7 @@ export class MapComponent implements OnInit {
   private snap: Snap;
   collapsed = true;
 
-  constructor() {
+  constructor(private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
@@ -112,7 +115,6 @@ export class MapComponent implements OnInit {
         this.useEraser();
         break;
       case this.TOOLS.player:
-      case this.TOOLS.monster:
       case this.TOOLS.pointer:
       case this.TOOLS.line:
       case this.TOOLS.polygon:
@@ -161,12 +163,69 @@ export class MapComponent implements OnInit {
     }
 
     let geometry = tool;
-    if (tool === this.TOOLS.monster || tool === this.TOOLS.player) {
+    if (tool === this.TOOLS.player) {
       geometry = this.TOOLS.pointer;
     }
 
     this.draw = new Draw({source: this.vectorSource, type: geometry});
+    if (tool === this.TOOLS.player) {
+      this.draw.on('drawstart', eventDraw => {
+        this.open(eventDraw.feature);
+      })
+    }
     this.map.addInteraction(this.draw);
+  }
+
+  open(feature) {
+    const modalRef = this.modalService.open(CreateCharacterModalComponent);
+    modalRef.result.then(value => {
+      if (!value) {
+        this.vectorSource.removeFeature(feature);
+      }
+      this.addStyleCharacter(feature, value)
+    }).catch(() => {
+      this.vectorSource.removeFeature(feature);
+    })
+  }
+
+  addStyleCharacter(feature, value: MyCharacter) {
+    let circle;
+    switch (value.type) {
+      case Type.Player:
+        circle = new Circle({
+          fill: new Fill({color: 'rgb(31,118,146)'}),
+          stroke: new Stroke({color: '#090f15', width: 1.25}),
+          radius: 20
+        })
+        break;
+      case Type.NPC:
+        circle = new Circle({
+          fill: new Fill({color: 'rgb(31,146,50)'}),
+          stroke: new Stroke({color: '#090f15', width: 1.25}),
+          radius: 20
+        })
+        break;
+      case Type.Enemy:
+        circle = new Circle({
+          fill: new Fill({color: 'rgb(196,22,22)'}),
+          stroke: new Stroke({color: '#090f15', width: 1.25}),
+          radius: 20
+        })
+    }
+
+    feature.setStyle(
+      new Style({
+        image: circle,
+        text: new Text({
+          font: '14px Calibri,sans-serif',
+          fill: new Fill({color: '#000000'}),
+          stroke: new Stroke({
+            color: '#fff', width: 2
+          }),
+          text: value.name + "\n" + value.actualHealth + "/" + value.maxHealth
+        })
+      })
+    )
   }
 
   private addModify() {

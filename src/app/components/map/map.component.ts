@@ -4,22 +4,18 @@ import Map from 'ol/Map';
 import View from 'ol/View';
 import ImageLayer from 'ol/layer/Image';
 import Static from 'ol/source/ImageStatic';
-import Projection from 'ol/proj/Projection';
 import {getCenter} from 'ol/extent';
 import {click} from 'ol/events/condition';
 
 import {Draw, Modify, Select, Snap} from 'ol/interaction';
 import {Vector as VectorSource} from 'ol/source';
 import {Vector as VectorLayer} from 'ol/layer';
-import {BATTLE_MAPS} from './maps';
+import {BASEMAPS} from '../../shared/dnd/map/map.layers';
 import {STYLES} from './styles';
+import {EXTENT, PROJECTION, ZOOM_MAX, ZOOM_MIN} from '../../shared/dnd/map/map.constants';
 
-const EXTENT = [0, 0, 1151, 1151];
-const PROJ = new Projection({
-  code: 'xkcd-image',
-  units: 'pixels',
-  extent: EXTENT,
-});
+
+const BATTLE_MAP_ID = 'battle_map';
 
 @Component({
   selector: 'dnd-home',
@@ -39,12 +35,12 @@ export class MapComponent implements OnInit {
     circle: 'Circle',
   };
 
-  readonly baseMaps = BATTLE_MAPS;
+  readonly baseMaps = BASEMAPS;
 
   /* Map */
   private map: Map;
   /* Layers */
-  basemap = BATTLE_MAPS[0];
+  basemap = BASEMAPS[0];
   private basemapLayer: ImageLayer;
   private vectorSource: VectorSource;
   private vectorLayer: VectorLayer;
@@ -68,16 +64,16 @@ export class MapComponent implements OnInit {
 
   private buildMap() {
     this.map = new Map({
-      target: 'battle_map',
+      target: BATTLE_MAP_ID,
       layers: [
         this.vectorLayer,
       ],
       view: new View({
-        projection: PROJ,
+        projection: PROJECTION,
         center: getCenter(EXTENT),
-        zoom: 3.5,
-        minZoom: 2,
-        maxZoom: 3.5,
+        zoom: ZOOM_MAX,
+        minZoom: ZOOM_MIN,
+        maxZoom: ZOOM_MAX,
       }),
       controls: []
     });
@@ -189,7 +185,7 @@ export class MapComponent implements OnInit {
     this.basemapLayer = new ImageLayer({
       source: new Static({
         url: this.basemap,
-        projection: PROJ,
+        projection: PROJECTION,
         imageExtent: EXTENT,
         zIndex: this.BASEMAP_INDEX
       })

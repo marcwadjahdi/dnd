@@ -1,7 +1,7 @@
-<section class="map" [class.collapsed]="collapsed">
+<section class="map">
   <main id="battle_map">
   </main>
-  <menu>
+  <menu class="overlay" [class.collapsed]="collapsed">
     <div class="collapse-btn-bg">&nbsp;</div>
     <a class="collapse-btn" (click)="expandOrCollapse()">
       <fa-icon [icon]="arrowIcon()"></fa-icon>

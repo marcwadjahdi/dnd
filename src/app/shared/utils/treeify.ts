@@ -1,4 +1,4 @@
-function Treeify(files) {
+export function Treeify(files) {
   const fileTree = {};
 
   if (files instanceof Array === false) {

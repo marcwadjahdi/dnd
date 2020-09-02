@@ -1,18 +1,97 @@
-@import '~bootswatch/dist/superhero/bootstrap.min.css';
-@import "~bootswatch/dist/superhero/variables";
-@import "~bootstrap/scss/bootstrap";
-@import "~bootswatch/dist/superhero/bootswatch";
+@import 'variables';
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: $font-size-base;
+  font-family: 'Open Sans';
+  color: $font-color;
+  background-color: $body-bg;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Press Start 2P";
+  font-weight: bold;
+  margin-block-start: 1.66em;
+  margin-block-end: 1.66em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+h1, .h1 {
+  font-size: $h1-font-size;
+}
+
+h2, .h2 {
+  font-size: $h2-font-size;
+}
+
+h3, .h3 {
+  font-size: $h3-font-size;
+}
+
+h4, .h4 {
+  font-size: $h4-font-size;
+}
+
+h5, .h5 {
+  font-size: $h5-font-size;
+}
+
+h6, .h6 {
+  font-size: $h6-font-size;
+}
 
 body::-webkit-scrollbar {
   width: 0.25rem;
 }
 
 body::-webkit-scrollbar-track {
-  background: #3e3e5252;
+  background: $overlay-bg;
 }
 
 body::-webkit-scrollbar-thumb {
-  background: #3e3e52;
+  background: $body-bg;
+}
+
+a {
+  color: $font-color;
+  text-decoration: none;
+  transition: $transition-speed;
+}
+
+a:hover {
+  color: $link-color;
+}
+
+.overlay {
+  background-color: $overlay-bg;
+  border: 2px dotted #3e3e52a0;
+  z-index: $overlay-index;
+}
+
+.btn {
+  height: 3rem;
+  width: 3rem;
+  display: inline-flex;
+  place-items: center;
+}
+
+.btn:hover, .btn.active {
+  background-color: $body-bg !important;
+}
+
+.btn fa-icon {
+  display: inline-block;
+  margin: auto;
+}
+
+fa-icon svg {
+  margin: auto;
 }
 
 /* Importing Bootstrap SCSS file. */

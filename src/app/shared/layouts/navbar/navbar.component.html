@@ -1,23 +1,10 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-0">
-    <span class="navbar-brand p-0">
-        <fa-icon [icon]="'dragon'" class="logo"></fa-icon>
-        Dungeons & Dragons
-    </span>
-    <span class="flex-fill"></span>
-    <div class="navbar p-0">
-        <ul class="nav nav-pills">
-            <li class="nav-item">
-                <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="'/home'">
-                  <fa-icon [icon]="'home'"></fa-icon>
-                  <span>Home</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="'/map'">
-                  <fa-icon [icon]="'map'"></fa-icon>
-                  <span>Map</span>
-                </a>
-            </li>
-        </ul>
-    </div>
+<nav class="navbar">
+  <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="'/home'">
+    <fa-icon [icon]="'home'"></fa-icon>
+    <span>Home</span>
+  </a>
+  <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="'/map'">
+    <fa-icon [icon]="'map'"></fa-icon>
+    <span>Map</span>
+  </a>
 </nav>

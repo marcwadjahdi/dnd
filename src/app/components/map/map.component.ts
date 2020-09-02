@@ -11,7 +11,7 @@ import {click} from 'ol/events/condition';
 import {Draw, Modify, Select, Snap} from 'ol/interaction';
 import {Vector as VectorSource} from 'ol/source';
 import {Vector as VectorLayer} from 'ol/layer';
-import {Style, Fill, Text, Stroke, Circle} from 'ol/style'
+import {Style, Fill, Text, Stroke, Circle, Icon} from 'ol/style'
 import {BATTLE_MAPS} from './maps';
 import {STYLES} from './styles';
 import {CreateCharacterModalComponent} from "../../create-character-modal/create-character-modal.component";
@@ -192,11 +192,11 @@ export class MapComponent implements OnInit {
     let circle;
     switch (value.type) {
       case Type.Player:
-        circle = new Circle({
-          fill: new Fill({color: 'rgb(31,118,146)'}),
-          stroke: new Stroke({color: '#090f15', width: 1.25}),
-          radius: 20
-        })
+        circle = new Icon({
+          size: [200, 200],
+          scale: 0.35,
+          src: '../assets/images/class/'+value.class.toString()+'.png'
+      })
         break;
       case Type.NPC:
         circle = new Circle({
@@ -222,7 +222,7 @@ export class MapComponent implements OnInit {
           stroke: new Stroke({
             color: '#fff', width: 2
           }),
-          text: value.name + "\n" + value.actualHealth + "/" + value.maxHealth
+          text: value.name
         })
       })
     )

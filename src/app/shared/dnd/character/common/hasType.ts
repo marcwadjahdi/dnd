@@ -4,11 +4,11 @@ export enum Type {
   Enemy = "Enemy"
 }
 
-export interface TypeCharacter {
+export interface HasType {
   type?: Type;
 }
 
-export namespace TypeCharacterArray {
+export namespace TypeArray {
 
   export function values() {
     return Object.keys(Type);

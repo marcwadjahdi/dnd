@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
-import {MyCharacter, Type, TypeCharacterArray} from "../shared/dnd/character/common";
+import {MyCharacter, Type, TypeArray} from "../shared/dnd/character/common";
+import {ClassArray} from "../shared/dnd/character/common/hasClass";
 
 @Component({
   selector: 'dnd-create-character-modal',
@@ -9,24 +10,27 @@ import {MyCharacter, Type, TypeCharacterArray} from "../shared/dnd/character/com
 })
 export class CreateCharacterModalComponent {
 
-  character: MyCharacter;
+  character: MyCharacter = new MyCharacter();
   type = Type;
-  characterType = TypeCharacterArray;
+  typeArray = TypeArray.values();
+  classArray = ClassArray.values();
 
-  constructor(public activeModal: NgbActiveModal) {
-    this.character = new MyCharacter();
-    this.character.type = null;
-  }
+
+  constructor(public activeModal: NgbActiveModal) {}
 
   canSumbit() {
-    return !this.character.name ||
-      !this.character.type ||
-      !this.character.actualHealth ||
-      !this.character.maxHealth || this.character.maxHealth < this.character.actualHealth;
+    return this.character.name &&
+      this.character.type &&
+      this.character.actualHealth &&
+      this.character.maxHealth &&
+      this.character.maxHealth >= this.character.actualHealth &&
+      ((this.character.type === Type.Player && this.character.class) || this.character.type !== Type.Player);
   }
 
   onSubmit() {
-    this.canSumbit()
+    if (this.character.type !== Type.Player) {
+      this.character.class = undefined;
+    }
     this.activeModal.close(this.character);
   }
 }

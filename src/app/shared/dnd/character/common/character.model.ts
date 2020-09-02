@@ -1,9 +1,10 @@
 import {Attributes, HasAttributes, HasItems, HasLevel, Identified, Item, Named} from 'src/app/shared/dnd';
-import {Type, TypeCharacter} from "./type";
-import {HasHealth} from "./health";
+import {HasType, Type} from "./hasType";
+import {HasHealth} from "./hasHealth";
+import {Class, HasClass} from "./hasClass";
 
 
-export interface Character extends TypeCharacter, Identified, Named, HasLevel, HasAttributes, HasItems, HasHealth {
+export interface Character extends HasType, Identified, Named, HasLevel, HasAttributes, HasItems, HasHealth, HasClass {
 }
 
 export class MyCharacter implements Character {
@@ -14,6 +15,7 @@ export class MyCharacter implements Character {
   items?: Array<Item>;
   actualHealth?: number;
   maxHealth?: number;
+  class?: Class;
 
   constructor() {
   }

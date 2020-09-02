@@ -12,7 +12,8 @@ import {Vector as VectorSource} from 'ol/source';
 import {Vector as VectorLayer} from 'ol/layer';
 import {BASEMAPS} from '../../shared/dnd/map/map.layers';
 import {STYLES} from './styles';
-import {EXTENT, PROJECTION, ZOOM_MAX, ZOOM_MIN} from '../../shared/dnd/map/map.constants';
+import {EXTENT, LAYER_PATH_PREFIX, PROJECTION, ZOOM_MAX, ZOOM_MIN} from '../../shared/dnd/map/map.constants';
+import {Treeify} from '../../shared/utils/treeify';
 
 
 const BATTLE_MAP_ID = 'battle_map';
@@ -40,7 +41,7 @@ export class MapComponent implements OnInit {
   /* Map */
   private map: Map;
   /* Layers */
-  basemap = BASEMAPS[0];
+  basemap = LAYER_PATH_PREFIX+BASEMAPS[0];
   private basemapLayer: ImageLayer;
   private vectorSource: VectorSource;
   private vectorLayer: VectorLayer;
@@ -209,4 +210,8 @@ export class MapComponent implements OnInit {
   }
 
   arrowIcon = () => this.collapsed ? 'chevron-circle-left' : 'chevron-circle-right';
+
+  treeify() {
+    Treeify(BASEMAPS);
+  }
 }

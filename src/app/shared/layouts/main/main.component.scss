@@ -1,20 +1,53 @@
-$footerHeight: 1.5rem;
+@import '~src/variables';
 
 .main {
-  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: $nav-height 1fr $footer-height !important;
   min-height: 100vh;
+  width: 100vw;
 }
 
-.content {
-  padding-bottom: $footerHeight;
-  padding-top: 0.5rem;
+.main .header {
+  background-color: $body-bg-light;
+  display: grid;
+  grid-template-columns: 25rem 0 1fr;
 }
 
-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: $footerHeight;
+.logo {
+  display: flex;
+  flex-direction: row;
+  place-items: center;
 
-  border-top: 1px solid rgba(0, 0, 0, 0.125);
+  padding: 0 0 0 1.5rem;
+}
+
+.logo:hover {
+  background-color: $body-bg !important;
+}
+
+.logo span {
+  font-family: "Press Start 2P";
+  transition: $transition-speed;
+}
+
+.logo:hover span.d {
+  color: $link-color;
+}
+
+.main .content {
+  margin: 0;
+  padding: 0;
+
+  height: available !important;
+}
+
+
+.main .footer {
+  background-color: $body-bg-light;
+  font-family: "Press Start 2P";
+  font-size: small;
+  display: flex;
+  place-items: center;
+  margin: auto;
 }

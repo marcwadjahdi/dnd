@@ -1,11 +1,14 @@
-<div class="main">
-    <header class="bg-dark">
-        <router-outlet name="navbar"></router-outlet>
-    </header>
-    <div class="content container-fluid">
-        <router-outlet></router-outlet>
+<main class="main">
+  <header class="header">
+    <div class="logo">
+      <span><span class="d">D</span>ungeons&nbsp;&&nbsp;<span class="d">D</span>ragons</span>
     </div>
-    <footer class="bg-dark">
-        <dnd-footer></dnd-footer>
-    </footer>
-</div>
+    <router-outlet name="navbar"></router-outlet>
+  </header>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+  <footer class="footer">
+    <dnd-footer></dnd-footer>
+  </footer>
+</main>

@@ -1,35 +1,81 @@
+import ImageLayer from 'ol/layer/Image';
+import Static from 'ol/source/ImageStatic';
+import {Group as GrouLayer} from 'ol/layer';
+import {EXTENT, LAYER_PATH_PREFIX, PROJECTION} from '../dnd/map/map.constants';
+
+function toUrlLayer(url) {
+  return `${LAYER_PATH_PREFIX}${url}`;
+}
+
+function toTitle(file) {
+  return file.split('.').shift().split('_').map(it => `${it[0].toUpperCase()}${it.substr(1).toLocaleLowerCase()}`).join(' ');
+}
+
+function toGroupeLayer(title: string) {
+  return new GrouLayer({title, layers: []});
+}
+
+function toImageLayer({title, url}) {
+  return new ImageLayer({
+    title,
+    source: new Static({
+      url: toUrlLayer(url),
+      projection: PROJECTION,
+      imageExtent: EXTENT
+    }),
+  });
+}
+
+function findLayerByTitle(group, title) {
+  return group.getLayersArray().find(it => it.get('title') === title);
+}
+
+function addToGroupLayer(group, layer) {
+  group.getLayers().extend([layer]);
+}
+
 export function Treeify(files) {
-  const fileTree = {};
-
-  if (files instanceof Array === false) {
-    throw new Error('Expected an Array of file paths, but saw ' + files);
+  if (!Array.isArray(files)) {
+    return {};
   }
 
-  function mergePathsIntoFileTree(prevDir, currDir, i, filePath) {
+  const layerTree = new GrouLayer({
+    title: 'Basemaps',
+    layers: [],
+  });
 
-    if (i === filePath.length - 1) {
-      prevDir[currDir] = filePath.join('/');
+
+  function mergeInTree(previousGroup, currentGroupTitle, i, path) {
+    const pathSize = path.length - 1;
+
+    if (i === pathSize) {
+      addToGroupLayer(previousGroup, toImageLayer(path.pop));
+      const layer = path.pop();
+      previousGroup[layer.title] = layer;
     }
 
-    if (!prevDir.hasOwnProperty(currDir)) {
-      prevDir[currDir] = {};
+    const existingLayer = findLayerByTitle(previousGroup, currentGroupTitle);
+
+    if (!existingLayer && i < pathSize) {
+      addToGroupLayer(previousGroup, toGroupeLayer(currentGroupTitle));
     }
 
-    return prevDir[currDir];
+    return findLayerByTitle(previousGroup, currentGroupTitle);
   }
 
-  function parseFilePath(filePath) {
-    const fileLocation = filePath.split('/');
+  files.forEach(url => {
+    let path = url.split('/');
+    const title = toTitle(path.pop());
+    path = path.map(toTitle);
+    const layer = {url, title};
 
-    // If file is in root directory, eg 'index.js'
-    if (fileLocation.length === 1) {
-      return (fileTree[fileLocation[0]] = filePath);
+    if (path.length === 0) {
+      return addToGroupLayer(layerTree, toImageLayer(layer));
     }
 
-    fileLocation.reduce(mergePathsIntoFileTree, fileTree);
-  }
+    path.push(layer);
+    path.reduce(mergeInTree, layerTree);
+  });
 
-  files.forEach(parseFilePath);
-
-  return fileTree;
+  return Object.values(layerTree);
 }

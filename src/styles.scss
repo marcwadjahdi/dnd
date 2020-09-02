@@ -16,6 +16,10 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: "Press Start 2P";
   font-weight: bold;
+  margin-block-start: 1.66em;
+  margin-block-end: 1.66em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
 }
 
 h1, .h1 {
@@ -68,4 +72,24 @@ a:hover {
   background-color: $overlay-bg;
   border: 2px dotted #3e3e52a0;
   z-index: $overlay-index;
+}
+
+.btn {
+  height: 3rem;
+  width: 3rem;
+  display: inline-flex;
+  place-items: center;
+}
+
+.btn:hover, .btn.active {
+  background-color: $body-bg !important;
+}
+
+.btn fa-icon {
+  display: inline-block;
+  margin: auto;
+}
+
+fa-icon svg {
+  margin: auto;
 }

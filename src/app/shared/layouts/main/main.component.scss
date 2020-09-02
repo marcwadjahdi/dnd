@@ -9,7 +9,7 @@
 }
 
 .main .header {
-  background-color: #ffffff07;
+  background-color: $body-bg-light;
   display: grid;
   grid-template-columns: 25rem 0 1fr;
 }
@@ -44,7 +44,7 @@
 
 
 .main .footer {
-  background-color: #ffffff07;
+  background-color: $body-bg-light;
   font-family: "Press Start 2P";
   font-size: small;
   display: flex;

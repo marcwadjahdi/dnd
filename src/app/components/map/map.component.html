@@ -38,6 +38,7 @@
         <option *ngFor="let b of baseMaps" [value]="b">{{ basemapName(b)}}</option>
       </select>
     </section>
+    <dnd-create-character *ngIf="isCreatingCharacter" (createdCharacter)="addStyleCharacter($event)"></dnd-create-character>
   </menu>
 </section>
 

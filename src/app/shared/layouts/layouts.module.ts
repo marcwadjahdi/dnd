@@ -7,22 +7,27 @@ import {MainComponent} from './main/main.component';
 import {NavbarComponent} from './navbar/navbar.component';
 import {FooterComponent} from './footer/footer.component';
 import {ErrorComponent} from './error/error.component';
+import {CreateCharacterComponent} from "../../components/create-character/create-character.component";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-        FontAwesomeModule
-    ],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FontAwesomeModule,
+    FormsModule
+  ],
     declarations: [
         MainComponent,
         NavbarComponent,
         FooterComponent,
         ErrorComponent,
+        CreateCharacterComponent,
     ],
     exports: [
         MainComponent,
         ErrorComponent,
+        CreateCharacterComponent,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

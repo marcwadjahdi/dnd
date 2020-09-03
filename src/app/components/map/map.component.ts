@@ -14,7 +14,6 @@ import {Vector as VectorLayer} from 'ol/layer';
 import {Style, Fill, Text, Stroke, Circle, Icon} from 'ol/style'
 import {BATTLE_MAPS} from './maps';
 import {STYLES} from './styles';
-import {CreateCharacterModalComponent} from "../../create-character-modal/create-character-modal.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {MyCharacter, Type} from "../../shared/dnd/character/common";
 
@@ -31,6 +30,8 @@ const PROJ = new Projection({
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
+  isCreatingCharacter: boolean = false;
+  featureCharacter: any;
   readonly BASEMAP_INDEX = 1;
   readonly VECTOR_INDEX = 5;
   readonly TOOLS = {
@@ -104,6 +105,11 @@ export class MapComponent implements OnInit {
 
   useTool(tool: string) {
     this.removeInteractions();
+    this.isCreatingCharacter = false;
+    if(this.featureCharacter) {
+      this.vectorSource.removeFeature(this.featureCharacter);
+      this.featureCharacter = undefined;
+    }
     this.currentTool = this.isCurrentTool(tool) ? null : tool;
     if (!this.currentTool) {
       this.addSnap();
@@ -169,26 +175,20 @@ export class MapComponent implements OnInit {
 
     this.draw = new Draw({source: this.vectorSource, type: geometry});
     if (tool === this.TOOLS.player) {
-      this.draw.on('drawstart', eventDraw => {
-        this.open(eventDraw.feature);
+      this.draw.on('drawend', eventDraw => {
+        this.createCharacter(eventDraw.feature);
       })
     }
     this.map.addInteraction(this.draw);
   }
 
-  open(feature) {
-    const modalRef = this.modalService.open(CreateCharacterModalComponent);
-    modalRef.result.then(value => {
-      if (!value) {
-        this.vectorSource.removeFeature(feature);
-      }
-      this.addStyleCharacter(feature, value)
-    }).catch(() => {
-      this.vectorSource.removeFeature(feature);
-    })
+  createCharacter(feature) {
+    this.isCreatingCharacter = true;
+    this.featureCharacter = feature;
+    this.collapsed = false;
   }
 
-  addStyleCharacter(feature, value: MyCharacter) {
+  addStyleCharacter(value: MyCharacter) {
     let circle;
     switch (value.type) {
       case Type.Player:
@@ -212,8 +212,8 @@ export class MapComponent implements OnInit {
           radius: 20
         })
     }
-
-    feature.setStyle(
+    this.vectorSource.removeFeature(this.featureCharacter);
+    this.featureCharacter.setStyle(
       new Style({
         image: circle,
         text: new Text({
@@ -226,6 +226,9 @@ export class MapComponent implements OnInit {
         })
       })
     )
+    this.vectorSource.addFeature(this.featureCharacter);
+    this.featureCharacter = undefined;
+    this.isCreatingCharacter = false;
   }
 
   private addModify() {
@@ -269,6 +272,11 @@ export class MapComponent implements OnInit {
 
   expandOrCollapse() {
     this.collapsed = !this.collapsed;
+    this.isCreatingCharacter = false;
+    if(this.featureCharacter) {
+      this.vectorSource.removeFeature(this.featureCharacter);
+      this.featureCharacter = undefined;
+    }
   }
 
   arrowIcon = () => this.collapsed ? 'chevron-circle-left' : 'chevron-circle-right';

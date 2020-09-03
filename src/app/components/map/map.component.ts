@@ -1,19 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
+import * as $ from 'jquery';
 import Map from 'ol/Map';
 import View from 'ol/View';
-import ImageLayer from 'ol/layer/Image';
-import Static from 'ol/source/ImageStatic';
 import {getCenter} from 'ol/extent';
 import {click} from 'ol/events/condition';
+import LayerSwitcher from 'ol-ext/control/LayerSwitcher';
 
 import {Draw, Modify, Select, Snap} from 'ol/interaction';
 import {Vector as VectorSource} from 'ol/source';
-import {Vector as VectorLayer} from 'ol/layer';
-import {BASEMAPS} from '../../shared/dnd/map/map.layers';
+import {Group as GrouLayer, Vector as VectorLayer} from 'ol/layer';
+import {BASEMAPS, buildBasemapsLayer} from '../../shared/dnd/map/map.layers';
 import {STYLES} from './styles';
 import {EXTENT, LAYER_PATH_PREFIX, PROJECTION, ZOOM_MAX, ZOOM_MIN} from '../../shared/dnd/map/map.constants';
-import {Treeify} from '../../shared/utils/treeify';
 
 
 const BATTLE_MAP_ID = 'battle_map';
@@ -21,7 +20,7 @@ const BATTLE_MAP_ID = 'battle_map';
 @Component({
   selector: 'dnd-home',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss']
+  styleUrls: ['./map.component.scss', './layer-switcher.scss']
 })
 export class MapComponent implements OnInit {
   readonly BASEMAP_INDEX = 1;
@@ -41,8 +40,8 @@ export class MapComponent implements OnInit {
   /* Map */
   private map: Map;
   /* Layers */
-  basemap = LAYER_PATH_PREFIX+BASEMAPS[0];
-  private basemapLayer: ImageLayer;
+  basemap = LAYER_PATH_PREFIX + BASEMAPS[0];
+  private basemapLayer: GrouLayer;
   private vectorSource: VectorSource;
   private vectorLayer: VectorLayer;
   /* Interactions */
@@ -51,22 +50,32 @@ export class MapComponent implements OnInit {
   private eraser: Select;
   private draw: Draw;
   private snap: Snap;
-  collapsed = true;
+  collapsed = false; // TODO go back to default true;
 
   constructor() {
   }
 
   ngOnInit(): void {
+    this.basemapLayer = buildBasemapsLayer();
     this.buildDrawLayer();
     this.buildMap();
-    this.changeBasemap();
+    this.addLayerSwitcher();
   }
 
+  private buildDrawLayer() {
+    this.vectorSource = new VectorSource();
+    this.vectorLayer = new VectorLayer({
+      source: this.vectorSource,
+      style: this.getStyle(),
+      zIndex: this.VECTOR_INDEX,
+    });
+  }
 
   private buildMap() {
     this.map = new Map({
       target: BATTLE_MAP_ID,
       layers: [
+        this.basemapLayer,
         this.vectorLayer,
       ],
       view: new View({
@@ -77,15 +86,6 @@ export class MapComponent implements OnInit {
         maxZoom: ZOOM_MAX,
       }),
       controls: []
-    });
-  }
-
-  private buildDrawLayer() {
-    this.vectorSource = new VectorSource();
-    this.vectorLayer = new VectorLayer({
-      source: this.vectorSource,
-      style: this.getStyle(),
-      zIndex: this.VECTOR_INDEX,
     });
   }
 
@@ -176,42 +176,18 @@ export class MapComponent implements OnInit {
     this.map.addInteraction(this.snap);
   }
 
-  changeBasemap() {
-    if (this.basemapLayer) {
-      this.map.removeLayer(this.basemapLayer);
-    }
-    if (!this.basemap) {
-      return;
-    }
-    this.basemapLayer = new ImageLayer({
-      source: new Static({
-        url: this.basemap,
-        projection: PROJECTION,
-        imageExtent: EXTENT,
-        zIndex: this.BASEMAP_INDEX
-      })
-    });
-    this.map.addLayer(this.basemapLayer);
-  }
-
-  basemapName(b: any) {
-    return b
-      .replace('/assets/layers', '')
-      .replace('.jpg', '')
-      .replace('.png', '')
-      .split('/')
-      .filter(it => !!it)
-      .map(it => `${it[0].toUpperCase()}${it.substr(1).toLocaleLowerCase()}`)
-      .join(' ');
-  }
-
   expandOrCollapse() {
     this.collapsed = !this.collapsed;
   }
 
-  arrowIcon = () => this.collapsed ? 'chevron-circle-left' : 'chevron-circle-right';
+  collapsingIcon = () => this.collapsed ? 'chevron-circle-left' : 'chevron-circle-right';
 
-  treeify() {
-    Treeify(BASEMAPS);
+  addLayerSwitcher() {
+    this.map.addControl(new LayerSwitcher({
+      target: $('.layerSwitcher').get(0),
+      show_progress: true,
+      extent: true,
+      trash: true,
+    }));
   }
 }

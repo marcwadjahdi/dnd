@@ -1234,6 +1234,13 @@
   dependencies:
     "@types/jasmine" "*"
 
+"@types/jquery@^3.5.1":
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.5.1.tgz#cebb057acf5071c40e439f30e840c57a30d406c3"
+  integrity sha512-Tyctjh56U7eX2b9udu3wG853ASYP0uagChJcQJXLUXEU6C/JiW5qt5dl8ao01VRj1i5pgXPAf8f1mq4+FDLRQg==
+  dependencies:
+    "@types/sizzle" "*"
+
 "@types/json-schema@^7.0.4":
   version "7.0.5"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.5.tgz#dcce4430e64b443ba8945f0290fb564ad5bac6dd"
@@ -1263,6 +1270,11 @@
   version "3.0.17"
   resolved "https://registry.yarnpkg.com/@types/selenium-webdriver/-/selenium-webdriver-3.0.17.tgz#50bea0c3c2acc31c959c5b1e747798b3b3d06d4b"
   integrity sha512-tGomyEuzSC1H28y2zlW6XPCaDaXFaD6soTdb4GNdmte2qfHtrKqhy0ZFs4r/1hpazCfEZqeTSRLvSasmEx89uw==
+
+"@types/sizzle@*":
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/@types/sizzle/-/sizzle-2.3.2.tgz#a811b8c18e2babab7d542b3365887ae2e4d9de47"
+  integrity sha512-7EJYyKTL7tFR8+gDbB6Wwz/arpGa0Mywk1TJbNzKzHtzbwVmY4HR9WqS5VV7dsBUKQmPNr192jHr/VpBluj/hg==
 
 "@types/source-list-map@*":
   version "0.1.2"
@@ -6247,11 +6259,6 @@ ol-ext@^3.1.14:
   integrity sha512-qKBrHX6u1W8/gsHDt/Ah0a++ZRB0vKLPDtpIMmKhG/RFU4CJBb6oxXdQcz9pMd02U6DrQJIyvd7cPEcJAcovdQ==
   dependencies:
     gulp-jsdoc3 "^2.0.0"
-
-ol-layerswitcher@^3.6.0:
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/ol-layerswitcher/-/ol-layerswitcher-3.6.0.tgz#ad2baadc3e24646f0d78db16b0ba36648eb73f1c"
-  integrity sha512-15Xt35GIvZRinZFnMy330X0ZHahlTdgi8hTKE08VpnrAvayrabWVztzy2oBIDRPDSNUD7onAvG8UXeopqaQ5hg==
 
 ol-mapbox-style@^6.1.1:
   version "6.1.4"

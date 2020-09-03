@@ -1,0 +1,19 @@
+.ol-layerswitcher .layerup {
+  width: 2em;
+  background: none;
+  position: absolute;
+  right: 0;
+}
+.ol-layerswitcher .layerup:after {
+  content:none;
+}
+.ol-layerswitcher .layerup:before {
+  color: #017eff;
+  content: "\F0C9";
+  font-family: FontAwesome;
+  border: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 1em;
+  left: .5em;
+}

@@ -3,7 +3,7 @@
   </main>
   <menu class="overlay" [class.collapsed]="collapsed">
     <a class="collapse-btn" (click)="expandOrCollapse()">
-      <fa-icon [icon]="arrowIcon()"></fa-icon>
+      <fa-icon [icon]="collapsingIcon()"></fa-icon>
     </a>
     <section class="tools">
       <h6>Tools</h6>
@@ -38,12 +38,13 @@
     </section>
     <section class="layers">
       <h6>Layers</h6>
-      <a class="dugeon-picker" (click)="treeify()">
-        <fa-icon class="fa-2x" [icon]="'dungeon'"></fa-icon>
-      </a>
-      <select [(ngModel)]="basemap" name="basemap" (change)="changeBasemap()">
-        <option *ngFor="let b of baseMaps" [value]="b">{{ basemapName(b)}}</option>
-      </select>
+<!--      <a class="dugeon-picker">-->
+<!--        <fa-icon class="fa-2x" [icon]="'dungeon'"></fa-icon>-->
+<!--      </a>-->
+<!--      <select [(ngModel)]="basemap" name="basemap" (change)="changeBasemap()">-->
+<!--        <option *ngFor="let b of baseMaps" [value]="b">{{ basemapName(b)}}</option>-->
+<!--      </select>-->
+      <div #layerSwitcher class="layerSwitcher"><b>External layer switcher</b></div>
     </section>
   </menu>
 </section>

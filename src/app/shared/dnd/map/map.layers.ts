@@ -1,9 +1,40 @@
 import ImageLayer from 'ol/layer/Image';
 import Static from 'ol/source/ImageStatic';
 import {Group as GrouLayer} from 'ol/layer';
-import {EXTENT, PROJECTION} from './map.constants';
+import {EXTENT, LAYER_PATH_PREFIX, PROJECTION} from './map.constants';
 
-const maps = [
+function toUrlLayer(url) {
+  return `${LAYER_PATH_PREFIX}${url}`;
+}
+
+function toTitle(file) {
+  return file.split('.').shift().split('_').map(it => `${it[0].toUpperCase()}${it.substr(1).toLocaleLowerCase()}`).join(' ');
+}
+
+function toGroupeLayer(title: string) {
+  return new GrouLayer({title, layers: []});
+}
+
+function toImageLayer({title, url}) {
+  return new ImageLayer({
+    title,
+    source: new Static({
+      url: toUrlLayer(url),
+      projection: PROJECTION,
+      imageExtent: EXTENT,
+    }),
+  });
+}
+
+function findLayerByTitle(group, title) {
+  return group.getLayers().getArray().find(it => it.get('title') === title);
+}
+
+function addToGroupLayer(group, layer) {
+  group.getLayers().extend([layer]);
+}
+
+const files = [
   'blank.png',
   'Irrandia.png',
   'magamar/area.jpg',
@@ -16,28 +47,45 @@ const maps = [
   'magamar/angmar/mines/mine_302.png',
   'magamar/angmar/mines/mine_401.png',
   'magamar/angmar/mines/mine_501.png',
-  'magamar/angmar/passage/passage.jpg',
+  'magamar/angmar/passage/passage.png',
 ];
 
+export function buildBasemapsLayer() {
+  if (!Array.isArray(files)) {
+    return {};
+  }
 
-const toGroupLayer = (title: string, layers: any[]) => new GrouLayer({
-  openInLayerSwitcher: true,
-  title,
-  layers,
-});
+  const layerTree = new GrouLayer({
+    title: 'Basemaps',
+    layers: [],
+  });
 
+  function mergeInTree(groupLayer, path, layer) {
+    if (path.length === 0) {
+      return addToGroupLayer(groupLayer, layer);
+    }
 
-function basemapName(b: any) {
-  return b
-    .replace('/assets/layers', '')
-    .replace('.jpg', '')
-    .replace('.png', '')
-    .split('/')
-    .filter(it => !!it)
-    .map(it => `${it[0].toUpperCase()}${it.substr(1).toLocaleLowerCase()}`)
-    .join(' ');
-};
+    const newPath = [...path];
+    const currentGroupTitle = toTitle(newPath.shift());
 
+    let currentGroupLayer = findLayerByTitle(groupLayer, currentGroupTitle);
+    if (!currentGroupLayer) {
+      currentGroupLayer = toGroupeLayer(currentGroupTitle);
+      addToGroupLayer(groupLayer, currentGroupLayer);
+    }
+    mergeInTree(currentGroupLayer, newPath, layer);
+  }
+
+  files.forEach(url => {
+    const path = url.split('/');
+    const title = toTitle(path.pop());
+    const layer = toImageLayer({url, title});
+
+    mergeInTree(layerTree, path, layer);
+  });
+
+  return layerTree;
+}
 
 export const BASEMAPS = [
   'blank.png',

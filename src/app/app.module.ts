@@ -8,7 +8,6 @@ import {DndModule} from './components/dnd.module';
 // Components
 import {MainComponent} from './shared/layouts/main/main.component';
 import {HomeComponent} from './components/home/home.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from "@angular/forms";
 
 @NgModule({
@@ -18,7 +17,6 @@ import {FormsModule} from "@angular/forms";
     DndModule,
     AppRoutingModule,
     DndStoreModule,
-    NgbModule,
     FormsModule
   ],
   exports: [],

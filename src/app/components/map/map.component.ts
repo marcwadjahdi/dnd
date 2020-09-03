@@ -14,7 +14,6 @@ import {Vector as VectorLayer} from 'ol/layer';
 import {Style, Fill, Text, Stroke, Circle, Icon} from 'ol/style'
 import {BATTLE_MAPS} from './maps';
 import {STYLES} from './styles';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {MyCharacter, Type} from "../../shared/dnd/character/common";
 
 const EXTENT = [0, 0, 1151, 1151];
@@ -60,7 +59,7 @@ export class MapComponent implements OnInit {
   private snap: Snap;
   collapsed = true;
 
-  constructor(private modalService: NgbModal) {
+  constructor() {
   }
 
   ngOnInit(): void {

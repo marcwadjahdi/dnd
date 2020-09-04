@@ -7,9 +7,8 @@ import {MainComponent} from './main/main.component';
 import {NavbarComponent} from './navbar/navbar.component';
 import {FooterComponent} from './footer/footer.component';
 import {ErrorComponent} from './error/error.component';
-import {CreateCharacterComponent} from "../../components/create-character/create-character.component";
+import {CreateEditCharacterComponent} from "../../components/create-character/create-edit-character.component";
 import {FormsModule} from "@angular/forms";
-import {EditCharacterComponent} from "../../components/edit-character/edit-character.component";
 
 @NgModule({
   imports: [
@@ -23,14 +22,12 @@ import {EditCharacterComponent} from "../../components/edit-character/edit-chara
         NavbarComponent,
         FooterComponent,
         ErrorComponent,
-        CreateCharacterComponent,
-        EditCharacterComponent
+        CreateEditCharacterComponent
     ],
     exports: [
         MainComponent,
         ErrorComponent,
-        CreateCharacterComponent,
-        EditCharacterComponent
+        CreateEditCharacterComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

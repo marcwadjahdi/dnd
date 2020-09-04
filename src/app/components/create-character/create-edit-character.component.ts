@@ -1,13 +1,19 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import {MyCharacter, Type, TypeArray} from "../../shared/dnd/character/common";
 import {ClassArray} from "../../shared/dnd/character/common/hasClass";
 
 @Component({
-  selector: 'dnd-create-character',
-  templateUrl: './create-character.component.html',
-  styleUrls: ['./create-character.component.scss']
+  selector: 'dnd-create-edit-character',
+  templateUrl: './create-edit-character.component.html',
+  styleUrls: ['./create-edit-character.component.scss']
 })
-export class CreateCharacterComponent implements OnInit {
+export class CreateEditCharacterComponent implements OnInit {
+  @Input()
+  selectedCharacter: MyCharacter;
+
+  @Input()
+  isEdit: boolean;
+
   @Output()
   createdCharacter = new EventEmitter<MyCharacter>();
 
@@ -19,6 +25,9 @@ export class CreateCharacterComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    if (this.isEdit) {
+      this.character = this.selectedCharacter;
+    }
   }
 
   canSumbit() {

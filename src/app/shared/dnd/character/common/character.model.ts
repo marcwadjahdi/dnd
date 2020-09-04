@@ -8,6 +8,7 @@ export interface Character extends HasType, Identified, Named, HasLevel, HasAttr
 }
 
 export class MyCharacter implements Character {
+  id?: number;
   name?: string;
   type?: Type;
   level?: number;

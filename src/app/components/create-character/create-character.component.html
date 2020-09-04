@@ -1,31 +1,21 @@
 <section>
-  <div>
-    <h5>What do you want to create ?</h5>
-    <div class="form-group">
-      <label for="CharacterName">Character Name</label>
-      <input type="text" id="CharacterName" class="form-control" placeholder="Pierre Marin"
-             [(ngModel)]="character.name">
-    </div>
-    <div class="form-group">
-      <label for="selectType">Type of Character</label>
-      <select class="form-control" id="selectType" [(ngModel)]="character.type">
-        <option *ngFor="let type of typeArray">{{type}}</option>
-      </select>
-    </div>
-    <div *ngIf="character.type === type.Player" class="form-group">
-      <label for="selectClass">Class of Character</label>
-      <select class="form-control" id="selectClass" [(ngModel)]="character.class">
-        <option *ngFor="let classCharacter of classArray">{{classCharacter}}</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="HPCharacter">Actual HP</label>
-      <input type="number" class="form-control" id="HPCharacter" [(ngModel)]="character.actualHealth">
-    </div>
-    <div class="form-group">
-      <label for="MaxHPCharacter">Maximum HP</label>
-      <input type="number" class="form-control" id="MaxHPCharacter" [(ngModel)]="character.maxHealth">
-    </div>
-    <button [disabled]="!canSumbit()" (click)="onSubmit()" class="button">Submit</button>
+  <h6>What do you want to create ?</h6>
+  <label for="CharacterName">Character Name</label>
+  <input type="text" id="CharacterName" class="form-control" placeholder="Pierre Marin"
+         [(ngModel)]="character.name">
+  <label for="selectType">Type of Character</label>
+  <select class="form-control" id="selectType" [(ngModel)]="character.type">
+    <option *ngFor="let type of typeArray">{{type}}</option>
+  </select>
+  <div *ngIf="character.type === type.Player">
+    <label for="selectClass">Class of Character</label>
+    <select class="form-control" id="selectClass" [(ngModel)]="character.class">
+      <option *ngFor="let classCharacter of classArray">{{classCharacter}}</option>
+    </select>
   </div>
+  <label for="HPCharacter">Actual HP</label>
+  <input type="number" id="HPCharacter" [(ngModel)]="character.actualHealth">
+  <label for="MaxHPCharacter">Maximum HP</label>
+  <input type="number" id="MaxHPCharacter" [(ngModel)]="character.maxHealth">
+  <button [disabled]="!canSumbit()" (click)="onSubmit()" class="button">Submit</button>
 </section>

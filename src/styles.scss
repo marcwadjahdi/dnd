@@ -22,6 +22,11 @@ h1, h2, h3, h4, h5, h6 {
   margin-inline-end: 0px;
 }
 
+label {
+  font-family: "Press Start 2P";
+  font-size: $label-font-size;
+}
+
 h1, .h1 {
   font-size: $h1-font-size;
 }

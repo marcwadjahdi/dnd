@@ -9,6 +9,7 @@ import {FooterComponent} from './footer/footer.component';
 import {ErrorComponent} from './error/error.component';
 import {CreateCharacterComponent} from "../../components/create-character/create-character.component";
 import {FormsModule} from "@angular/forms";
+import {EditCharacterComponent} from "../../components/edit-character/edit-character.component";
 
 @NgModule({
   imports: [
@@ -23,11 +24,13 @@ import {FormsModule} from "@angular/forms";
         FooterComponent,
         ErrorComponent,
         CreateCharacterComponent,
+        EditCharacterComponent
     ],
     exports: [
         MainComponent,
         ErrorComponent,
         CreateCharacterComponent,
+        EditCharacterComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

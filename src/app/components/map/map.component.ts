@@ -191,6 +191,7 @@ export class MapComponent implements OnInit {
       this.selectedFeature = feat[0];
       const character = this.characterService.getCharacter(this.selectedFeature.ol_uid);
       if (character) {
+        this.collapsed = false;
         this.selectedCharacter = character;
         this.isEditCharacter = true;
       }
@@ -340,7 +341,10 @@ export class MapComponent implements OnInit {
 
   expandOrCollapse() {
     this.collapsed = !this.collapsed;
+    this.selectedCharacter = undefined;
+    this.selectedFeature = undefined;
     this.isCreatingCharacter = false;
+    this.isEditCharacter = false;
     if (this.featureCreation) {
       this.vectorSource.removeFeature(this.featureCreation);
       this.featureCreation = undefined;

@@ -251,6 +251,7 @@ export class MapComponent implements OnInit {
           stroke: new Stroke({
             color: '#fff', width: 2
           }),
+          offsetY: 27,
           text: value.name
         })
       })

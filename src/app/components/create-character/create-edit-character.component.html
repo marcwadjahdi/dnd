@@ -2,7 +2,7 @@
   <h6 *ngIf="!isEdit">What do you want to create ?</h6>
   <h6 *ngIf="isEdit">Editing Character</h6>
   <label for="CharacterName">Character Name</label>
-  <input type="text" id="CharacterName" class="form-control" placeholder="Pierre Marin"
+  <input type="text" id="CharacterName" class="form-control" placeholder="Character name"
          [(ngModel)]="character.name">
   <label for="selectType">Type of Character</label>
   <select class="form-control" id="selectType" [(ngModel)]="character.type">
@@ -14,9 +14,9 @@
       <option *ngFor="let classCharacter of classArray">{{classCharacter}}</option>
     </select>
   </div>
-  <label for="HPCharacter">Actual HP</label>
-  <input type="number" id="HPCharacter" [(ngModel)]="character.actualHealth">
-  <label for="MaxHPCharacter">Maximum HP</label>
-  <input type="number" id="MaxHPCharacter" [(ngModel)]="character.maxHealth">
-  <button [disabled]="!canSumbit()" (click)="onSubmit()" class="button">Submit</button>
+<!--  <label for="HPCharacter">Actual HP</label>-->
+<!--  <input type="number" id="HPCharacter" [(ngModel)]="character.actualHealth">-->
+<!--  <label for="MaxHPCharacter">Maximum HP</label>-->
+<!--  <input type="number" id="MaxHPCharacter" [(ngModel)]="character.maxHealth">-->
+  <a  (click)="onSubmit()" class="btn"><fa-icon icon="user-check"></fa-icon></a>
 </section>

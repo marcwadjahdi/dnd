@@ -11,11 +11,11 @@ import {click} from 'ol/events/condition';
 import {Draw, Modify, Select, Snap} from 'ol/interaction';
 import {Vector as VectorSource} from 'ol/source';
 import {Vector as VectorLayer} from 'ol/layer';
-import {Style, Fill, Text, Stroke, Circle, Icon} from 'ol/style'
+import {Circle, Fill, Icon, Stroke, Style, Text} from 'ol/style';
 import {BATTLE_MAPS} from './maps';
 import {STYLES} from './styles';
-import {MyCharacter, Type} from "../../shared/dnd/character/common";
-import {CharacterService} from "../../service/character.service";
+import {Character, Type} from '../../shared/dnd/character/common';
+import {CharacterService} from '../../service/character.service';
 
 const EXTENT = [0, 0, 1151, 1151];
 const PROJ = new Projection({
@@ -30,13 +30,12 @@ const PROJ = new Projection({
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
-  isCreatingCharacter: boolean = false;
-  isEditCharacter: boolean;
-  selectedCharacter: MyCharacter;
-  private featureCreation: any;
-  private selectedFeature: any;
+  readonly CLASS_IMAGE_PH = 'PLAYER_CLASS';
+  readonly CLASS_IMAGE_PATH = `/assets/images/class/${this.CLASS_IMAGE_PH}.png`;
+
   readonly BASEMAP_INDEX = 1;
   readonly VECTOR_INDEX = 5;
+
   readonly TOOLS = {
     eraser: 'eraser',
     select: 'select',
@@ -63,7 +62,15 @@ export class MapComponent implements OnInit {
   private select: Select;
   private draw: Draw;
   private snap: Snap;
-  collapsed = true;
+  collapsed = false;
+
+  /* Character Creation */
+  isCreatingCharacter = false;
+  isEditCharacter: boolean;
+  selectedCharacter: Character;
+
+  private featureCreation: any;
+  private selectedFeature: any;
 
   constructor(private characterService: CharacterService) {
   }
@@ -180,13 +187,13 @@ export class MapComponent implements OnInit {
       condition: (mapBrowserEvent) => click(mapBrowserEvent),
     });
     this.select.on('select', (features) => {
-      this.openOrCloseEditCharacter(features)
+      this.openOrCloseEditCharacter(features);
     });
     this.map.addInteraction(this.select);
   }
 
   openOrCloseEditCharacter(features) {
-    let feat = features.selected;
+    const feat = features.selected;
     if (Array.isArray(feat) && feat.length) {
       this.selectedFeature = feat[0];
       const character = this.characterService.getCharacter(this.selectedFeature.ol_uid);
@@ -219,7 +226,7 @@ export class MapComponent implements OnInit {
     if (tool === this.TOOLS.player) {
       this.draw.on('drawend', eventDraw => {
         this.openCreationSection(eventDraw.feature);
-      })
+      });
     }
     this.map.addInteraction(this.draw);
   }
@@ -227,13 +234,13 @@ export class MapComponent implements OnInit {
   openCreationSection(feature) {
     this.isCreatingCharacter = true;
     if (this.featureCreation) {
-      this.vectorSource.removeFeature(this.featureCreation)
+      this.vectorSource.removeFeature(this.featureCreation);
     }
     this.featureCreation = feature;
     this.collapsed = false;
   }
 
-  createFeatureCharacter(value: MyCharacter) {
+  createFeatureCharacter(value: Character) {
     this.vectorSource.removeFeature(this.featureCreation);
     this.featureCreation.setStyle(
       new Style({
@@ -247,7 +254,7 @@ export class MapComponent implements OnInit {
           text: value.name
         })
       })
-    )
+    );
     this.vectorSource.addFeature(this.featureCreation);
     value.id = this.featureCreation.ol_uid;
     this.characterService.addCharacter(value);
@@ -255,7 +262,7 @@ export class MapComponent implements OnInit {
     this.isCreatingCharacter = false;
   }
 
-  editFeatureCharacter(value: MyCharacter) {
+  editFeatureCharacter(value: Character) {
     this.selectedFeature.setStyle(
       new Style({
         image: this.getIconByTypeCharacter(value),
@@ -265,10 +272,13 @@ export class MapComponent implements OnInit {
           stroke: new Stroke({
             color: '#fff', width: 2
           }),
+          offsetX: -5,
+          offsetY: -5,
+          textBaseline: 'bottom',
           text: value.name
         })
       })
-    )
+    );
     this.vectorSource.removeFeature(this.selectedFeature);
     this.vectorSource.addFeature(this.selectedFeature);
     this.characterService.update(value);
@@ -277,26 +287,28 @@ export class MapComponent implements OnInit {
     this.isEditCharacter = false;
   }
 
-  getIconByTypeCharacter(value: MyCharacter) {
+  getIconByTypeCharacter(value: Character) {
     switch (value.type) {
       case Type.Player:
+        const src = this.CLASS_IMAGE_PATH.replace(this.CLASS_IMAGE_PH, value.class);
         return new Icon({
+          offset: [-38, -38],
           size: [200, 200],
           scale: 0.35,
-          src: '../assets/images/class/' + value.class.toString() + '.png'
-        })
+          src,
+        });
       case Type.NPC:
         return new Circle({
           fill: new Fill({color: 'rgb(31,146,50)'}),
           stroke: new Stroke({color: '#090f15', width: 1.25}),
           radius: 20
-        })
+        });
       case Type.Enemy:
         return new Circle({
           fill: new Fill({color: 'rgb(196,22,22)'}),
           stroke: new Stroke({color: '#090f15', width: 1.25}),
           radius: 20
-        })
+        });
     }
   }
 

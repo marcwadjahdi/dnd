@@ -1,15 +1,10 @@
 @import '~src/variables';
 
-.button {
-  color: #eeeeee;
+.btn {
   background-color: $body-bg-x-light;
   margin: 0.5rem;
   font-size: $font-size-base * 1.5;
   padding: 0.5rem;
-  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
-  border:0; // remove default border
-  border-bottom:1px solid #eee; // add only bottom border
-  border-radius:10px;
 }
 
 .button:hover  {

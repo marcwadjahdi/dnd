@@ -1,33 +1,33 @@
 import { Injectable } from '@angular/core';
-import {MyCharacter} from "../shared/dnd/character/common";
+import {Character} from '../shared/dnd/character/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CharacterService {
-  private listCharacter: MyCharacter[] = [];
+  private listCharacter: Character[] = [];
 
   constructor() { }
 
-  addCharacter(value: MyCharacter) {
+  addCharacter(value: Character) {
     this.listCharacter.push(value);
   }
 
-  deleteCharacter(value: MyCharacter) {
-    this.listCharacter = this.listCharacter.filter(valueInlist => valueInlist.id != value.id);
+  deleteCharacter(value: Character) {
+    this.listCharacter = this.listCharacter.filter(valueInlist => valueInlist.id !== value.id);
   }
 
-  getCharacter(id: number): MyCharacter {
+  getCharacter(id: number): Character {
     const tmpList = this.listCharacter.filter(valueInlist => valueInlist.id === id);
     return tmpList.length === 0 ? null : tmpList[0] ;
   }
 
-  update(value: MyCharacter) {
+  update(value: Character) {
     this.deleteCharacter(value);
     this.addCharacter(value);
   }
 
-  getAllCharacter(): MyCharacter[] {
+  getAllCharacter(): Character[] {
     return this.listCharacter;
   }
 }

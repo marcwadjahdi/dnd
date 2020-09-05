@@ -184,7 +184,7 @@ export class MapComponent implements OnInit {
 
   addLayerSwitcher() {
     this.map.addControl(new LayerSwitcher({
-      target: $('.layerSwitcher').get(0),
+      target: $('.layer-switcher').get(0),
       show_progress: true,
       extent: true,
       trash: true,

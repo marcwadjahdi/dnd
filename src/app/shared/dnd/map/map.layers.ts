@@ -22,6 +22,7 @@ function toImageLayer({title, url}) {
       url: toUrlLayer(url),
       projection: PROJECTION,
       imageExtent: EXTENT,
+      visibility: false
     }),
   });
 }
@@ -35,9 +36,6 @@ function addToGroupLayer(group, layer) {
 }
 
 const files = [
-  'blank.png',
-  'Irrandia.png',
-  'magamar/area.jpg',
   'magamar/angmar/keep/lvl_0.jpg',
   'magamar/angmar/keep/lvl_1.jpg',
   'magamar/angmar/mines/mine_101.png',
@@ -48,6 +46,9 @@ const files = [
   'magamar/angmar/mines/mine_401.png',
   'magamar/angmar/mines/mine_501.png',
   'magamar/angmar/passage/passage.png',
+  'magamar/area.jpg',
+  'Irrandia.png',
+  'blank.png',
 ];
 
 export function buildBasemapsLayer() {

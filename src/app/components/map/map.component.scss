@@ -10,10 +10,27 @@
   position: fixed;
   top: $nav-height + 2rem;
   right: 0;
+
   height: 80%;
   width: 22rem;
+  padding: 0 1rem;
+
+  overflow: auto;
+  overflow-x: hidden;
+
   transition: 500ms;
-  padding: 1rem;
+}
+
+.map menu::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+.map menu::-webkit-scrollbar-track {
+  background: $overlay-bg;
+}
+
+.map menu::-webkit-scrollbar-thumb {
+  background: $body-bg;
 }
 
 .map menu.collapsed {
@@ -27,33 +44,29 @@
 
 .tools {
   width: 100%;
-}
 
-.tools .btn {
-  background-color: $body-bg-x-light;
-  margin: 0.5rem;
-  font-size: $font-size-base * 1.5;
-  padding: 0.5rem;
-}
+  .btn {
+    background-color: $body-bg-x-light;
+    margin: 0.5rem;
+    font-size: $font-size-base * 1.5;
+    padding: 0.5rem;
+  }
 
-.tools .btn:hover, .tools .btn.active  {
-  background-color: $body-bg;
-  color: $link-color;
-  filter:none;
+  .btn:hover, .btn.active {
+    background-color: $body-bg;
+    color: $link-color;
+    filter: none;
+  }
 }
 
 .layers {
   width: 100%;
-  padding-left: 1rem;
 }
 
-.layers select {
-  margin: 0 1rem;
-  width: 80%;
-}
-
-.map menu.collapsed .layers, .map menu.collapsed h6 {
-  visibility: hidden;
+.map menu.collapsed {
+  .layers, h6 {
+    visibility: hidden;
+  }
 }
 
 .collapse-btn {
@@ -66,20 +79,22 @@
   border-radius: 1rem;
   background-color: $font-color;
   transition: $transition-speed;
+
+  fa-icon {
+    color: $body-bg-x-light;
+    position: relative;
+    top: -4px;
+    left: -1px;
+  }
 }
 
 .collapse-btn:hover {
   background-color: $link-color;
+
+  fa-icon {
+    color: $body-bg;
+  }
 }
 
-.collapse-btn fa-icon {
-  color: $body-bg-x-light;
-  position: relative;
-  top: -4px;
-  left: -1px;
-}
 
-.collapse-btn:hover fa-icon {
-  color: $body-bg;
-}
 

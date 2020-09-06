@@ -4,20 +4,24 @@ const defaultPointRadius = 15;
 const defaultFill = '#cccccc99';
 const defaultStroke = '#ffcc33';
 
-function newPointStyle(fillColor, strokeColor) {
-  return new Style({
+export const STYLES = {
+  friendlyNPC: new CircleStyle({
+    radius: defaultPointRadius,
+    fill: new Fill({color: '#33ff3333'}),
+    stroke: new Stroke({color: '#33ff33', width: 2})
+  }),
+  hostileNPC: new CircleStyle({
+    radius: defaultPointRadius,
+    fill: new Fill({color: '#ff333333'}),
+    stroke: new Stroke({color: '#ff3333', width: 2})
+  }),
+  Point: new Style({
     image: new CircleStyle({
       radius: defaultPointRadius,
-      fill: new Fill({color: fillColor}),
-      stroke: new Stroke({color: strokeColor, width: 2})
+      fill: new Fill({color: defaultFill}),
+      stroke: new Stroke({color: defaultStroke, width: 2})
     })
-  });
-}
-
-export const STYLES = {
-  player: newPointStyle('#33ff3333', '#33ff33'),
-  monster: newPointStyle('#ff333333', '#ff3333'),
-  Point: newPointStyle(defaultFill, defaultStroke),
+  }),
   LineString: new Style({
     fill: new Fill({color: defaultFill}),
     stroke: new Stroke({color: defaultStroke, width: 2}),

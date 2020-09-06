@@ -11,7 +11,7 @@ import {click} from 'ol/events/condition';
 import {Draw, Modify, Select, Snap} from 'ol/interaction';
 import {Vector as VectorSource} from 'ol/source';
 import {Vector as VectorLayer} from 'ol/layer';
-import {Circle, Fill, Icon, Stroke, Style, Text} from 'ol/style';
+import {Fill, Icon, Stroke, Style, Text} from 'ol/style';
 import {BATTLE_MAPS} from './maps';
 import {STYLES} from './styles';
 import {Character} from 'src/app/shared/dnd/character/common/character.model';
@@ -241,23 +241,19 @@ export class MapComponent implements OnInit {
   }
 
   getIconByTypeCharacter(character: Character) {
-    switch (character.type) {
-      case CharacterType.Player:
-        const src = this.CLASS_IMAGE_PATH.replace(this.CLASS_IMAGE_PH, character.characterClass.name.toLocaleLowerCase());
-        return new Icon({
-          offset: [-44, -44],
-          size: [220, 220],
-          scale: 0.35,
-          src,
-        });
-      case CharacterType.NPC:
-        const color = character.hostile ? {color: 'rgb(196,22,22)'} : {color: 'rgb(31,146,50)'};
-        return new Circle({
-          fill: new Fill(color),
-          stroke: new Stroke({color: '#090f15', width: 1.25}),
-          radius: 20
-        });
+    if (character.type === CharacterType.NPC) {
+      return character.hostile ? STYLES.hostileNPC : STYLES.friendlyNPC;
     }
+    if (character.type === CharacterType.Player) {
+      const src = this.CLASS_IMAGE_PATH.replace(this.CLASS_IMAGE_PH, character.characterClass.name.toLocaleLowerCase());
+      return new Icon({
+        offset: [-44, -44],
+        size: [220, 220],
+        scale: 0.30,
+        src,
+      });
+    }
+    throw new Error('Impossible to identify character type');
   }
 
   private addModify() {

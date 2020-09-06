@@ -14,8 +14,9 @@ import {Vector as VectorLayer} from 'ol/layer';
 import {Circle, Fill, Icon, Stroke, Style, Text} from 'ol/style';
 import {BATTLE_MAPS} from './maps';
 import {STYLES} from './styles';
-import {Character, Type} from '../../shared/dnd/character/common';
-import {CharacterService} from '../../service/character.service';
+import {Character} from 'src/app/shared/dnd/character/common/character.model';
+import {CharacterService} from 'src/app/shared/dnd/character/common/character.service';
+import {CharacterType} from 'src/app/shared/dnd/character/common/character-types';
 
 const EXTENT = [0, 0, 1151, 1151];
 const PROJ = new Projection({
@@ -65,12 +66,8 @@ export class MapComponent implements OnInit {
   collapsed = false;
 
   /* Character Creation */
-  isCreatingCharacter = false;
-  isEditCharacter: boolean;
-  selectedCharacter: Character;
-
-  private featureCreation: any;
   private selectedFeature: any;
+  selectedCharacter: Character;
 
   constructor(private characterService: CharacterService) {
   }
@@ -117,14 +114,8 @@ export class MapComponent implements OnInit {
 
   useTool(tool: string) {
     this.removeInteractions();
-    this.isCreatingCharacter = false;
-    this.isEditCharacter = false;
-    this.selectedCharacter = undefined;
     this.selectedFeature = undefined;
-    if (this.featureCreation) {
-      this.vectorSource.removeFeature(this.featureCreation);
-      this.featureCreation = undefined;
-    }
+    this.selectedCharacter = undefined;
     this.currentTool = this.isCurrentTool(tool) ? null : tool;
     if (!this.currentTool) {
       this.addSnap();
@@ -139,6 +130,8 @@ export class MapComponent implements OnInit {
         this.useSelect();
         break;
       case this.TOOLS.player:
+        this.useCharacterTool();
+        break;
       case this.TOOLS.pointer:
       case this.TOOLS.line:
       case this.TOOLS.polygon:
@@ -169,144 +162,98 @@ export class MapComponent implements OnInit {
   }
 
   useEraser() {
-    this.eraser = new Select({
-      condition: (mapBrowserEvent) => click(mapBrowserEvent),
-    });
+    this.eraser = new Select({condition: (mapBrowserEvent) => click(mapBrowserEvent)});
     this.eraser.on('select', (features) => {
       let feat = features.selected;
-      if (Array.isArray(feat)) {
+      if (Array.isArray(feat) && feat.length !== 0) {
         feat = feat[0];
       }
-      this.vectorSource.removeFeature(feat);
+      if (feat) {
+        this.vectorSource.removeFeature(feat);
+      }
     });
     this.map.addInteraction(this.eraser);
   }
 
   useSelect() {
-    this.select = new Select({
-      condition: (mapBrowserEvent) => click(mapBrowserEvent),
-    });
-    this.select.on('select', (features) => {
-      this.openOrCloseEditCharacter(features);
+    this.select = new Select({condition: (mapBrowserEvent) => click(mapBrowserEvent)});
+    this.select.on('select', (event) => {
+      event.stopPropagation();
+      this.openOrCloseEditCharacter(event);
     });
     this.map.addInteraction(this.select);
   }
 
-  openOrCloseEditCharacter(features) {
-    const feat = features.selected;
-    if (Array.isArray(feat) && feat.length) {
-      this.selectedFeature = feat[0];
-      const character = this.characterService.getCharacter(this.selectedFeature.ol_uid);
-      if (character) {
+  openOrCloseEditCharacter(event) {
+    if (Array.isArray(event.selected) && event.selected.length) {
+      const selected = event.selected[0];
+      const character = this.characterService.get(selected.ol_uid);
+      if (character && character.type === CharacterType.NPC) {
         this.collapsed = false;
+        this.selectedFeature = selected;
         this.selectedCharacter = character;
-        this.isEditCharacter = true;
+      } else {
+        this.selectedFeature = undefined;
+        this.selectedCharacter = undefined;
+        this.select.getFeatures().clear();
       }
-    } else {
-      this.selectedFeature = false;
     }
-    if (!this.selectedFeature) {
-      this.isEditCharacter = false;
-      this.selectedFeature = undefined;
-    }
-    this.select.getFeatures().clear();
   }
 
   useDrawTool(tool: string) {
-    if (!tool) {
-      return;
-    }
-
-    let geometry = tool;
-    if (tool === this.TOOLS.player) {
-      geometry = this.TOOLS.pointer;
-    }
-
-    this.draw = new Draw({source: this.vectorSource, type: geometry});
-    if (tool === this.TOOLS.player) {
-      this.draw.on('drawend', eventDraw => {
-        this.openCreationSection(eventDraw.feature);
-      });
-    }
+    this.draw = new Draw({source: this.vectorSource, type: tool});
     this.map.addInteraction(this.draw);
   }
 
-  openCreationSection(feature) {
-    this.isCreatingCharacter = true;
-    if (this.featureCreation) {
-      this.vectorSource.removeFeature(this.featureCreation);
-    }
-    this.featureCreation = feature;
-    this.collapsed = false;
+  useCharacterTool() {
+    this.draw = new Draw({source: this.vectorSource, type: this.TOOLS.pointer});
+    this.draw.on('drawend', eventDraw => {
+      this.selectedFeature = eventDraw.feature;
+      this.collapsed = false;
+    });
+    this.map.addInteraction(this.draw);
   }
 
-  createFeatureCharacter(value: Character) {
-    this.vectorSource.removeFeature(this.featureCreation);
-    this.featureCreation.setStyle(
-      new Style({
-        image: this.getIconByTypeCharacter(value),
+  createOrEditFeatureCharacter(character: Character) {
+    this.selectedFeature.setStyle((feat) => {
+      character = this.characterService.get(feat.ol_uid);
+      return [new Style({
+        image: this.getIconByTypeCharacter(character),
         text: new Text({
           font: '14px Calibri,sans-serif',
           fill: new Fill({color: '#000000'}),
           stroke: new Stroke({
             color: '#fff', width: 2
           }),
-          offsetY: 27,
-          text: value.name
-        })
-      })
-    );
-    this.vectorSource.addFeature(this.featureCreation);
-    value.id = this.featureCreation.ol_uid;
-    this.characterService.addCharacter(value);
-    this.featureCreation = undefined;
-    this.isCreatingCharacter = false;
-  }
-
-  editFeatureCharacter(value: Character) {
-    this.selectedFeature.setStyle(
-      new Style({
-        image: this.getIconByTypeCharacter(value),
-        text: new Text({
-          font: '14px Calibri,sans-serif',
-          fill: new Fill({color: '#000000'}),
-          stroke: new Stroke({
-            color: '#fff', width: 2
-          }),
-          offsetX: -5,
-          offsetY: -5,
+          offsetX: 0,
+          offsetY: 40,
           textBaseline: 'bottom',
-          text: value.name
+          text: character.name
         })
-      })
-    );
-    this.vectorSource.removeFeature(this.selectedFeature);
-    this.vectorSource.addFeature(this.selectedFeature);
-    this.characterService.update(value);
+      })];
+    });
+    if (!character.id) {
+      character.id = this.selectedFeature.ol_uid;
+    }
+    this.characterService.save(character);
     this.selectedFeature = undefined;
     this.selectedCharacter = undefined;
-    this.isEditCharacter = false;
   }
 
-  getIconByTypeCharacter(value: Character) {
-    switch (value.type) {
-      case Type.Player:
-        const src = this.CLASS_IMAGE_PATH.replace(this.CLASS_IMAGE_PH, value.class);
+  getIconByTypeCharacter(character: Character) {
+    switch (character.type) {
+      case CharacterType.Player:
+        const src = this.CLASS_IMAGE_PATH.replace(this.CLASS_IMAGE_PH, character.characterClass.name.toLocaleLowerCase());
         return new Icon({
-          offset: [-38, -38],
-          size: [200, 200],
+          offset: [-44, -44],
+          size: [220, 220],
           scale: 0.35,
           src,
         });
-      case Type.NPC:
+      case CharacterType.NPC:
+        const color = character.hostile ? {color: 'rgb(196,22,22)'} : {color: 'rgb(31,146,50)'};
         return new Circle({
-          fill: new Fill({color: 'rgb(31,146,50)'}),
-          stroke: new Stroke({color: '#090f15', width: 1.25}),
-          radius: 20
-        });
-      case Type.Enemy:
-        return new Circle({
-          fill: new Fill({color: 'rgb(196,22,22)'}),
+          fill: new Fill(color),
           stroke: new Stroke({color: '#090f15', width: 1.25}),
           radius: 20
         });
@@ -354,15 +301,11 @@ export class MapComponent implements OnInit {
 
   expandOrCollapse() {
     this.collapsed = !this.collapsed;
-    this.selectedCharacter = undefined;
-    this.selectedFeature = undefined;
-    this.isCreatingCharacter = false;
-    this.isEditCharacter = false;
-    if (this.featureCreation) {
-      this.vectorSource.removeFeature(this.featureCreation);
-      this.featureCreation = undefined;
-    }
   }
 
   arrowIcon = () => this.collapsed ? 'chevron-circle-left' : 'chevron-circle-right';
+
+  isFeatureSelected() {
+    return !!this.selectedFeature;
+  }
 }

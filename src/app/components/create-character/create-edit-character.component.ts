@@ -1,6 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Character, Type, TypeArray} from '../../shared/dnd/character/common';
-import {Class, ClassArray} from '../../shared/dnd/character/common/hasClass';
+import {Hero} from 'src/app/shared/dnd/character/hero/hero.model';
+import {HeroService} from 'src/app/shared/dnd/character/hero/hero.service';
+import {randomId} from 'src/app/shared/dnd/common/identified';
+import {Character} from 'src/app/shared/dnd/character/common/character.model';
+import {CharacterType, CharacterTypes} from 'src/app/shared/dnd/character/common/character-types';
 
 @Component({
   selector: 'dnd-create-edit-character',
@@ -9,48 +12,62 @@ import {Class, ClassArray} from '../../shared/dnd/character/common/hasClass';
 })
 export class CreateEditCharacterComponent implements OnInit {
   @Input()
-  selectedCharacter: Character;
-
-  @Input()
-  isEdit: boolean;
-
+  character: Character;
   @Output()
   createdCharacter = new EventEmitter<Character>();
 
-  character: Character = {
-    name: '1',
-    type: Type.Player,
-    class: Class.cleric,
-    actualHealth: 1,
-    maxHealth: 1
-  };
-  type = Type;
-  typeArray = TypeArray.values();
-  classArray = ClassArray.values();
+  characterTypes = CharacterTypes;
 
-  constructor() {
+  heroes: Hero[];
+  hero: Hero;
+
+  constructor(private heroesService: HeroService) {
   }
 
   ngOnInit(): void {
-    if (this.isEdit) {
-      this.character = this.selectedCharacter;
+    this.heroes = this.heroesService.search();
+    if (!this.character) {
+      this.character = {};
     }
   }
 
   canSumbit() {
-    return this.character.name &&
-      this.character.type &&
-      // this.character.actualHealth &&
-      // this.character.maxHealth &&
-      // this.character.maxHealth >= this.character.actualHealth &&
-      ((this.character.type === Type.Player && this.character.class) || this.character.type !== Type.Player);
+    return this.character.name && this.character.type && this.character.hostile;
   }
 
   onSubmit() {
-    if (this.character.type !== Type.Player) {
-      this.character.class = undefined;
-    }
+    // this.character.id = randomId();
     this.createdCharacter.emit(this.character);
     this.character = {};
+    this.hero = null;
   }
+
+  title() {
+    return this.character.id ? `Character ${this.character.name}` : 'Create Character';
+  }
+
+  onTypeSelect() {
+    this.hero = null;
+  }
+
+  isTypeDisabled() {
+    return !!this.character.id;
+  }
+
+  isPlayer() {
+    return this.character.type === CharacterType.Player;
+  }
+
+  isNPC() {
+    return this.character.type === CharacterType.NPC;
+  }
+
+  onHeroSelect() {
+    this.character = {...this.hero};
+  }
+
+  heroStr(h: Hero) {
+    return `Lvl ${h.level} ${h.characterClass.name} - ${h.name}`;
+  }
+
 }

@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {DndState} from '../../../store/dnd.state';
 import {HeroSelectors} from './hero.selectors';
 import {HeroActions} from './hero.actions';
+import {DndState} from 'src/app/shared/store/dnd.state';
 
 @Injectable({
   providedIn: 'root'

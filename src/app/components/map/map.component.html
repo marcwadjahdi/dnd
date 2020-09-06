@@ -42,8 +42,7 @@
         <option *ngFor="let b of baseMaps" [value]="b">{{ basemapName(b)}}</option>
       </select>
     </section>
-    <dnd-create-edit-character *ngIf="isCreatingCharacter" [isEdit]="false" (createdCharacter)="createFeatureCharacter($event)"></dnd-create-edit-character>
-    <dnd-create-edit-character *ngIf="isEditCharacter" [isEdit]="true" [selectedCharacter]="selectedCharacter" (createdCharacter)="editFeatureCharacter($event)"></dnd-create-edit-character>
+    <dnd-create-edit-character *ngIf="isFeatureSelected()" [character]="selectedCharacter" (createdCharacter)="createOrEditFeatureCharacter($event)"></dnd-create-edit-character>
   </menu>
 </section>
 

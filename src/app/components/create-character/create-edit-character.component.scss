@@ -2,24 +2,21 @@
 
 .btn {
   background-color: $body-bg-x-light;
-  margin: 0.5rem;
   font-size: $font-size-base * 1.5;
+
+  margin: 0.5rem;
   padding: 0.5rem;
 }
 
-.button:hover  {
+.btn:hover  {
   background-color: $body-bg;
   color: $link-color;
-  filter:none;
 }
 
 input, select {
   padding: 3px;
   margin: 3px 0;
-  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
   border:0; // remove default border
-  border-bottom:1px solid #eee; // add only bottom border
-  border-radius:10px;
   font-family:inherit;
   font-size: inherit;
   width: 100%;

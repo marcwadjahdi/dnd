@@ -1,22 +1,32 @@
 <section>
-  <h6 *ngIf="!isEdit">What do you want to create ?</h6>
-  <h6 *ngIf="isEdit">Editing Character</h6>
-  <label for="CharacterName">Character Name</label>
-  <input type="text" id="CharacterName" class="form-control" placeholder="Character name"
-         [(ngModel)]="character.name">
-  <label for="selectType">Type of Character</label>
-  <select class="form-control" id="selectType" [(ngModel)]="character.type">
-    <option *ngFor="let type of typeArray">{{type}}</option>
-  </select>
-  <div *ngIf="character.type === type.Player">
-    <label for="selectClass">Class of Character</label>
-    <select class="form-control" id="selectClass" [(ngModel)]="character.class">
-      <option *ngFor="let classCharacter of classArray">{{classCharacter}}</option>
+  <h6>{{title()}}</h6>
+
+  <article class="form-row">
+    <label for="selectType">Character's type</label>
+    <select id="selectType" [(ngModel)]="character.type" [disabled]="isTypeDisabled()">
+      <option *ngFor="let characterType of characterTypes" [ngValue]="characterType">{{characterType}}</option>
     </select>
-  </div>
-<!--  <label for="HPCharacter">Actual HP</label>-->
-<!--  <input type="number" id="HPCharacter" [(ngModel)]="character.actualHealth">-->
-<!--  <label for="MaxHPCharacter">Maximum HP</label>-->
-<!--  <input type="number" id="MaxHPCharacter" [(ngModel)]="character.maxHealth">-->
-  <a  (click)="onSubmit()" class="btn"><fa-icon icon="user-check"></fa-icon></a>
+  </article>
+
+  <section [hidden]="!isNPC()">
+    <article class="form-row">
+      <label for="CharacterName">Character Name</label>
+      <input type="text" id="CharacterName" [(ngModel)]="character.name" placeholder="Character's name..."/>
+    </article>
+    <article class="form-row">
+      <label for="hostility">Hostile ?</label>
+      <input id="hostility" type="checkbox" [(ngModel)]="character.hostile"/>
+    </article>
+  </section>
+
+  <section [hidden]="!isPlayer()">
+    <label for="hero">Hero</label>
+    <select id="hero" [(ngModel)]="hero" (change)="onHeroSelect()">
+      <option *ngFor="let h of heroes" [ngValue]="h">{{heroStr(h)}}</option>
+    </select>
+  </section>
+
+  <a (click)="onSubmit()" class="btn">
+    <fa-icon icon="user-check"></fa-icon>
+  </a>
 </section>

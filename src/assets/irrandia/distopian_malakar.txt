@@ -33,9 +33,9 @@ Super popo => contre pognon ou quete
 
 Temple du soleil en pleine mere proteger par les harpy
 
-************
-Adventure 1 
-************
+******************************
+Adventure 1 - Amdormu's Stone
+******************************
 Mario et Augustin attende aux portes de la grande salle depuis 8h,
 Ils appercoivent des lumieres etranges sous la portes puis un grand bruit de souffle.
 Un fabile "entre" les interpelles.
@@ -79,3 +79,31 @@ Si help with ppl decouvre passage dans la montagne via la mine
 ** quand pierre trouver acceuilli par plein de garde
 Emprisonner dans les joles
 Puis bagarre contre le gardien du chateau /knight
+
+************************************
+Adventure 2 - Travel to Shaarahmoon 
+************************************
+************************************
+Adventure 3 - Amdormu's Redemption
+************************************
+******************************
+Adventure 4 - Amdormu's Scales
+******************************
+Apres avoir libere Amdormu
+Il vous envoit vers les cavernes du nord -> bagarre avec medusa/naga : 
+ -> retrouve le tresor vole d'amdormu = 4 ecailles de dragon 
+ --> Amdormu mind talk les crafteurs nains pourront vous aider.
+ -> decouvre le pilone de l'ouest premiere piste vers temple de la lune
+**************************************
+Adventure 5 - Iron-Breaker's Canondrum
+**************************************
+
+En allant voir les nains trouvent un crafter -> 4jours a attendre
+Pendant l'attente tombent sur l'ancien maitre d'augustin 
+-> baguarre 
+-> L'armee du seigneur nain arrive. encerclent
+-> Emmener de force et menotter dans la trone room 
+-> juger coupable par defaut bad trip and all
+-> Intervention d'amdormu en mode mindfuck -> you DARE harm my benefactors Girin (The dwarf lord) ?
+-> Oh shit sorry -> released look back at old master banish him.
+-> Pay the crafter bill for them

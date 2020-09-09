@@ -8,6 +8,7 @@ import {DndModule} from './components/dnd.module';
 // Components
 import {MainComponent} from './shared/layouts/main/main.component';
 import {HomeComponent} from './components/home/home.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import {HomeComponent} from './components/home/home.component';
     DndModule,
     AppRoutingModule,
     DndStoreModule,
+    FormsModule
   ],
   exports: [],
   providers: [],

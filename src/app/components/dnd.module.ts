@@ -8,15 +8,16 @@ import {MapModule} from './map/map.module';
 
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FontAwesomeModule,
-        HomeModule,
-        MapModule,
-        CharacterModule,
-    ],
-    declarations: [],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [
+    CommonModule,
+    FontAwesomeModule,
+    HomeModule,
+    MapModule,
+    CharacterModule,
+  ],
+  declarations: [],
+  exports: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class DndModule {
 }

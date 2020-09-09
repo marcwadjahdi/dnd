@@ -2,8 +2,10 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
-import {Hero, HeroEffects, HeroReducer} from '../dnd/character/hero';
 import {StoreModule} from '@ngrx/store';
+import {HeroFeature} from '../dnd/character/hero/hero.state';
+import {HeroReducer} from '../dnd/character/hero/hero.reducer';
+import {HeroEffects} from '../dnd/character/hero/hero.effects';
 
 @NgModule({
   imports: [
@@ -11,7 +13,7 @@ import {StoreModule} from '@ngrx/store';
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     // Hero
-    StoreModule.forFeature(Hero.FeatureName, HeroReducer),
+    StoreModule.forFeature(HeroFeature, HeroReducer),
     EffectsModule.forFeature([HeroEffects]),
     StoreDevtoolsModule.instrument(),
   ],

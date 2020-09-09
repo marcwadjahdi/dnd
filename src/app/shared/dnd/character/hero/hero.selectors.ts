@@ -1,8 +1,7 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
-import {HeroAdatapter, HeroState} from './hero.state';
-import {Hero} from './hero.model';
+import {HeroAdatapter, HeroFeature, HeroState} from './hero.state';
 
-const selectState = createFeatureSelector<HeroState>(Hero.FeatureName);
+const selectState = createFeatureSelector<HeroState>(HeroFeature);
 const {selectAll, selectEntities, selectTotal} = HeroAdatapter.getSelectors();
 
 const Heroes = createSelector(selectState, selectAll);

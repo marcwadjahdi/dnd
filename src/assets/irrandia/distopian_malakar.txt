@@ -6,7 +6,7 @@ The great evil Sorcerer Malorok conquered the land.
 
 - The Forest of Shaarahmoon to the west once ruled by Amdormu
 
-- The devasted land Magamar of the Dark Nytrellion in the east 
+- The devasted land Magamar of the Dark Nytrellion in the east
 
 - The icy lands Hoparaa of the glacial Rarregos in the north
 
@@ -25,31 +25,39 @@ And Zalkas the sorcerer
 SIDE QUESTS
 ************
 
-Quetes des pilones : 
-Les deltas du mondes ==> pilones ==> secret vers le temple de la lune proteger par les sirenes=> sagesse lunaire tresor/xp/benediction
+Quetes des pilones :
+Les deltas du mondes
+==> pilones
+==> secret vers le temple de la lune proteger par les sirenes
+=> Au temple a minuit chacun se bas contre son nemesis
+lokee - Matrone
+druid - metal construct
+cleric - iron breaker necromancer
+zalkas
+=> sagesse lunaire tresor/xp/benediction
 
 Quete Alchemist de l'ouest :
 Super popo => contre pognon ou quete
 
 Temple du soleil en pleine mere proteger par les harpy
 
-************
-Adventure 1 
-************
+******************************
+Adventure 1 - Amdormu's Stone
+******************************
 Mario et Augustin attende aux portes de la grande salle depuis 8h,
 Ils appercoivent des lumieres etranges sous la portes puis un grand bruit de souffle.
 Un fabile "entre" les interpelles.
 Au centre de la salle dans un puit de lumiere lunaire une silhouette aux habits de nobles.
 ** Check ce qu'il percoivent
 Sortant de la penombre Dimevh au visage viellit, comme si il avait pris 30ans, amaigris les traits tirets.
-** Presentations 
+** Presentations
 ** Explications de la situation
 Mario et Augustin font partie de la resistance
 Dimevh a senti l'emergence de la pierre de foudre dans les mines d'Angamar.
 Vous devez la recuperer, elle seule permet de completement liberer Amdormu du controle de malorok.
 Attention une grande muraille garde l'entree
 Une forteresse et des geoles au centre.
-Allez au mines, recuperer la pierre, et revenez ici. 
+Allez au mines, recuperer la pierre, et revenez ici.
 
 ** Trajet :
 Foret d'arbre brules, valone, crevasses etc...
@@ -59,23 +67,66 @@ Sinon a eux de voir comment il l'a joues
 Fin de combat kobold font tomber une carte avec plusieurs spot.
 Beaucoup on des croix sauf un avec ecrit "ixen donoap" == passage of fire
 
-** Portes principale : 
+** Portes principale :
 A la tomber de la nuit 4 gardes.
-Si bourrin 2 distance + 2 garde en plus. 
+Si bourrin 2 distance + 2 garde en plus.
 Si "pull" fight les deux gardes seulement.
 Clef pour petite porte de service, traverse
 Si pas discret pull les 4 gardes en repos.
 
 ** Passage Secret vers mine 1 :
-Dans les bois 
+Dans les bois
 Si help with ppl decouvre passage dans la montagne via la mine
 
 ** mine 1 sneak or mass fight
 ** mine 2 rien
 ** mine 3 jelly -> artifact priest
-** mine 4 pierre -> 
+** mine 4 pierre ->
 ** mine 5 berseker -> collier druide
 
 ** quand pierre trouver acceuilli par plein de garde
 Emprisonner dans les joles
 Puis bagarre contre le gardien du chateau /knight
+
+************************************
+Adventure - Travel to Shaarahmoon
+************************************
+
+-> Boat from magamar
+-> Pirates try to take over
+-> subdue -> go to destination
+-> dont subdue -> roll on navigation HARD checks
+-> if fail peril on south obelisk desert etc...
+-> if success arrive very far
+
+************************************
+Adventure - Dead's druids
+************************************
+
+************************************
+Adventure - Amdormu's Redemption
+************************************
+
+******************************
+Adventure - Amdormu's Scales
+******************************
+Apres avoir libere Amdormu
+Il vous envoit vers les cavernes du nord
+ -> bagarre avec medusa/naga :
+ -> retrouve le tresor vole d'amdormu = 4 ecailles de dragon
+ -> Amdormu mind talk les crafteurs nains pourront vous aider.
+ -> decouvre le pilone de l'ouest premiere piste vers temple de la lune
+
+**************************************
+Adventure - Iron-Breaker's Canondrum
+**************************************
+
+En allant voir les nains trouvent un crafter -> 4jours a attendre
+Pendant l'attente tombent sur l'ancien maitre d'augustin
+-> baguarre
+-> L'armee du seigneur nain arrive. encerclent
+-> Emmener de force et menotter dans la trone room
+-> juger coupable par defaut bad trip and all
+-> Intervention d'amdormu en mode mindfuck -> you DARE harm my benefactors Girin (The dwarf lord) ?
+-> Oh shit sorry -> released look back at old master banish him.
+-> Pay the crafter bill for them

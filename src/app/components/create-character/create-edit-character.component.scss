@@ -1,0 +1,32 @@
+@import '~src/variables';
+
+.btn {
+  background-color: $body-bg-x-light;
+  font-size: $font-size-base * 1.5;
+
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+
+.btn:hover  {
+  background-color: $body-bg;
+  color: $link-color;
+}
+
+input, select {
+  padding: 3px;
+  margin: 3px 0;
+  border:0; // remove default border
+  font-family:inherit;
+  font-size: inherit;
+  width: 100%;
+}
+
+.border-customized-input {
+  border: 2px solid #eee;
+}
+
+h6 {
+  margin-block-start: 1.00em;
+  margin-block-end: 0.70em;
+}

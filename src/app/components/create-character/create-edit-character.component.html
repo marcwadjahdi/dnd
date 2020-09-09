@@ -1,0 +1,32 @@
+<section>
+  <h6>{{title()}}</h6>
+
+  <article class="form-row">
+    <label for="selectType">Character's type</label>
+    <select id="selectType" [(ngModel)]="character.type" [disabled]="isTypeDisabled()">
+      <option *ngFor="let characterType of characterTypes" [ngValue]="characterType">{{characterType}}</option>
+    </select>
+  </article>
+
+  <section [hidden]="!isNPC()">
+    <article class="form-row">
+      <label for="CharacterName">Character Name</label>
+      <input type="text" id="CharacterName" [(ngModel)]="character.name" placeholder="Character's name..."/>
+    </article>
+    <article class="form-row">
+      <label for="hostility">Hostile ?</label>
+      <input id="hostility" type="checkbox" [(ngModel)]="character.hostile"/>
+    </article>
+  </section>
+
+  <section [hidden]="!isPlayer()">
+    <label for="hero">Hero</label>
+    <select id="hero" [(ngModel)]="hero" (change)="onHeroSelect()">
+      <option *ngFor="let h of heroes" [ngValue]="h">{{heroStr(h)}}</option>
+    </select>
+  </section>
+
+  <a (click)="onSubmit()" class="btn">
+    <fa-icon icon="user-check"></fa-icon>
+  </a>
+</section>

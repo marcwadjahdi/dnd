@@ -6,11 +6,11 @@ import {Character} from 'src/app/shared/dnd/character/common/character.model';
 import {CharacterType, CharacterTypes} from 'src/app/shared/dnd/character/common/character-types';
 
 @Component({
-  selector: 'dnd-create-edit-character',
-  templateUrl: './create-edit-character.component.html',
-  styleUrls: ['./create-edit-character.component.scss']
+  selector: 'dnd-map-character-editor',
+  templateUrl: './map-character-editor.component.html',
+  styleUrls: ['./map-character-editor.component.scss']
 })
-export class CreateEditCharacterComponent implements OnInit {
+export class MapCharacterEditorComponent implements OnInit {
   @Input()
   character: Character;
   @Output()
@@ -36,7 +36,6 @@ export class CreateEditCharacterComponent implements OnInit {
   }
 
   onSubmit() {
-    // this.character.id = randomId();
     this.createdCharacter.emit(this.character);
     this.character = {};
     this.hero = null;

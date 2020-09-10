@@ -41,8 +41,18 @@ Super popo => contre pognon ou quete
 
 Temple du soleil en pleine mere proteger par les harpy
 
+********
+REWARDS
+********
+
+Druid : In front of a drood shrine commune for 8 hours get's +1 transformation per rest
+Cleric : In front of a God Statut prey for 8 hours get +1 to divinity rolls
+
+
+
+
 ******************************
-Adventure 1 - Amdormu's Stone
+Adventure - Amdormu's Stone
 ******************************
 Mario et Augustin attende aux portes de la grande salle depuis 8h,
 Ils appercoivent des lumieres etranges sous la portes puis un grand bruit de souffle.
@@ -98,10 +108,6 @@ Adventure - Travel to Shaarahmoon
 -> dont subdue -> roll on navigation HARD checks
 -> if fail peril on south obelisk desert etc...
 -> if success arrive very far
-
-************************************
-Adventure - Dead's druids
-************************************
 
 ************************************
 Adventure - Amdormu's Redemption

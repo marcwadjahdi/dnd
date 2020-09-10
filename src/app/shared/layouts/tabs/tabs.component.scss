@@ -1,0 +1,34 @@
+@import '~src/variables';
+
+nav.tabs-links {
+  width: 100%;
+  height: 3rem;
+
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+
+  background-color: $body-bg;
+  border-bottom: 1px solid $body-bg-x-light;
+}
+
+nav.tabs-links a.tab-link {
+  display: grid;
+
+  place-items: center;
+  cursor: pointer;
+  flex: 1;
+
+  font-family: "Press Start 2P";
+  font-size: $font-size-base * 0.8;
+}
+
+nav.tabs-links a.tab-link:hover {
+  background-color: $body-bg-x-light;
+}
+
+section.tabs-content {
+  margin: 0;
+  padding: 0;
+}
+

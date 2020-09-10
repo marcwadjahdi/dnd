@@ -78,6 +78,7 @@ export class MapComponent implements OnInit {
   private buildDrawLayer() {
     this.vectorSource = new VectorSource();
     this.vectorLayer = new VectorLayer({
+      title: 'Characters',
       source: this.vectorSource,
       style: this.getStyle(),
       zIndex: this.VECTOR_INDEX,
@@ -267,7 +268,7 @@ export class MapComponent implements OnInit {
     this.collapsed = !this.collapsed;
   }
 
-  collapsingIcon = () => this.collapsed ? 'chevron-circle-left' : 'chevron-circle-right';
+  collapsingIcon = () => this.collapsed ? 'caret-left' : 'caret-right';
 
   addLayerSwitcher() {
     this.map.addControl(new LayerSwitcher({

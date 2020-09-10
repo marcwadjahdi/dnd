@@ -2,13 +2,14 @@ import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {FormsModule} from '@angular/forms';
 // Components
 import {MainComponent} from './main/main.component';
 import {NavbarComponent} from './navbar/navbar.component';
 import {FooterComponent} from './footer/footer.component';
 import {ErrorComponent} from './error/error.component';
-import {CreateEditCharacterComponent} from "../../components/create-character/create-edit-character.component";
-import {FormsModule} from "@angular/forms";
+import {TabComponent} from './tabs/tab.component';
+import {TabsComponent} from './tabs/tabs.component';
 
 @NgModule({
   imports: [
@@ -17,19 +18,21 @@ import {FormsModule} from "@angular/forms";
     FontAwesomeModule,
     FormsModule
   ],
-    declarations: [
-        MainComponent,
-        NavbarComponent,
-        FooterComponent,
-        ErrorComponent,
-        CreateEditCharacterComponent
-    ],
-    exports: [
-        MainComponent,
-        ErrorComponent,
-        CreateEditCharacterComponent
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  declarations: [
+    MainComponent,
+    NavbarComponent,
+    FooterComponent,
+    ErrorComponent,
+    TabsComponent,
+    TabComponent,
+  ],
+  exports: [
+    MainComponent,
+    ErrorComponent,
+    TabsComponent,
+    TabComponent,
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class LayoutsModule {
 }

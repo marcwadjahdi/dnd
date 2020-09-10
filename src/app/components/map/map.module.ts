@@ -5,6 +5,7 @@ import {MapComponent} from './map.component';
 import {MapGuard} from './map.guard';
 import {SharedModule} from '../../shared/shared.module';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {MapCharacterEditorComponent} from './map-character-editor/map-character-editor.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
   ],
   declarations: [
     MapComponent,
+    MapCharacterEditorComponent,
   ],
 })
 export class MapModule {

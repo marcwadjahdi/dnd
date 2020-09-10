@@ -2,15 +2,13 @@
   <main id="battle_map">
   </main>
   <menu class="overlay" [class.collapsed]="collapsed">
-    <a class="collapse-btn" (click)="expandOrCollapse()">
-      <fa-icon [icon]="collapsingIcon()"></fa-icon>
-    </a>
-    <nav class="tabs-pills">
-      <a class="tab-pill"> <small>Tools</small></a>
-      <a class="tab-pill"> <small>Layers</small></a>
-    </nav>
-    <section class="tabs">
-      <article class="tools">
+    <div class="collapse-btn">
+      <a class="collapse-btn" (click)="expandOrCollapse()">
+        <fa-icon [icon]="collapsingIcon()"></fa-icon>
+      </a>
+    </div>
+    <dnd-tabs>
+      <dnd-tab tabTitle="Tools" class="tools">
         <a class="btn" (click)="useTool(TOOLS.player)"
            [class.active]="isCurrentTool(TOOLS.player)">
           <fa-icon [icon]="'user-plus'"></fa-icon>
@@ -39,12 +37,12 @@
            [class.active]="isCurrentTool(TOOLS.eraser)">
           <fa-icon [icon]="'eraser'"></fa-icon>
         </a>
-      </article>
-      <article class="layers">
+        <dnd-map-character-editor *ngIf="isFeatureSelected()" [character]="selectedCharacter" (createdCharacter)="createOrEditFeatureCharacter($event)"></dnd-map-character-editor>
+      </dnd-tab>
+      <dnd-tab tabTitle="Layers" class="layers">
         <div class="layer-switcher"></div>
-      </article>
-    </section>
-    <dnd-create-edit-character *ngIf="isFeatureSelected()" [character]="selectedCharacter" (createdCharacter)="createOrEditFeatureCharacter($event)"></dnd-create-edit-character>
+      </dnd-tab>
+    </dnd-tabs>
   </menu>
 </section>
 

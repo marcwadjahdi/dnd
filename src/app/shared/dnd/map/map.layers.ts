@@ -22,8 +22,8 @@ function toImageLayer({title, url}) {
       url: toUrlLayer(url),
       projection: PROJECTION,
       imageExtent: EXTENT,
-      visibility: false
     }),
+    visible: false,
   });
 }
 

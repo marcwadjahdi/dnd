@@ -1,4 +1,19 @@
-article.tab-content {
+@import '~src/variables';
+
+.tab-content {
   margin: 0;
   padding: 0;
+
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.tab-content::-webkit-scrollbar {
+  width: 0.25rem;
+}
+.tab-content::-webkit-scrollbar-track {
+  background: $overlay-bg;
+}
+.tab-content::-webkit-scrollbar-thumb {
+  background: $body-bg;
 }

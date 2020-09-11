@@ -9,7 +9,7 @@
   }
 
   ul ul {
-    padding: 0.2rem 1.5rem 0 0;
+    padding: 0 0 0 0.5rem;
   }
 
   .ol-header {
@@ -26,17 +26,17 @@
 
   li {
     list-style: none;
-    display: block;
-    position: relative;
 
-    padding: 0 0.5rem;
-    margin: 0 0 0.5rem 0;
+    display: grid;
+    grid-template-columns: 1.5rem 1fr;
+    grid-template-rows: 1fr;
+
+    padding: 0;
+    margin: 0;
+
     background-color: $body-bg;
 
     .ol-layerswitcher-buttons {
-      position: absolute;
-      right: 0;
-
       display: flex;
       flex-direction: row-reverse;
 
@@ -49,21 +49,28 @@
       .expend-layers, .collapse-layers {
         height: 3rem;
         width: 1.5rem;
-        background-color: #3e3e52a0;
         color: $font-color;
         font-size: .75rem;
 
         :before, :after {
+          font-family:"FontAwesome";
+          font-weight: 900;
           border-color: #fff;
           border-style: solid;
           border-width: 0.4em 0.4em 0;
-          content: "";
           height: 0;
           bottom: 3px;
           width: 0;
         }
-      }
 
+        .expend-layers:before {
+          content: "\f078";
+        }
+
+        .collapse-layers:before {
+          content: "\f054";
+        }
+      }
 
     }
 
@@ -71,6 +78,11 @@
       display: flex;
       place-items: center;
       height: 3rem;
+      padding-left: 2rem;
+
+      ::before {
+        content: '';
+      }
 
       [type=checkbox] {
         width: 0;
@@ -80,15 +92,6 @@
 
       label {
         width: 60%;
-        margin: 0;
-      }
-
-      .layerswitcher-opacity {
-        background-color: lightgoldenrodyellow;
-        width: 40%;
-        display: inline-block;
-        vertical-align: middle;
-        box-sizing: border-box;
         margin: 0;
       }
 

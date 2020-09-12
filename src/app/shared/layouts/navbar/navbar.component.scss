@@ -15,8 +15,8 @@
   padding: 0 1.5rem 0 1rem;
 }
 
-.nav-link:hover {
-  background-color: $body-bg !important;
+.nav-link:hover, .nav-link.active {
+  background-color: $bg-light !important;
 
 }
 .nav-link span {

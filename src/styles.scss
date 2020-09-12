@@ -10,16 +10,28 @@ body {
   font-size: $font-size-base;
   font-family: 'Open Sans';
   color: $font-color;
-  background-color: $body-bg;
+  background-color: $bg-light;
+}
+
+body::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+body::-webkit-scrollbar-track {
+  background: $bg-overlay;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: $bg-dark;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: "Press Start 2P";
   font-weight: bold;
-  margin-block-start: 1.66em;
-  margin-block-end: 1.66em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
+  margin-block-start: 0.5rem;
+  margin-block-end: 0.5rem;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
 }
 
 h1, .h1 {
@@ -46,18 +58,6 @@ h6, .h6 {
   font-size: $h6-font-size;
 }
 
-body::-webkit-scrollbar {
-  width: 0.25rem;
-}
-
-body::-webkit-scrollbar-track {
-  background: $overlay-bg;
-}
-
-body::-webkit-scrollbar-thumb {
-  background: $body-bg;
-}
-
 a {
   color: $font-color;
   text-decoration: none;
@@ -69,7 +69,7 @@ a:hover {
 }
 
 .overlay {
-  background-color: $overlay-bg;
+  background-color: $bg-overlay;
   z-index: $overlay-index;
 }
 
@@ -81,7 +81,7 @@ a:hover {
 }
 
 .btn:hover, .btn.active {
-  background-color: $body-bg !important;
+  background-color: $bg-dark !important;
 }
 
 .btn fa-icon {

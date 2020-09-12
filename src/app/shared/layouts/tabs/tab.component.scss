@@ -12,8 +12,8 @@
   width: 0.25rem;
 }
 .tab-content::-webkit-scrollbar-track {
-  background: $overlay-bg;
+  background: $bg-overlay;
 }
 .tab-content::-webkit-scrollbar-thumb {
-  background: $body-bg;
+  background: $bg-dark;
 }

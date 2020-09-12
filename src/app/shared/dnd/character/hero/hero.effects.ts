@@ -7,11 +7,6 @@ import {HeroService} from './hero.service';
 @Injectable()
 export class HeroEffects {
 
-  searchHeroes = createEffect(() => this.actions$.pipe(
-    ofType(HeroActions.SearchHeroes),
-    map((action) => HeroActions.SearchHeroesSuccess({heroes: this.service.search()})),
-  ));
-
   constructor(private actions$: Actions, private service: HeroService) {
   }
 }

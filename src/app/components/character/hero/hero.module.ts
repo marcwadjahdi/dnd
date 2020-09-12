@@ -5,6 +5,8 @@ import {RouterModule} from '@angular/router';
 // Components
 import {HeroesComponent} from './list/heroes.component';
 import {HeroComponent} from './detail/hero.component';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,16 +15,14 @@ import {HeroComponent} from './detail/hero.component';
   ],
   imports: [
     CommonModule,
+    FontAwesomeModule,
     RouterModule.forRoot([
       {
         path: 'heroes',
         component: HeroesComponent,
       },
-      {
-        path: 'heroes/:id',
-        component: HeroComponent,
-      },
     ]),
+    FormsModule,
   ]
 })
 export class HeroModule {

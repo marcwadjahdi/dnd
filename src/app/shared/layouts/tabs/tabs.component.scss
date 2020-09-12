@@ -8,8 +8,8 @@ nav.tabs-links {
   flex-direction: row;
   flex-grow: 1;
 
-  background-color: $body-bg;
-  border-bottom: 1px solid $body-bg-x-light;
+  background-color: $bg-dark;
+  border-bottom: 1px solid $bg-x-light;
 }
 
 nav.tabs-links a.tab-link {
@@ -24,7 +24,7 @@ nav.tabs-links a.tab-link {
 }
 
 nav.tabs-links a.tab-link:hover {
-  background-color: $body-bg-x-light;
+  background-color: $bg-x-light;
 }
 
 section.tabs-content {

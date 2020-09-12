@@ -34,7 +34,7 @@
     padding: 0;
     margin: 0;
 
-    background-color: $body-bg;
+    background-color: $bg-dark;
 
     .ol-layerswitcher-buttons {
       display: flex;
@@ -104,6 +104,6 @@
   }
 
   li.visible[class*="ol-layer-"] {
-    background-color: $body-bg-x-light;
+    background-color: $bg-x-light;
   }
 }

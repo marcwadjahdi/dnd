@@ -1,32 +1,42 @@
 @import 'src/variables';
 
-.btn {
-  background-color: $body-bg-x-light;
-  font-size: $font-size-base * 1.5;
+section.character-editor {
+  width: 50%;
+  height: 50%;
 
-  margin: 0.5rem;
-  padding: 0.5rem;
-}
+  margin: 10rem auto;
+  padding: 2rem;
+  background-color: $bg-light;
+  border: 1px solid $bg-x-light;
 
-.btn:hover  {
-  background-color: $body-bg;
-  color: $link-color;
-}
+  .btn {
+    background-color: $bg-x-light;
+    font-size: $font-size-base * 1.5;
 
-input, select {
-  padding: 3px;
-  margin: 3px 0;
-  border:0; // remove default border
-  font-family:inherit;
-  font-size: inherit;
-  width: 100%;
-}
+    margin: 0.5rem;
+    padding: 0.5rem;
+  }
 
-.border-customized-input {
-  border: 2px solid #eee;
-}
+  .btn:hover  {
+    background-color: $bg-dark;
+    color: $link-color;
+  }
 
-h6 {
-  margin-block-start: 1.00em;
-  margin-block-end: 0.70em;
+  input, select {
+    padding: 3px;
+    margin: 3px 0;
+    border:0; // remove default border
+    font-family:inherit;
+    font-size: inherit;
+    width: 100%;
+  }
+
+  .border-customized-input {
+    border: 2px solid #eee;
+  }
+
+  h6 {
+    margin-block-start: 1.00em;
+    margin-block-end: 0.70em;
+  }
 }

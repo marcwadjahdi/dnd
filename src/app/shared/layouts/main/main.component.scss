@@ -9,7 +9,7 @@
 }
 
 .main .header {
-  background-color: $body-bg-light;
+  background-color: $bg-dark;
   display: grid;
   grid-template-columns: 25rem 0 1fr;
 }
@@ -20,10 +20,6 @@
   place-items: center;
 
   padding: 0 0 0 1.5rem;
-}
-
-.logo:hover {
-  background-color: $body-bg !important;
 }
 
 .logo span {
@@ -44,7 +40,6 @@
 
 
 .main .footer {
-  background-color: $body-bg-light;
   font-family: "Press Start 2P";
   font-size: small;
   display: flex;

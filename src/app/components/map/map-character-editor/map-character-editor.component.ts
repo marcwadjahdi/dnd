@@ -1,9 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Hero} from 'src/app/shared/dnd/character/hero/hero.model';
 import {HeroService} from 'src/app/shared/dnd/character/hero/hero.service';
-import {randomId} from 'src/app/shared/dnd/common/identified';
 import {Character} from 'src/app/shared/dnd/character/common/character.model';
 import {CharacterType, CharacterTypes} from 'src/app/shared/dnd/character/common/character-types';
+import {deepCopy} from '../../../shared/util/deep-copy';
+import {CharacterService} from '../../../shared/dnd/character/common/character.service';
 
 @Component({
   selector: 'dnd-map-character-editor',
@@ -21,24 +22,33 @@ export class MapCharacterEditorComponent implements OnInit {
   heroes: Hero[];
   hero: Hero;
 
-  constructor(private heroesService: HeroService) {
+  constructor(private characterService: CharacterService, private heroesService: HeroService) {
   }
 
   ngOnInit(): void {
-    this.heroes = this.heroesService.search();
+    this.heroes = this.heroesService.search()
+      .filter(hero => !this.characterService.search(it => it.name === hero.name))
+      .map(h => {
+        const copy = deepCopy(h);
+        delete copy.id;
+        copy.characterClass = h.characterClass;
+        return copy;
+      });
     if (!this.character) {
       this.character = {};
     }
   }
 
   canSumbit() {
-    return this.character.name && this.character.type && this.character.hostile;
+    return !!this.character.name;
   }
 
   onSubmit() {
-    this.createdCharacter.emit(this.character);
-    this.character = {};
-    this.hero = null;
+    if (this.canSumbit()) {
+      this.createdCharacter.emit(this.character);
+      this.character = {};
+      this.hero = null;
+    }
   }
 
   title() {
@@ -68,5 +78,4 @@ export class MapCharacterEditorComponent implements OnInit {
   heroStr(h: Hero) {
     return `Lvl ${h.level} ${h.characterClass.name} - ${h.name}`;
   }
-
 }

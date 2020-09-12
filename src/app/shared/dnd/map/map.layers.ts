@@ -15,7 +15,7 @@ function toGroupeLayer(title: string) {
   return new GrouLayer({title, layers: []});
 }
 
-function toImageLayer({title, url}) {
+export function toImageLayer({title, url, zIndex}): ImageLayer {
   return new ImageLayer({
     title,
     source: new Static({
@@ -23,7 +23,7 @@ function toImageLayer({title, url}) {
       projection: PROJECTION,
       imageExtent: EXTENT,
     }),
-    visible: false,
+    zIndex,
   });
 }
 
@@ -50,43 +50,43 @@ const files = [
   'Irrandia.png',
   'blank.png',
 ];
-
-export function buildBasemapsLayer() {
-  if (!Array.isArray(files)) {
-    return {};
-  }
-
-  const layerTree = new GrouLayer({
-    title: 'Basemaps',
-    layers: [],
-  });
-
-  function mergeInTree(groupLayer, path, layer) {
-    if (path.length === 0) {
-      return addToGroupLayer(groupLayer, layer);
-    }
-
-    const newPath = [...path];
-    const currentGroupTitle = toTitle(newPath.shift());
-
-    let currentGroupLayer = findLayerByTitle(groupLayer, currentGroupTitle);
-    if (!currentGroupLayer) {
-      currentGroupLayer = toGroupeLayer(currentGroupTitle);
-      addToGroupLayer(groupLayer, currentGroupLayer);
-    }
-    mergeInTree(currentGroupLayer, newPath, layer);
-  }
-
-  files.forEach(url => {
-    const path = url.split('/');
-    const title = toTitle(path.pop());
-    const layer = toImageLayer({url, title});
-
-    mergeInTree(layerTree, path, layer);
-  });
-
-  return layerTree;
-}
+//
+// export function buildBasemapsLayerTree() {
+//   if (!Array.isArray(files)) {
+//     return {};
+//   }
+//
+//   const layerTree = new GrouLayer({
+//     title: 'Basemaps',
+//     layers: [],
+//   });
+//
+//   function mergeInTree(groupLayer, path, layer) {
+//     if (path.length === 0) {
+//       return addToGroupLayer(groupLayer, layer);
+//     }
+//
+//     const newPath = [...path];
+//     const currentGroupTitle = toTitle(newPath.shift());
+//
+//     let currentGroupLayer = findLayerByTitle(groupLayer, currentGroupTitle);
+//     if (!currentGroupLayer) {
+//       currentGroupLayer = toGroupeLayer(currentGroupTitle);
+//       addToGroupLayer(groupLayer, currentGroupLayer);
+//     }
+//     mergeInTree(currentGroupLayer, newPath, layer);
+//   }
+//
+//   files.forEach(url => {
+//     const path = url.split('/');
+//     const title = toTitle(path.pop());
+//     const layer = toImageLayer({url, title});
+//
+//     mergeInTree(layerTree, path, layer);
+//   });
+//
+//   return layerTree;
+// }
 
 export const BASEMAPS = [
   'blank.png',

@@ -6,13 +6,19 @@ import {Character} from './character.model';
 })
 export class CharacterService {
 
-  private characters: any = {};
+  private characters: {
+    [id: number]: Character | undefined;
+  } = {};
 
   constructor() {
   }
 
   findAll(): Character[] {
     return Object.values(this.characters);
+  }
+
+  search(predicate: (Character) => boolean): Character {
+    return Object.values(this.characters).filter(predicate).shift();
   }
 
   get(id: number): Character {
@@ -27,12 +33,20 @@ export class CharacterService {
 
   deleteCharacter(character: Character) {
     this.isValid(character);
-    delete this.characters[character.id];
+    this.deleteById(character.id);
   }
 
   isValid(character: Character) {
     if (!character.id) {
-      throw new Error('Character has no idea');
+      throw new Error('Character has no ID');
     }
+  }
+
+  deleteById(id: number) {
+    delete this.characters[id];
+  }
+
+  deleteAll() {
+    this.characters = {};
   }
 }

@@ -4,7 +4,7 @@ import {Hero} from './hero.model';
 export const HeroFeature = 'Heroes';
 
 export interface HeroState extends EntityState<Hero> {
-  selected: Hero;
+  hero: Hero;
 }
 
 export interface HeroPartialState {

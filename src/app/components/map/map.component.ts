@@ -9,8 +9,9 @@ import LayerSwitcher from 'ol-ext/control/LayerSwitcher';
 
 import {Draw, Modify, Select, Snap} from 'ol/interaction';
 import {Vector as VectorSource} from 'ol/source';
-import {Group as GrouLayer, Vector as VectorLayer} from 'ol/layer';
-import {BASEMAPS, buildBasemapsLayer} from '../../shared/dnd/map/map.layers';
+import ImageLayer from 'ol/layer/Image';
+import {Vector as VectorLayer} from 'ol/layer';
+import {BASEMAPS, toImageLayer} from 'src/app/shared/dnd/map/map.layers';
 import {Fill, Icon, Stroke, Style, Text} from 'ol/style';
 import {STYLES} from './styles';
 import {EXTENT, LAYER_PATH_PREFIX, PROJECTION, ZOOM_MAX, ZOOM_MIN} from '../../shared/dnd/map/map.constants';
@@ -34,6 +35,7 @@ export class MapComponent implements OnInit {
   readonly VECTOR_INDEX = 5;
 
   readonly TOOLS = {
+    trash: 'trash',
     eraser: 'eraser',
     select: 'select',
     player: 'player',
@@ -49,7 +51,7 @@ export class MapComponent implements OnInit {
   private map: Map;
   /* Layers */
   basemap = LAYER_PATH_PREFIX + BASEMAPS[0];
-  private basemapLayer: GrouLayer;
+  private basemapLayer: ImageLayer;
   private vectorSource: VectorSource;
   private vectorLayer: VectorLayer;
   /* Interactions */
@@ -69,10 +71,10 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.basemapLayer = buildBasemapsLayer();
+    // this.basemapLayer = buildBasemapsLayer();
     this.buildDrawLayer();
     this.buildMap();
-    this.addLayerSwitcher();
+    // this.addLayerSwitcher();
   }
 
   private buildDrawLayer() {
@@ -89,7 +91,6 @@ export class MapComponent implements OnInit {
     this.map = new Map({
       target: BATTLE_MAP_ID,
       layers: [
-        this.basemapLayer,
         this.vectorLayer,
       ],
       view: new View({
@@ -168,6 +169,7 @@ export class MapComponent implements OnInit {
       }
       if (feat) {
         this.vectorSource.removeFeature(feat);
+        this.characterService.deleteById(feat.ol_uid);
       }
     });
     this.map.addInteraction(this.eraser);
@@ -279,7 +281,39 @@ export class MapComponent implements OnInit {
     }));
   }
 
+
+  changeBasemap() {
+    if (this.basemapLayer) {
+      this.map.removeLayer(this.basemapLayer);
+    }
+    if (!this.basemap) {
+      return;
+    }
+    this.basemapLayer = toImageLayer({
+      title: this.basemapName(this.basemap),
+      url: this.basemap,
+      zIndex: this.BASEMAP_INDEX,
+    });
+    this.map.addLayer(this.basemapLayer);
+  }
+
+  basemapName(b: any) {
+    return b
+      .replace('/assets/layers', '')
+      .replace('.jpg', '')
+      .replace('.png', '')
+      .split('/')
+      .filter(it => !!it)
+      .map(it => `${it[0].toUpperCase()}${it.substr(1).toLocaleLowerCase()}`)
+      .join(' ');
+  }
+
   isFeatureSelected() {
     return !!this.selectedFeature;
+  }
+
+  trashAll() {
+    this.vectorSource.clear();
+    this.characterService.deleteAll();
   }
 }

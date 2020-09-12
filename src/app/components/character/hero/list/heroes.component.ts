@@ -1,32 +1,45 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
-import {DndState} from 'src/app/shared/store/dnd.state';
 import {Hero} from 'src/app/shared/dnd/character/hero/hero.model';
-import {HeroSelectors} from 'src/app/shared/dnd/character/hero/hero.selectors';
-import {HeroActions} from 'src/app/shared/dnd/character/hero/hero.actions';
+import {HeroFacade} from 'src/app/shared/dnd/character/hero/hero.facade';
 
 @Component({
-    selector: 'dnd-heroes',
-    templateUrl: './heroes.component.html',
+  selector: 'dnd-heroes',
+  templateUrl: './heroes.component.html',
+  styleUrls: ['./heroes.component.scss'],
 })
 export class HeroesComponent implements OnInit, OnDestroy {
-    heroes$: Observable<Hero[]>;
 
-    constructor(private store: Store<DndState>) {
+  heroes$: Observable<Hero[]>;
+  hero$: Observable<Hero>;
+
+  constructor(private heroFacade: HeroFacade) {
+  }
+
+  ngOnInit() {
+    this.heroes$ = this.heroFacade.heroes$;
+    this.hero$ = this.heroFacade.hero$;
+
+  }
+
+  ngOnDestroy() {
+  }
+
+  createNewHero() {
+    this.heroFacade.openCreation();
+  }
+
+  editHero(hero: Hero) {
+    this.heroFacade.openEdition(hero);
+  }
+
+  deleteHero(hero: Hero) {
+    if (hero.id) {
+      this.heroFacade.deleteByID(hero.id);
     }
+  }
 
-    ngOnInit() {
-        this.heroes$ = this.store.pipe(select(HeroSelectors.Heroes));
-
-        this.searchHeroes();
-        setTimeout(() => this.searchHeroes(), 3500);
-    }
-
-    searchHeroes() {
-        this.store.dispatch(HeroActions.SearchHeroes());
-    }
-
-    ngOnDestroy() {
-    }
+  classBadgeCls(hero: Hero) {
+    return `${hero.characterClass.name}-badge`;
+  }
 }

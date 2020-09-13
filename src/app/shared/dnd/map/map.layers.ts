@@ -101,7 +101,7 @@ export const BASEMAPS = [
   'magamar/angmar/mines/mine_302.png',
   'magamar/angmar/mines/mine_401.png',
   'magamar/angmar/mines/mine_501.png',
-  'magamar/angmar/passage/passage.jpg',
+  'magamar/angmar/passage/passage.png',
 ];
 
 

@@ -6,16 +6,26 @@ import {StoreModule} from '@ngrx/store';
 import {HeroFeature} from '../dnd/character/hero/hero.state';
 import {HeroReducer} from '../dnd/character/hero/hero.reducer';
 import {HeroEffects} from '../dnd/character/hero/hero.effects';
+import {LocalStorageSyncEffect} from './sync/store-sync.effects';
+import {metaReducers} from './sync/store-sync.reducer';
+
+const reducers = {
+  ...{[HeroFeature]: HeroReducer},
+};
+
+const effects = [
+  HeroEffects,
+  LocalStorageSyncEffect,
+];
 
 @NgModule({
   imports: [
     CommonModule,
-    StoreModule.forRoot({}),
-    EffectsModule.forRoot([]),
-    // Hero
-    StoreModule.forFeature(HeroFeature, HeroReducer),
-    EffectsModule.forFeature([HeroEffects]),
-    StoreDevtoolsModule.instrument(),
+    StoreModule.forRoot(reducers, {metaReducers}),
+    EffectsModule.forRoot(effects),
+    StoreDevtoolsModule.instrument({
+      maxAge: 30
+    }),
   ],
 })
 export class DndStoreModule {

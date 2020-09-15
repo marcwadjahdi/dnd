@@ -6265,6 +6265,11 @@ ol-ext@^3.1.14:
   dependencies:
     gulp-jsdoc3 "^2.0.0"
 
+ol-layerswitcher@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/ol-layerswitcher/-/ol-layerswitcher-3.6.0.tgz#ad2baadc3e24646f0d78db16b0ba36648eb73f1c"
+  integrity sha512-15Xt35GIvZRinZFnMy330X0ZHahlTdgi8hTKE08VpnrAvayrabWVztzy2oBIDRPDSNUD7onAvG8UXeopqaQ5hg==
+
 ol-mapbox-style@^6.1.1:
   version "6.1.4"
   resolved "https://registry.yarnpkg.com/ol-mapbox-style/-/ol-mapbox-style-6.1.4.tgz#5caec1e26e45371091cb68488541b0f9d56d531f"

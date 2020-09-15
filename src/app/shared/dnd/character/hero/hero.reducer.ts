@@ -14,7 +14,6 @@ const saveHero = (state, {hero}) => HeroAdatapter.upsertOne(hero, unsetHero(stat
 const deleteOne = (state, {id}) => HeroAdatapter.removeOne(id, state);
 
 const reducer = createReducer(initialState(),
-  // Search
   on(HeroActions.OpenEditHero, setHero),
   on(HeroActions.CloseEditHero, unsetHero),
   on(HeroActions.EditHero, saveHero),

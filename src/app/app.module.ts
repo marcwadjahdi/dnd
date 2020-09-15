@@ -7,8 +7,7 @@ import {DndStoreModule} from './shared/store/dnd-store.module';
 import {DndModule} from './components/dnd.module';
 // Components
 import {MainComponent} from './shared/layouts/main/main.component';
-import {HomeComponent} from './components/home/home.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [

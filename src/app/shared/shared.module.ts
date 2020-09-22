@@ -10,23 +10,23 @@ import {far} from '@fortawesome/free-regular-svg-icons';
 import {LayoutsModule} from './layouts/layouts.module';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-        FontAwesomeModule,
-        FormsModule,
-        LayoutsModule,
-    ],
-    exports: [
-        CommonModule,
-        RouterModule,
-        FontAwesomeModule,
-        FormsModule,
-        LayoutsModule,
-    ]
+  imports: [
+    CommonModule,
+    RouterModule,
+    FontAwesomeModule,
+    FormsModule,
+    LayoutsModule,
+  ],
+  exports: [
+    CommonModule,
+    RouterModule,
+    FontAwesomeModule,
+    FormsModule,
+    LayoutsModule,
+  ],
 })
 export class SharedModule {
-    constructor(library: FaIconLibrary) {
-        library.addIconPacks(fas, far);
-    }
+  constructor(library: FaIconLibrary) {
+    library.addIconPacks(fas, far);
+  }
 }

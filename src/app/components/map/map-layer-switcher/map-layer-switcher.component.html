@@ -1,0 +1,3 @@
+<select class="basemapselector" [(ngModel)]="basemap" name="basemap" (change)="changeBasemap()">
+  <option *ngFor="let b of baseMaps" [value]="b">{{ basemapName(b)}}</option>
+</select>

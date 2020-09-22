@@ -1,4 +1,4 @@
-import {HeroPartialState} from '../dnd/character/hero/hero.state';
+import {PlayerCharacterState} from 'src/app/shared/store/dnd/character/player/player-character.state';
 
-export interface DndState extends HeroPartialState {
+export interface DndState extends PlayerCharacterState {
 }

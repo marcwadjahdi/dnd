@@ -1,0 +1,29 @@
+<menu class="overlay">
+  <a class="btn" (click)="useTool(TOOLS.player)"
+     [class.active]="isCurrentTool(TOOLS.player)">
+    <fa-icon [icon]="'user-plus'"></fa-icon>
+  </a>
+  <a class="btn" (click)="useTool(TOOLS.pointer)"
+     [class.active]="isCurrentTool(TOOLS.pointer)">
+    <fa-icon [icon]="'map-marker'"></fa-icon>
+  </a>
+  <a class="btn" (click)="useTool(TOOLS.line)"
+     [class.active]="isCurrentTool(TOOLS.line)">
+    <fa-icon [icon]="'pencil-ruler'"></fa-icon>
+  </a>
+  <a class="btn" (click)="useTool(TOOLS.polygon)"
+     [class.active]="isCurrentTool(TOOLS.polygon)">
+    <fa-icon [icon]="'draw-polygon'"></fa-icon>
+  </a>
+  <a class="btn" (click)="useTool(TOOLS.circle)"
+     [class.active]="isCurrentTool(TOOLS.circle)">
+    <fa-icon [icon]="'circle'"></fa-icon>
+  </a>
+  <a class="btn" (click)="useTool(TOOLS.eraser)"
+     [class.active]="isCurrentTool(TOOLS.eraser)">
+    <fa-icon [icon]="'eraser'"></fa-icon>
+  </a>
+  <a class="btn" (click)="trashAll()">
+    <fa-icon [icon]="'trash'"></fa-icon>
+  </a>
+</menu>

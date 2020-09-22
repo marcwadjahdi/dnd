@@ -1,48 +1,7 @@
 <section class="map">
   <main id="battle_map">
   </main>
-  <menu class="overlay" [class.collapsed]="collapsed">
-    <a class="btn" (click)="useTool(TOOLS.player)"
-       [class.active]="isCurrentTool(TOOLS.player)">
-      <fa-icon [icon]="'user-plus'"></fa-icon>
-    </a>
-    <a class="btn" (click)="useTool(TOOLS.select)"
-       [class.active]="isCurrentTool(TOOLS.select)">
-      <fa-icon [icon]="'hand-point-up'"></fa-icon>
-    </a>
-    <a class="btn" (click)="useTool(TOOLS.pointer)"
-       [class.active]="isCurrentTool(TOOLS.pointer)">
-      <fa-icon [icon]="'map-marker'"></fa-icon>
-    </a>
-    <a class="btn" (click)="useTool(TOOLS.line)"
-       [class.active]="isCurrentTool(TOOLS.line)">
-      <fa-icon [icon]="'pencil-ruler'"></fa-icon>
-    </a>
-    <a class="btn" (click)="useTool(TOOLS.polygon)"
-       [class.active]="isCurrentTool(TOOLS.polygon)">
-      <fa-icon [icon]="'draw-polygon'"></fa-icon>
-    </a>
-    <a class="btn" (click)="useTool(TOOLS.circle)"
-       [class.active]="isCurrentTool(TOOLS.circle)">
-      <fa-icon [icon]="'circle'"></fa-icon>
-    </a>
-    <a class="btn" (click)="useTool(TOOLS.eraser)"
-       [class.active]="isCurrentTool(TOOLS.eraser)">
-      <fa-icon [icon]="'eraser'"></fa-icon>
-    </a>
-    <a class="btn" (click)="trashAll()">
-      <fa-icon [icon]="'trash'"></fa-icon>
-    </a>
-  </menu>
-  <dnd-map-character-editor class="overlay map-character-editor"
-                            *ngIf="isFeatureSelected()"
-                            [character]="selectedCharacter"
-                            (createdCharacter)="createOrEditFeatureCharacter($event)">
-
-  </dnd-map-character-editor>
-
-  <select class="basemapselector" [(ngModel)]="basemap" name="basemap" (change)="changeBasemap()">
-    <option *ngFor="let b of baseMaps" [value]="b">{{ basemapName(b)}}</option>
-  </select>
+<!--  <dnd-map-tools></dnd-map-tools>-->
+<!--  <dnd-map-layer-switcher></dnd-map-layer-switcher>-->
 </section>
 

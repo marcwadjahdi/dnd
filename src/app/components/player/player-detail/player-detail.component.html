@@ -1,0 +1,50 @@
+<section class="player-form" *ngIf="!!player">
+  <header>
+    <input type="text" id="playersName" [(ngModel)]="player.name" placeholder="Player's name"/>
+  </header>
+  <main>
+    <article class="form-row">
+      <label for="playersClass">Class</label>
+      <select id="playersClass" [(ngModel)]="player.characterClass">
+        <option *ngFor="let playerClass of playerClasses" [ngValue]="playerClass">{{playerClass.name}}</option>
+      </select>
+    </article>
+
+    <article class="form-row">
+      <label for="playersLevel">Level</label>
+      <input type="number" id="playersLevel" min="1" max="20" [(ngModel)]="player.level"/>
+    </article>
+
+    <article class="form-row attributes">
+      <div class="attribute">
+        <label for="playersStr">STR</label>
+        <input type="number" id="playersStr" min="0" max="20" [(ngModel)]="player.attributes.strength"/>
+      </div>
+      <div class="attribute">
+        <label for="playersDex">DEX</label>
+        <input type="number" id="playersDex" min="0" max="20" [(ngModel)]="player.attributes.dexterity"/>
+      </div>
+      <div class="attribute">
+        <label for="playersCon">CON</label>
+        <input type="number" id="playersCon" min="0" max="20" [(ngModel)]="player.attributes.constitution"/>
+      </div>
+      <div class="attribute">
+        <label for="playersInt">INT</label>
+        <input type="number" id="playersInt" min="0" max="20" [(ngModel)]="player.attributes.intelligence"/>
+      </div>
+      <div class="attribute">
+        <label for="playersWis">WIS</label>
+        <input type="number" id="playersWis" min="0" max="20" [(ngModel)]="player.attributes.wisdom"/>
+      </div>
+      <div class="attribute">
+        <label for="playersCha">CHA</label>
+        <input type="number" id="playersCha" min="0" max="20" [(ngModel)]="player.attributes.charisma"/>
+      </div>
+    </article>
+  </main>
+  <footer>
+    <a (click)="savePlayer()" class="btn">
+      <fa-icon [icon]="'save'"></fa-icon>
+    </a>
+  </footer>
+</section>

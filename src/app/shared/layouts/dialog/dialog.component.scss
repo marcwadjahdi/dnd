@@ -1,0 +1,49 @@
+@import 'src/variables';
+
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  margin: 0;
+  padding: 0;
+
+  height: 100%;
+  width: 100%;
+
+  background-color: $bg-overlay;
+
+  overflow: auto;
+
+  .dialog-content {
+    position: relative;
+    top: 0;
+    left: 0;
+
+    width: 50%;
+    height: 50%;
+
+    margin: 10rem auto;
+    padding: 2rem;
+
+    background-color: $bg-light;
+    border: 1px solid $bg-x-light;
+
+    .close {
+      position: absolute;
+      top: -10px;
+      right: 0;
+
+      margin: 0.5rem;
+      padding: 0.5rem;
+
+      font-size: $font-size-base;
+      cursor: pointer;
+
+      :hover {
+        background-color: $bg-light;
+        color: $link-color;
+      }
+    }
+  }
+}

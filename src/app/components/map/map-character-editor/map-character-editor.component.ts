@@ -1,10 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Hero} from 'src/app/shared/dnd/character/hero/hero.model';
-import {HeroService} from 'src/app/shared/dnd/character/hero/hero.service';
-import {Character} from 'src/app/shared/dnd/character/common/character.model';
-import {CharacterType, CharacterTypes} from 'src/app/shared/dnd/character/common/character-types';
-import {deepCopy} from '../../../shared/util/deep-copy';
-import {CharacterService} from '../../../shared/dnd/character/common/character.service';
+import {CharacterType, CharacterTypes} from '../../../shared/models/character/common/character-types';
+import {Character} from '../../../shared/models/character/common/character.model';
+import {PlayerCharacter} from '../../../shared/models/character/player/player-character';
 
 @Component({
   selector: 'dnd-map-character-editor',
@@ -19,24 +16,24 @@ export class MapCharacterEditorComponent implements OnInit {
 
   characterTypes = CharacterTypes;
 
-  heroes: Hero[];
-  hero: Hero;
+  players: PlayerCharacter[];
+  player: PlayerCharacter;
 
-  constructor(private characterService: CharacterService, private heroesService: HeroService) {
+  constructor() {
   }
 
   ngOnInit(): void {
-    this.heroes = this.heroesService.search()
-      .filter(hero => !this.characterService.search(it => it.name === hero.name))
-      .map(h => {
-        const copy = deepCopy(h);
-        delete copy.id;
-        copy.characterClass = h.characterClass;
-        return copy;
-      });
-    if (!this.character) {
-      this.character = {};
-    }
+    // this.players = this.playersService.search()
+    //   .filter(player => !this.playersService.search(it => it.name === player.name))
+    //   .map(h => {
+    //     const copy = deepCopy(h);
+    //     delete copy.id;
+    //     copy.characterClass = h.characterClass;
+    //     return copy;
+    //   });
+    // if (!this.character) {
+    //   this.character = {};
+    // }
   }
 
   canSumbit() {
@@ -47,7 +44,7 @@ export class MapCharacterEditorComponent implements OnInit {
     if (this.canSumbit()) {
       this.createdCharacter.emit(this.character);
       this.character = {};
-      this.hero = null;
+      this.player = null;
     }
   }
 
@@ -56,7 +53,7 @@ export class MapCharacterEditorComponent implements OnInit {
   }
 
   onTypeSelect() {
-    this.hero = null;
+    this.player = null;
   }
 
   isTypeDisabled() {
@@ -71,11 +68,11 @@ export class MapCharacterEditorComponent implements OnInit {
     return this.character.type === CharacterType.NPC;
   }
 
-  onHeroSelect() {
-    this.character = {...this.hero};
+  onPlayerSelect() {
+    this.character = {...this.player};
   }
 
-  heroStr(h: Hero) {
+  playerStr(h: PlayerCharacter) {
     return `Lvl ${h.level} ${h.characterClass.name} - ${h.name}`;
   }
 }

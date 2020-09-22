@@ -20,9 +20,9 @@
   </section>
 
   <section [hidden]="!isPlayer()">
-    <label for="hero">Hero</label>
-    <select id="hero" [(ngModel)]="hero" (change)="onHeroSelect()">
-      <option *ngFor="let h of heroes" [ngValue]="h">{{heroStr(h)}}</option>
+    <label for="hero">Player</label>
+    <select id="hero" [(ngModel)]="player" (change)="onPlayerSelect()">
+      <option *ngFor="let p of players" [ngValue]="p">{{playerStr(p)}}</option>
     </select>
   </section>
 

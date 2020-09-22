@@ -1,0 +1,82 @@
+@import 'src/variables';
+
+.player-form {
+  display: grid;
+  grid-template-rows: 4rem 1fr 5rem;
+
+  padding: 1rem;
+
+  header {
+    position: relative;
+    top: 0;
+    left: 0;
+
+    .close {
+      position: absolute;
+      top: -20px;
+      right: 0;
+    }
+
+    #playersName {
+      height: 2.5rem;
+      width: 100%;
+
+      background-color: transparent;
+      color: $font-color;
+      border: none;
+
+      font-family: 'Krona One';
+      font-size: 1.75rem;
+    }
+  }
+
+  main {
+    min-height: 15rem;
+
+    label {
+      font-weight: bold;
+    }
+
+    input, select {
+      padding: 0;
+      margin: 0.5rem 0;
+      border:0;
+
+      font-family:inherit;
+      font-size: inherit;
+      text-indent: 0.5rem;
+
+      width: 100%;
+    }
+
+    .attributes {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+
+      text-align: center;
+
+      .attribute {
+        margin: 0 0.2rem;
+        font-weight: bold;
+
+        input {
+          text-align: center;
+        }
+      }
+    }
+
+  }
+
+  footer {
+    display: flex;
+    flex-direction: row;
+    place-content: flex-start;
+
+    .btn {
+      background-color: $bg-x-light;
+      font-size: $font-size-base * 1.5;
+      margin: 0.5rem;
+      padding: 0.5rem;
+    }
+  }
+}

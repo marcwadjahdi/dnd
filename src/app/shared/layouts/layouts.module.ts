@@ -10,6 +10,8 @@ import {FooterComponent} from './footer/footer.component';
 import {ErrorComponent} from './error/error.component';
 import {TabComponent} from './tabs/tab.component';
 import {TabsComponent} from './tabs/tabs.component';
+import {DialogComponent} from './dialog/dialog.component';
+import {DialogDirective} from './dialog/dialog.directive';
 
 @NgModule({
   imports: [
@@ -25,12 +27,8 @@ import {TabsComponent} from './tabs/tabs.component';
     ErrorComponent,
     TabsComponent,
     TabComponent,
-  ],
-  exports: [
-    MainComponent,
-    ErrorComponent,
-    TabsComponent,
-    TabComponent,
+    DialogComponent,
+    DialogDirective,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

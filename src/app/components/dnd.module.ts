@@ -1,10 +1,10 @@
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {CharacterModule} from './character/character.module';
 import {HomeModule} from './home/home.module';
 import {MapModule} from './map/map.module';
-
+import {PlayerModule} from './player/player.module';
+import {NpcModule} from './npc/npc.module';
 
 
 @NgModule({
@@ -13,7 +13,8 @@ import {MapModule} from './map/map.module';
     FontAwesomeModule,
     HomeModule,
     MapModule,
-    CharacterModule,
+    PlayerModule,
+    NpcModule,
   ],
   declarations: [],
   exports: [],

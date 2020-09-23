@@ -1,49 +1,25 @@
 @import '~src/variables';
 
-.map {
-  margin: 0;
+.map-tools {
+  position: fixed;
+  top: $nav-height + 2rem;
+  right: 0;
+
+  background-color: $bg-overlay;
+
+  width: 5rem;
   padding: 0;
-  height: 90vh;
 
-  menu {
-    position: fixed;
-    top: $nav-height + 2rem;
-    right: 0;
-
-    width: 5rem;
-    padding: 0;
-
-    .btn {
-      background-color: $bg-x-light;
-      margin: 0.5rem;
-      font-size: $font-size-base * 1.5;
-      padding: 0.5rem;
-    }
-
-    .btn:hover, .btn.active {
-      background-color: $bg-dark;
-      color: $link-color;
-      filter: none;
-    }
+  .btn {
+    background-color: $bg-x-light;
+    margin: 0.5rem;
+    font-size: $font-size-base * 1.5;
+    padding: 0.5rem;
   }
 
-  #battle_map {
-    width: 100% !important;
-    height: 100%;
-  }
-
-  .basemapselector {
-    position: fixed;
-    bottom: 3rem;
-    right: 0.5rem;
-  }
-
-  .map-character-editor {
-    position: fixed;
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 100%;
+  .btn:hover, .btn.active {
+    background-color: $bg-dark;
+    color: $link-color;
+    filter: none;
   }
 }

@@ -1,14 +1,17 @@
 <nav class="navbar">
-  <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="'/home'">
-    <fa-icon [icon]="'home'"></fa-icon>
-    <span>Home</span>
-  </a>
   <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="'/map'">
     <fa-icon [icon]="'map'"></fa-icon>
-    <span>Map</span>
+  </a>
+  <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="'/encounters'">
+    <fa-icon [icon]="'dice-d20'"></fa-icon>
+  </a>
+  <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="'/npc'">
+    <fa-icon [icon]="'khanda'"></fa-icon>
   </a>
   <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="'/players'">
     <fa-icon [icon]="'users'"></fa-icon>
-    <span>Players</span>
+  </a>
+  <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="'/home'">
+    <fa-icon [icon]="'info'"></fa-icon>
   </a>
 </nav>

@@ -6,33 +6,37 @@ import {Vector as VectorSource} from 'ol/source';
 import {Vector as VectorLayer} from 'ol/layer';
 
 import {battleMapID, extent, maxZoom, minZoom, projection} from './map.constants';
-import {basemaps, blank, layersIndex, toImageLayer} from './map.layers';
+import {Basemaps, HexGridImage, LayersConfigs, newImageSource} from './map.layers';
 import {STYLES} from './map.styles';
+import ImageLayer from 'ol/layer/Image';
 
 export namespace MapInitializer {
-
   function createBasemapLayer() {
-    return toImageLayer('Basemap', basemaps[0], layersIndex.basemap);
+    return new ImageLayer({
+      source: newImageSource({url: Basemaps[0]}),
+      ...LayersConfigs.basemap
+    });
   }
 
   function createGridLayer() {
-    return toImageLayer('Hex Grid', blank, layersIndex.grid);
+    return new ImageLayer({
+      source: newImageSource({url: HexGridImage}),
+      ...LayersConfigs.hexGrid
+    });
   }
 
   function createEnvironmentLayer() {
     return new VectorLayer({
-      title: 'Environment',
       source: new VectorSource(),
       style: (feature: Feature, resolution) => STYLES[feature.getGeometry().getType()],
-      zIndex: layersIndex.environment,
+      ...LayersConfigs.environment,
     });
   }
 
   function createCharacterLayer() {
     return new VectorLayer({
-      title: 'Characters',
       source: new VectorSource(),
-      zIndex: layersIndex.characters,
+      ...LayersConfigs.characters,
     });
   }
 
@@ -52,18 +56,13 @@ export namespace MapInitializer {
       view: new View({
         projection,
         center: getCenter(extent),
-        zoom: maxZoom,
+        zoom: maxZoom / 2,
         minZoom,
         maxZoom,
       }),
-      controls:[],
+      controls: [],
     });
 
-    return {
-      map,
-      basemapLayer,
-      environmentLayer,
-      characterLayer,
-    };
+    return map;
   }
 }

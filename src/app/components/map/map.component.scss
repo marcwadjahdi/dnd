@@ -3,10 +3,17 @@
 .map {
   margin: 0;
   padding: 0;
-  height: 90vh;
+  height: 100%;
+  width: 100%;
 
   #battle_map {
-    height: 90vh;
+    height: calc(100vh - 4.5rem);
     width: 100vw;
   }
+}
+
+dnd-map-tools, dnd-map-layer-switcher {
+  position: fixed;
+  top: 0;
+  left: 0;
 }

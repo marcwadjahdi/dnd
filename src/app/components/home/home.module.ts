@@ -12,7 +12,7 @@ import {HomeComponent} from './home.component';
     RouterModule.forRoot([
       {
         path: '',
-        redirectTo: 'home',
+        redirectTo: 'map',
         pathMatch: 'full'
       },
       {

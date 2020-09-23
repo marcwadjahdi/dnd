@@ -1,9 +1,12 @@
 import {Injectable} from '@angular/core';
 
 import Map from 'ol/Map';
-import {Vector as VectorLayer} from 'ol/layer';
-import ImageLayer from 'ol/layer/Image';
 import {MapInitializer} from './map.initializer';
+import {LayersConfigs, newImageSource} from './map.layers';
+import {Maps} from './map.utils';
+import {MapInteractionService} from './interactions/map-interaction.service';
+import ImageLayer from 'ol/layer/Image';
+import getLayerByTitle = Maps.getLayerByTitle;
 
 
 @Injectable({
@@ -11,25 +14,28 @@ import {MapInitializer} from './map.initializer';
 })
 export class MapService {
   private map: Map;
-  private basemapLayer: ImageLayer;
-  private gridLayer: ImageLayer;
-  private environmentLayer: VectorLayer;
-  private characterLayer: VectorLayer;
 
-  constructor() {
+  constructor(private interactions: MapInteractionService) {
   }
+
+  initialize() {
+    this.map = MapInitializer.initialize();
+    this.interactions.initialize(this.map);
+  }
+
+  changeBasemap(url: string) {
+    this.getBasemapLayer().setSource(newImageSource({
+      url,
+    }));
+  }
+
+  /* Utils */
 
   getMap(): Map {
     return this.map;
   }
 
-  changeLayer(basemap: string) {
-
-  }
-
-  initialize() {
-    if (!this.map) {
-      Object.assign(this, MapInitializer.initialize());
-    }
+  getBasemapLayer() {
+    return getLayerByTitle(this.map, LayersConfigs.basemap.title) as ImageLayer;
   }
 }

@@ -1,11 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {battleMapID, extent, maxZoom, minZoom, projection} from '../../shared/store/dnd/map/map.constants';
 import {MapService} from '../../shared/store/dnd/map/map.service';
-import {MapInitializer} from '../../shared/store/dnd/map/map.initializer';
-import Map from 'ol/Map';
-import View from 'ol/View';
-import {getCenter} from 'ol/extent';
-import {basemaps, layersIndex, toImageLayer} from '../../shared/store/dnd/map/map.layers';
 
 
 @Component({

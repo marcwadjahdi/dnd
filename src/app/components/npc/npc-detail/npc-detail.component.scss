@@ -1,6 +1,6 @@
 @import 'src/variables';
 
-.hero-form {
+.npc-form {
   display: grid;
   grid-template-rows: 4rem 1fr 5rem;
 
@@ -11,13 +11,10 @@
     top: 0;
     left: 0;
 
-    .close {
-      position: absolute;
-      top: -20px;
-      right: 0;
-    }
+    display: grid;
+    grid-template-columns: 1fr 5rem;
 
-    #herosName {
+    #npcName {
       height: 2.5rem;
       width: 100%;
 
@@ -27,6 +24,18 @@
 
       font-family: 'Krona One';
       font-size: 1.75rem;
+    }
+
+    .hostility {
+      font-size: 2rem;
+
+      cursor: pointer;
+
+      transition: $transition-speed;
+    }
+
+    .hostility:hover {
+        color: $link-color;
     }
   }
 
@@ -38,15 +47,7 @@
     }
 
     input, select {
-      padding: 0;
       margin: 0.5rem 0;
-      border:0;
-
-      font-family:inherit;
-      font-size: inherit;
-      text-indent: 0.5rem;
-
-      width: 100%;
     }
 
     .attributes {
@@ -66,7 +67,6 @@
     }
 
   }
-
 
   footer {
     display: flex;

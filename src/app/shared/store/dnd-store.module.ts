@@ -3,19 +3,29 @@ import {CommonModule} from '@angular/common';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
 import {StoreModule} from '@ngrx/store';
-import {PlayerFeature} from './dnd/character/player/player-character.state';
-import {PlayerCharacterReducer} from './dnd/character/player/player-character.reducer';
-import {PlayerCharacterEffects} from './dnd/character/player/player-character.effects';
+import {PcFeature} from './dnd/character/player/pc.state';
+import {PcReducer} from './dnd/character/player/pc.reducer';
+import {PcEffects} from './dnd/character/player/pc.effects';
 import {LocalStorageSyncEffect} from './util/sync/store-sync.effects';
 import {metaReducers} from './util/sync/store-sync.reducer';
+import {NpcFeature} from './dnd/character/npc/npc.state';
+import {NpcReducer} from './dnd/character/npc/npc.reducer';
+import {NpcEffects} from './dnd/character/npc/npc.effects';
+import {BattleFeature} from './dnd/battle/battle.state';
+import {BattleReducer} from './dnd/battle/battle.reducer';
+import {BattleEffects} from './dnd/battle/battle.effects';
 
 const reducers = {
-  ...{[PlayerFeature]: PlayerCharacterReducer},
+  ...{[NpcFeature]: NpcReducer},
+  ...{[PcFeature]: PcReducer},
+  ...{[BattleFeature]: BattleReducer},
 };
 
 const effects = [
   LocalStorageSyncEffect,
-  PlayerCharacterEffects,
+  PcEffects,
+  NpcEffects,
+  BattleEffects,
 ];
 
 @NgModule({

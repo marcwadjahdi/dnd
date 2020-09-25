@@ -1,0 +1,50 @@
+<section class="player-form" *ngIf="!!player">
+  <header>
+    <input type="text" id="playerName" [(ngModel)]="player.name" placeholder="Player's name"/>
+  </header>
+  <main>
+    <article class="form-row">
+      <label for="playerClass">Class</label>
+      <select id="playerClass" [(ngModel)]="player.characterClass">
+        <option *ngFor="let playerClass of playerClasses" [ngValue]="playerClass">{{playerClass.name}}</option>
+      </select>
+    </article>
+
+    <article class="form-row">
+      <label for="playerLevel">Level</label>
+      <input type="number" id="playerLevel" min="1" max="20" [(ngModel)]="player.level"/>
+    </article>
+
+    <article class="form-row attributes">
+      <div class="attribute">
+        <label for="playerStr">STR</label>
+        <input type="number" id="playerStr" min="0" max="20" [(ngModel)]="player.attributes.strength"/>
+      </div>
+      <div class="attribute">
+        <label for="playerDex">DEX</label>
+        <input type="number" id="playerDex" min="0" max="20" [(ngModel)]="player.attributes.dexterity"/>
+      </div>
+      <div class="attribute">
+        <label for="playerCon">CON</label>
+        <input type="number" id="playerCon" min="0" max="20" [(ngModel)]="player.attributes.constitution"/>
+      </div>
+      <div class="attribute">
+        <label for="playerInt">INT</label>
+        <input type="number" id="playerInt" min="0" max="20" [(ngModel)]="player.attributes.intelligence"/>
+      </div>
+      <div class="attribute">
+        <label for="playerWis">WIS</label>
+        <input type="number" id="playerWis" min="0" max="20" [(ngModel)]="player.attributes.wisdom"/>
+      </div>
+      <div class="attribute">
+        <label for="playerCha">CHA</label>
+        <input type="number" id="playerCha" min="0" max="20" [(ngModel)]="player.attributes.charisma"/>
+      </div>
+    </article>
+  </main>
+  <footer>
+    <a (click)="savePlayer()" class="btn">
+      <fa-icon [icon]="'save'"></fa-icon>
+    </a>
+  </footer>
+</section>

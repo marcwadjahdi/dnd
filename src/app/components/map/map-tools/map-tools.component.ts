@@ -1,9 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-
-import {Draw, Modify, Select, Snap} from 'ol/interaction';
-import {Subscription} from 'rxjs';
-import {TOOLS} from '../../../shared/store/dnd/map/map.tools';
-import {MapInteractionService} from '../../../shared/store/dnd/map/interactions/map-interaction.service';
+import {TOOLS} from 'src/app/shared/map/map.tools';
+import {MapInteractionService} from 'src/app/shared/map/interactions/map-interaction.service';
 
 
 @Component({

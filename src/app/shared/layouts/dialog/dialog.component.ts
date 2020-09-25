@@ -1,15 +1,7 @@
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  ComponentFactoryResolver,
-  ComponentRef,
-  OnDestroy,
-  Type,
-  ViewChild
-} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, ComponentFactoryResolver, ComponentRef, OnDestroy, Type, ViewChild} from '@angular/core';
 import {DialogDirective} from './dialog.directive';
 import {Subject} from 'rxjs';
+import {DialogService} from './dialog.service';
 
 @Component({
   selector: 'dnd-dialog',
@@ -28,7 +20,8 @@ export class DialogComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private service: DialogService,
   ) {
   }
 
@@ -57,10 +50,8 @@ export class DialogComponent implements AfterViewInit, OnDestroy {
   close($event: MouseEvent) {
     if (this.componentRef.instance.close) {
       this.componentRef.instance.close();
+    } else {
+      this.service.close();
     }
-  }
-
-  submit() {
-
   }
 }

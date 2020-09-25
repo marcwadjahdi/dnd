@@ -1,0 +1,53 @@
+<section class="npc-form" *ngIf="!!npc">
+  <header>
+    <input type="text" id="npcName" [(ngModel)]="npc.name" placeholder="npc's name"/>
+    <fa-icon class="hostility" [icon]="hostilityIcon()" (click)="changeHostility()"></fa-icon>
+  </header>
+  <main>
+    <article class="form-row">
+      <label for="npcType">Type</label>
+      <select id="npcType" [(ngModel)]="npc.creatureType">
+        <option *ngFor="let type of keys(enumCreatureType)" [ngValue]="type">{{enumCreatureType[type]}}</option>
+      </select>
+    </article>
+
+    <article class="form-row">
+      <label for="npcCR">Challenge Rating</label>
+      <select id="npcCR" [(ngModel)]="npc.cr">
+        <option *ngFor="let cr of keys(enumChallengeRating)" [ngValue]="cr">{{enumChallengeRating[cr]}}</option>
+      </select>
+    </article>
+
+    <article class="form-row attributes">
+      <div class="attribute">
+        <label for="npcStr">STR</label>
+        <input type="number" id="npcStr" min="0" max="20" [(ngModel)]="npc.attributes.strength"/>
+      </div>
+      <div class="attribute">
+        <label for="npcDex">DEX</label>
+        <input type="number" id="npcDex" min="0" max="20" [(ngModel)]="npc.attributes.dexterity"/>
+      </div>
+      <div class="attribute">
+        <label for="npcCon">CON</label>
+        <input type="number" id="npcCon" min="0" max="20" [(ngModel)]="npc.attributes.constitution"/>
+      </div>
+      <div class="attribute">
+        <label for="npcInt">INT</label>
+        <input type="number" id="npcInt" min="0" max="20" [(ngModel)]="npc.attributes.intelligence"/>
+      </div>
+      <div class="attribute">
+        <label for="npcWis">WIS</label>
+        <input type="number" id="npcWis" min="0" max="20" [(ngModel)]="npc.attributes.wisdom"/>
+      </div>
+      <div class="attribute">
+        <label for="npcCha">CHA</label>
+        <input type="number" id="npcCha" min="0" max="20" [(ngModel)]="npc.attributes.charisma"/>
+      </div>
+    </article>
+  </main>
+  <footer>
+    <a (click)="saveNpc()" class="btn">
+      <fa-icon [icon]="'save'"></fa-icon>
+    </a>
+  </footer>
+</section>

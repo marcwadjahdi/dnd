@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 // Routing
 import {RouterModule} from '@angular/router';
 // Components
-import {NpcListComponent} from './npc-list.component';
+import {NpcListComponent} from './npc-list/npc-list.component';
 import {NpcDetailComponent} from './npc-detail/npc-detail.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {FormsModule} from '@angular/forms';
@@ -18,7 +18,7 @@ import {FormsModule} from '@angular/forms';
     FontAwesomeModule,
     RouterModule.forRoot([
       {
-        path: 'heroes',
+        path: 'npc',
         component: NpcListComponent,
       },
     ]),

@@ -1,9 +1,8 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {navbarRoutes} from './shared/layouts/navbar/navbar.route.';
-import {errorRoutes} from './shared/layouts/error/error.route';
-import {HomeComponent} from './components/home/home.component';
-import {MapComponent} from './components/map/map.component';
+import {navbarRoutes} from 'src/app/shared/layouts/navbar/navbar.route.';
+import {errorRoutes} from 'src/app/shared/layouts/error/error.route';
+import {HomeComponent} from 'src/app/components/home/home.component';
 
 const routes: Routes = [
   {

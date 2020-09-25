@@ -1,0 +1,44 @@
+<section class="npcs">
+  <header>
+    <h2>NPCS</h2>
+    <nav class="actions">
+      <a (click)="createNewNPC()" class="btn">
+        <fa-icon [icon]="'plus'"></fa-icon>
+        <span>New NPC</span>
+      </a>
+    </nav>
+  </header>
+  <nav class="filters">
+    <span class="hostility"><fa-icon [icon]="'skull-crossbones'" (click)="hostileFilter()"></fa-icon></span>
+    <span class="hostility"><fa-icon [icon]="'heart'" (click)="friendlyFilter()"></fa-icon></span>
+    <input type="text" placeholder="Search by Name" class="form-control" (change)="nameFilter($event)"/>
+  </nav>
+  <main>
+    <section class="npcs-tiles">
+      <article *ngFor="let npc of npcs$ | async" class="npc-tile">
+        <header>
+          <span>{{npc.name}}</span>
+          <span class="cr-badge" [class]="hostileBadgeCls(npc)">{{enumChallengeRating[npc.cr]}}</span>
+        </header>
+        <main>
+          <span class="attributes">
+            <span class="attribute"><span>Str</span><span>{{npc?.attributes?.strength}}</span></span>
+            <span class="attribute"><span>Dex</span><span>{{npc?.attributes?.dexterity}}</span></span>
+            <span class="attribute"><span>Con</span><span>{{npc?.attributes?.constitution}}</span></span>
+            <span class="attribute"><span>Int</span><span>{{npc?.attributes?.intelligence}}</span></span>
+            <span class="attribute"><span>Wis</span><span>{{npc?.attributes?.wisdom}}</span></span>
+            <span class="attribute"><span>Cha</span><span>{{npc?.attributes?.charisma}}</span></span>
+          </span>
+        </main>
+        <footer>
+          <a (click)="editNPC(npc)">
+            <fa-icon [icon]="'hammer'"></fa-icon>
+          </a>
+          <a (click)="deleteNPC(npc)">
+            <fa-icon [icon]="'trash'"></fa-icon>
+          </a>
+        </footer>
+      </article>
+    </section>
+  </main>
+</section>

@@ -3,8 +3,9 @@ import {CommonModule} from '@angular/common';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {HomeModule} from './home/home.module';
 import {MapModule} from './map/map.module';
-import {PlayerModule} from './player/player.module';
+import {PcModule} from './pc/pc.module';
 import {NpcModule} from './npc/npc.module';
+import {BattleModule} from './battle/battle.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import {NpcModule} from './npc/npc.module';
     FontAwesomeModule,
     HomeModule,
     MapModule,
-    PlayerModule,
+    BattleModule,
+    PcModule,
     NpcModule,
   ],
   declarations: [],

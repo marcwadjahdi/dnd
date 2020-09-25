@@ -87,3 +87,20 @@ a:hover {
 fa-icon svg {
   margin: auto;
 }
+
+input, select {
+  padding: 0px;
+  margin: 0;
+  border:0;
+
+  font-family:inherit;
+  font-size: inherit;
+
+  text-indent: 0.3rem;
+  width: 100%;
+}
+
+.border-customized-input {
+  border: 2px solid #eee;
+}
+

@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MapService} from '../../../shared/store/dnd/map/map.service';
-import {Basemaps} from '../../../shared/store/dnd/map/map.layers';
+import {MapService} from 'src/app/shared/map/map.service';
+import {Basemaps} from 'src/app/shared/map/map.layers';
 
 
 @Component({

@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MapService} from '../../shared/store/dnd/map/map.service';
+import {MapService} from 'src/app/shared/map/map.service';
 
 
 @Component({

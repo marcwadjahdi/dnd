@@ -1,0 +1,39 @@
+<section class="pcs">
+  <header>
+    <h2>Players</h2>
+    <nav>
+      <a (click)="createNewPlayer()" class="btn">
+        <fa-icon [icon]="'user-plus'"></fa-icon>
+        <span>New Player</span>
+      </a>
+    </nav>
+  </header>
+  <main>
+    <section class="pcs-tiles">
+      <article *ngFor="let player of players$ | async" class="pc-tile">
+        <header>
+          <span>{{player.name}}</span>
+          <span class="level-badge" [class]="classBadgeCls(player)">{{player.level}}</span>
+        </header>
+        <main>
+          <span class="attributes">
+            <span class="attribute"><span>Str</span><span>{{player?.attributes?.strength}}</span></span>
+            <span class="attribute"><span>Dex</span><span>{{player?.attributes?.dexterity}}</span></span>
+            <span class="attribute"><span>Con</span><span>{{player?.attributes?.constitution}}</span></span>
+            <span class="attribute"><span>Int</span><span>{{player?.attributes?.intelligence}}</span></span>
+            <span class="attribute"><span>Wis</span><span>{{player?.attributes?.wisdom}}</span></span>
+            <span class="attribute"><span>Cha</span><span>{{player?.attributes?.charisma}}</span></span>
+          </span>
+        </main>
+        <footer>
+          <a (click)="editPlayer(player)">
+            <fa-icon [icon]="'hammer'"></fa-icon>
+          </a>
+          <a (click)="deletePlayer(player)">
+            <fa-icon [icon]="'trash'"></fa-icon>
+          </a>
+        </footer>
+      </article>
+    </section>
+  </main>
+</section>

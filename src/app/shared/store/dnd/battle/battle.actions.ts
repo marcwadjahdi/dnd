@@ -1,14 +1,16 @@
 import {createAction, props} from '@ngrx/store';
-import {Character} from 'src/app/shared/models/character/character';
-import {BattleTurn} from 'src/app/shared/models/battle/battle';
+import {Character} from 'src/app/shared/dnd/character/character.model';
+import {BattleTurn} from 'src/app/shared/dnd/battle/battle';
 
 const prefix = '[Battle]';
 
 export const BattleActions = {
   OpenNewBattle: createAction(`${prefix} New Battle`),
-  NewBattle: createAction(`${prefix} New Battle Ready`, props<{ turn: BattleTurn }>()),
-  StartBattle: createAction(`${prefix} StartBattle`),
+  StartBattle: createAction(`${prefix} StartBattle`, props<{ turn: BattleTurn }>()),
+  BattleStarted: createAction(`${prefix} Battle Started`),
+
   EndBattle: createAction(`${prefix} End Battle`),
+  BattleEnded: createAction(`${prefix} Battle Ended`),
 
   PreviousTurn: createAction(`${prefix} Previous Turn`),
   NextTurn: createAction(`${prefix} Next Turn`),
@@ -16,6 +18,8 @@ export const BattleActions = {
 
   OpenAddCharacter: createAction(`${prefix} Open Add Character`),
   AddCharacter: createAction(`${prefix} Add Character`, props<{ character: Character }>()),
+
   EditCharacter: createAction(`${prefix} Add Character`, props<{ character: Character }>()),
+
   RemoveCharacter: createAction(`${prefix} Remove Character`, props<{ id: number }>()),
 };

@@ -18,6 +18,15 @@
       </select>
     </article>
 
+    <article class="form-row">
+      <label for="npcHP">Health Points</label>
+      <div id="npcHP">
+        <input type="number" min="1" [(ngModel)]="npc.hp" placeholder="current HP"/>
+        <strong>/</strong>
+        <input type="number" min="1" [(ngModel)]="npc.maxHP" placeholder="max HP"/>
+      </div>
+    </article>
+
     <article class="form-row attributes">
       <div class="attribute">
         <label for="npcStr">STR</label>

@@ -15,6 +15,7 @@ import {FormsModule} from '@angular/forms';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     FontAwesomeModule,
     RouterModule.forRoot([
       {
@@ -22,7 +23,6 @@ import {FormsModule} from '@angular/forms';
         component: NpcListComponent,
       },
     ]),
-    FormsModule,
   ]
 })
 export class NpcModule {

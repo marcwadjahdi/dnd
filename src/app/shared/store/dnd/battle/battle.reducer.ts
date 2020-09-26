@@ -1,9 +1,9 @@
 import {createReducer, on} from '@ngrx/store';
 import * as _ from 'lodash';
 import {BattleActions} from './battle.actions';
-import {randomId} from 'src/app/shared/models/common/identified';
+import {randomId} from 'src/app/shared/dnd/common/identified';
 import {deepCopy} from '../../../util/deep-copy';
-import {BattleState} from './battle.state';
+import {BattleTurn} from '../../../dnd/battle/battle';
 
 function initialState() {
   return {
@@ -13,16 +13,17 @@ function initialState() {
 }
 
 const startBattle = (state, turn0) => {
+  const start = {start: new Date()};
   return {
     ...endBattle(state),
     active: {
+      ...start,
       id: randomId(),
-      start: new Date(),
       currentTurn: {
         id: 0,
-        start: new Date(),
+        initiative: sortInitiative(turn0.active.currentTurn),
         ...turn0,
-      },
+      }
     },
   };
 };
@@ -70,25 +71,25 @@ const nextTurn = (state, turn) => {
 const addOrEditCharacter = (state, character) => {
   const newState = deepCopy(state);
   newState.active.currentTurn.characters[character.id] = deepCopy(character);
-  state.active.currentTurn.initiative = sortInitiative(newState);
+  state.active.currentTurn.initiative = sortInitiative(newState.active.currentTurn);
   return newState;
 };
 
 const removeCharacter = (state, id) => {
   const newState = deepCopy(state);
   delete newState.active.currentTurn.characters[id];
-  state.active.currentTurn.initiative = sortInitiative(newState);
+  state.active.currentTurn.initiative = sortInitiative(newState.active.currentTurn);
   return newState;
 };
 
 
-function sortInitiative(state: BattleState) {
-  _.orderBy(state.active.currentTurn.characters).map(it => it.id);
+function sortInitiative(turn: BattleTurn) {
+  _.orderBy(turn.characters).map(it => it.id);
 }
 
 
 const reducer = createReducer(initialState(),
-  on(BattleActions.StartBattle, startBattle),
+  on(BattleActions.BattleStarted, startBattle),
   on(BattleActions.EndBattle, endBattle),
 
   on(BattleActions.PreviousTurn, previousTurn),

@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {TOOLS} from 'src/app/shared/map/map.tools';
 import {MapInteractionService} from 'src/app/shared/map/interactions/map-interaction.service';
+import {Maps} from 'src/app/shared/map/maps';
 
 
 @Component({
@@ -9,7 +9,8 @@ import {MapInteractionService} from 'src/app/shared/map/interactions/map-interac
   styleUrls: ['./map-tools.component.scss']
 })
 export class MapToolsComponent implements OnInit, OnDestroy {
-  readonly tools = TOOLS;
+
+  readonly Tools = Maps.Tools;
 
   private currentTool: string;
 
@@ -30,19 +31,19 @@ export class MapToolsComponent implements OnInit, OnDestroy {
       return;
     }
     switch (tool) {
-      case TOOLS.point:
-      case TOOLS.line:
-      case TOOLS.polygon:
-      case TOOLS.circle:
+      case this.Tools.point:
+      case this.Tools.line:
+      case this.Tools.polygon:
+      case this.Tools.circle:
         this.interactions.draw(tool);
         break;
-      case TOOLS.edit :
+      case this.Tools.edit :
         this.interactions.edit();
         break;
-      case TOOLS.eraser :
+      case this.Tools.eraser :
         this.interactions.eraser();
         break;
-      case TOOLS.trash:
+      case this.Tools.trash:
         this.interactions.deleteAllEnvironment();
         this.currentTool = null;
         break;

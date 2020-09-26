@@ -1,5 +1,5 @@
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
-import {Character} from 'src/app/shared/models/character/character';
+import {Character} from 'src/app/shared/dnd/character/character.model';
 
 export const NpcFeature = 'Npcs';
 

@@ -1,4 +1,4 @@
-import {Battle} from 'src/app/shared/models/battle/battle';
+import {Battle} from 'src/app/shared/dnd/battle/battle';
 
 export const BattleFeature = 'Battle';
 

@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {NpcFacade} from 'src/app/shared/store/dnd/character/npc/npc.facade';
-import {ChallengeRating} from 'src/app/shared/models/character/challenge-rating';
-import {CreatureType} from 'src/app/shared/models/character/creature-type';
-import {Character} from 'src/app/shared/models/character/character';
+import {ChallengeRating} from 'src/app/shared/dnd/character/enums/challenge-rating.enum';
+import {CreatureType} from 'src/app/shared/dnd/character/enums/creature-type.enum';
+import {Character} from 'src/app/shared/dnd/character/character.model';
 
 @Component({
   selector: 'dnd-npc-list',
@@ -13,8 +13,6 @@ import {Character} from 'src/app/shared/models/character/character';
 export class NpcListComponent implements OnInit, OnDestroy {
   readonly enumChallengeRating = ChallengeRating;
   readonly enumNpcType = CreatureType;
-
-
 
   npcs$: Observable<Character[]>;
 

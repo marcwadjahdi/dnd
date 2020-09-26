@@ -1,5 +1,5 @@
 <div class="map-layer-switcher">
   <select class="basemapselector" [(ngModel)]="basemap" name="basemap" (change)="changeBasemap()">
-    <option *ngFor="let b of baseMaps" [value]="b">{{ basemapName(b)}}</option>
+    <option *ngFor="let b of basemaps" [value]="b.id">{{b.label}}</option>
   </select>
 </div>

@@ -1,4 +1,4 @@
-import {PcState} from 'src/app/shared/store/dnd/character/player/pc.state';
+import {PcState} from 'src/app/shared/store/dnd/character/pc/pc.state';
 import {NpcState} from './dnd/character/npc/npc.state';
 import {BattleState} from './dnd/battle/battle.state';
 

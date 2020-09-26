@@ -1,8 +1,9 @@
-<section class="aa">
-  <header>
-    <h2>Add Character</h2>
-  </header>
-  <main>
-    <input type="number" class="initiative" min="0" max="30" [(ngModel)]="character.initiative" />
-  </main>
-</section>
+<article class="character-row">
+  <span class="class-icon" [class]="iconClass(character)"></span>
+  <input class="initiative" type="number" min="0" max="30" [(ngModel)]="character.initiative"/>
+  <input class="name" type="text" [(ngModel)]="character.name" placeholder="Character's name"/>
+  <input class="hp" type="number" min="0" max="{{character.maxHP}}" [(ngModel)]="character.hp"/>
+  <a class="remove" (click)="removeFromBattle()">
+    <fa-icon [icon]="'trash'"></fa-icon>
+  </a>
+</article>

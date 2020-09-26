@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {BattleCharacter} from 'src/app/shared/models/battle/battle';
+import {BattleCharacter} from 'src/app/shared/dnd/battle/battle';
 
 @Component({
   selector: 'dnd-add-battle-character',

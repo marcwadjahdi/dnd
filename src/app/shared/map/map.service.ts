@@ -1,12 +1,10 @@
 import {Injectable} from '@angular/core';
 
 import Map from 'ol/Map';
-import {MapInitializer} from './map.initializer';
-import {LayersConfigs, newImageSource} from './map.layers';
-import {Maps} from './map.utils';
-import {MapInteractionService} from './interactions/map-interaction.service';
+import {Maps} from './maps';
 import ImageLayer from 'ol/layer/Image';
-import getLayerByTitle = Maps.getLayerByTitle;
+import newImageSource = Maps.Layers.newImageSource;
+import getLayerByTitle = Maps.Layers.getLayerByTitle;
 
 
 @Injectable({
@@ -15,12 +13,11 @@ import getLayerByTitle = Maps.getLayerByTitle;
 export class MapService {
   private map: Map;
 
-  constructor(private interactions: MapInteractionService) {
+  constructor() {
   }
 
   initialize() {
-    this.map = MapInitializer.initialize();
-    this.interactions.initialize(this.map);
+    this.map = Maps.Initializer.initialize();
   }
 
   changeBasemap(url: string) {
@@ -36,6 +33,6 @@ export class MapService {
   }
 
   getBasemapLayer() {
-    return getLayerByTitle(this.map, LayersConfigs.basemap.title) as ImageLayer;
+    return getLayerByTitle(this.map, Maps.Layers.config.basemap.title) as ImageLayer;
   }
 }

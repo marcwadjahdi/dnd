@@ -2,22 +2,19 @@
   <header>
     <h2>Active Battle</h2>
     <nav class="actions">
-      <a (click)="openAddToBattle()" class="btn">
+      <a (click)="openAddToBattle()" class="btn" *ngIf="!!(battle$ | async)">
         <fa-icon [icon]="'user-plus'"></fa-icon>
       </a>
-      <a (click)="previousTurn()" class="btn">
+      <a (click)="previousTurn()" class="btn" *ngIf="!!(battle$ | async)?.start">
         <fa-icon [icon]="'step-backward'"></fa-icon>
       </a>
-      <a (click)="nextTurn()" class="btn">
+      <a (click)="nextTurn()" class="btn" *ngIf="!!(battle$ | async)?.start">
         <fa-icon [icon]="'step-forward'"></fa-icon>
       </a>
-      <a (click)="endBattle()" class="btn">
+      <a (click)="endBattle()" class="btn" *ngIf="!!(battle$ | async)?.start">
         <fa-icon [icon]="'stop'"></fa-icon>
       </a>
-      <a (click)="startBattle()" class="btn">
-        <fa-icon [icon]="'play'"></fa-icon>
-      </a>
-      <a (click)="newBattle()" class="btn">
+      <a (click)="newBattle()" class="btn" *ngIf="!(battle$ | async)">
         <fa-icon [icon]="'dice-d20'"></fa-icon>
       </a>
     </nav>

@@ -2,17 +2,19 @@ import {Injectable} from '@angular/core';
 
 import Map from 'ol/Map';
 import {Draw, Modify, Select, Snap} from 'ol/interaction';
-import {LayersConfigs} from '../map.layers';
-import {Maps} from '../map.utils';
+import {Maps} from '../maps';
 import GeometryType from 'ol/geom/GeometryType';
 import VectorLayer from 'ol/layer/Vector';
 import {click} from 'ol/events/condition';
 import Transform from 'ol-ext/interaction/Transform';
+import getLayerByTitle = Maps.Layers.getLayerByTitle;
 
 @Injectable({
   providedIn: 'root',
 })
 export class MapInteractionService {
+
+  readonly LayersConfig = Maps.Layers.config;
 
   map: Map;
 
@@ -39,7 +41,7 @@ export class MapInteractionService {
   }
 
   initCharactersInteractions() {
-    const layer = Maps.getLayerByTitle(this.map, LayersConfigs.characters.title) as VectorLayer;
+    const layer = getLayerByTitle(this.map, this.LayersConfig.characters.title) as VectorLayer;
     const source = layer.getSource();
 
     this.characters.snap = this.addInteraction(new Snap({source}));
@@ -47,7 +49,7 @@ export class MapInteractionService {
   }
 
   initEnvironmentInteractions() {
-    const layer = Maps.getLayerByTitle(this.map, LayersConfigs.environment.title) as VectorLayer;
+    const layer = getLayerByTitle(this.map, this.LayersConfig.environment.title) as VectorLayer;
     const source = layer.getSource();
 
     this.environment.edit = new Transform({
@@ -75,7 +77,6 @@ export class MapInteractionService {
     });
     this.map.addInteraction(this.environment.eraser);
   }
-
 
   addInteraction(interaction) {
     if (interaction) {
@@ -121,6 +122,6 @@ export class MapInteractionService {
   }
 
   private getEnvLayer() {
-    return (Maps.getLayerByTitle(this.map, LayersConfigs.environment.title) as VectorLayer);
+    return (getLayerByTitle(this.map, this.LayersConfig.environment.title) as VectorLayer);
   }
 }

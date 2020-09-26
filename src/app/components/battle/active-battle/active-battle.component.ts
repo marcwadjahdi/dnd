@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Battle, BattleCharacter, BattleTurn} from 'src/app/shared/models/battle/battle';
+import {Battle, BattleCharacter, BattleTurn} from 'src/app/shared/dnd/battle/battle';
 import {Observable} from 'rxjs';
-import {BattleFacade} from '../../../shared/store/dnd/battle/battle.facade';
+import {BattleFacade} from 'src/app/shared/store/dnd/battle/battle.facade';
 
 @Component({
   selector: 'dnd-active-battle',
@@ -30,9 +30,6 @@ export class ActiveBattleComponent implements OnInit, OnDestroy {
     this.facade.openNewBattle();
   }
 
-  startBattle() {
-    this.facade.startBattle();
-  }
 
   endBattle() {
     this.facade.endBattle();

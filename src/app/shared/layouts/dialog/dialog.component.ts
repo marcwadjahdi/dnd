@@ -1,7 +1,5 @@
 import {AfterViewInit, ChangeDetectorRef, Component, ComponentFactoryResolver, ComponentRef, OnDestroy, Type, ViewChild} from '@angular/core';
 import {DialogDirective} from './dialog.directive';
-import {Subject} from 'rxjs';
-import {DialogService} from './dialog.service';
 
 @Component({
   selector: 'dnd-dialog',
@@ -9,11 +7,10 @@ import {DialogService} from './dialog.service';
   styleUrls: ['./dialog.component.scss'],
 })
 export class DialogComponent implements AfterViewInit, OnDestroy {
-  private readonly ON_CLOSE = new Subject<any>();
 
   public componentRef: ComponentRef<any>;
   public childComponentType: Type<any>;
-  public onClose = this.ON_CLOSE.asObservable();
+  public doClose: () => void;
 
   @ViewChild(DialogDirective)
   dialogContent: DialogDirective;
@@ -21,7 +18,6 @@ export class DialogComponent implements AfterViewInit, OnDestroy {
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private changeDetectorRef: ChangeDetectorRef,
-    private service: DialogService,
   ) {
   }
 
@@ -50,8 +46,8 @@ export class DialogComponent implements AfterViewInit, OnDestroy {
   close($event: MouseEvent) {
     if (this.componentRef.instance.close) {
       this.componentRef.instance.close();
-    } else {
-      this.service.close();
+    } else if (this.doClose) {
+      this.doClose();
     }
   }
 }

@@ -1,142 +1,84 @@
 @import 'src/variables';
 
-.npcs {
-  padding: 1rem 0 0 1rem;
-  margin: 0;
-
+.character-row {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 5rem 3rem 1fr;
+  grid-template-columns: 2.5rem 2.5rem 1fr 2.5rem 2.5rem;
+  grid-template-rows: 2rem;
+  place-items: center;
+  margin: 1rem;
 
-  height: calc(100% - #{$footer-height});
+  .name {
+    height: 2.5rem;
+    width: 50%;
+    margin: auto;
 
-  > header {
-    margin: 0;
-    padding: 0 0 2rem 2rem;
-    border-bottom: 1px solid $bg-x-light;
+    background-color: transparent;
+    color: $font-color;
+    border: none;
 
-    display: flex;
-    flex-direction: row;
-
-    > nav {
-      display: flex;
-      flex-direction: row;
-      place-content: flex-end;
-
-      width: 100%;
-      padding: 0 2rem;
-
-      .btn {
-        background-color: $bg-x-light;
-
-        margin: 0.5rem;
-        padding: 0.75rem;
-
-        height: 1rem;
-        font-size: 1rem;
-        width: auto;
-
-        cursor: pointer;
-
-        fa-icon {
-          position: relative;
-          top: -3px;
-        }
-
-        span {
-          margin-left: 0.5rem;
-        }
-      }
-    }
-
+    font-family: 'Krona One';
+    font-size: 1.75rem;
   }
 
-  main {
-    display: grid;
-    grid-template-columns:1fr;
-    grid-template-rows: 1rem 1fr;
+  .class-icon {
+    height: 2rem;
+    width: 2rem;
+    background-size: 2rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 2rem;
+    margin-right: 2rem;
+  }
 
+  .Barbarian-icon {
+    background-image: url('~src/assets/images/class/barbarian_icon.jpeg');
+  }
 
-    .npcs-tiles {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      padding: 1rem;
-    }
+  .Bard-icon {
+    background-image: url('~src/assets/images/class/bard_icon.jpeg');
+   }
 
-    .npc-tile {
-      flex: 1;
+  .Cleric-icon {
+    background-image: url('~src/assets/images/class/cleric_icon.jpeg');
+  }
 
-      display: grid;
-      grid-template-rows: 2.5rem 6rem 1.5rem;
+  .Druid-icon {
+    background-image: url('~src/assets/images/class/druid_icon.jpeg');
+  }
 
-      min-width: 17rem;
-      max-width: 17rem;
-      min-height: 10rem;
-      max-height: 10rem;
+  .Fighter-icon {
+    background-image: url('~src/assets/images/class/fighter_icon.jpeg');
+  }
 
-      margin: 1rem;
-      padding: 1rem;
+  .Monk-icon {
+    background-image: url('~src/assets/images/class/monk_icon.jpeg');
+  }
 
-      background-color: $bg-dark;
+  .Paladin-icon {
+    background-image: url('~src/assets/images/class/paladin_icon.jpeg');
+  }
 
-      header {
-        font-family: 'Krona One';
-        font-size: $font-size-base * 1.1;
-        position: relative;
-        top: 0;
-        left: 0;
+  .Ranger-icon {
+    background-image: url('~src/assets/images/class/ranger_icon.jpeg');
+  }
 
-        .cr-badge {
-          position: absolute;
-          right: 0;
-          top: -1.5rem;
+  .Rogue-icon {
+    background-image: url('~src/assets/images/class/rogue_icon.jpeg');
+  }
 
-          font-weight: bold;
-          padding: 0.2rem 0.1rem 0.4rem 0.1rem;
-          color: $bg-light;
-        }
+  .Sorcerer-icon {
+    background-image: url('~src/assets/images/class/sorcerer_icon.jpeg');
+  }
 
-        .friendly-badge {
-          background-color: #255a25;
-        }
+  .Warlock-icon {
+    background-image: url('~src/assets/images/class/warlock_icon.jpeg');
+  }
 
-        .hostile-badge {
-          background-color: #642626;
-        }
-      }
+  .Wizard-icon {
+    background-image: url('~src/assets/images/class/wizard_icon.jpeg');
+  }
 
-      main {
-        .attributes {
-          display: grid;
-          grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-          grid-template-rows: 3.5rem;
-
-          .attribute {
-            display: flex;
-
-            flex-direction: column;
-            text-align: center;
-
-            width: 2rem;
-
-            margin: 0 0.2rem;
-
-            border: 2px dotted $bg-x-light;
-          }
-        }
-      }
-
-      footer {
-        display: flex;
-        flex-direction: row;
-        place-content: flex-end;
-
-        > a {
-          margin: 0 0.5rem;
-        }
-      }
-    }
-
+  input, span, a {
+    margin: 0 0.5rem;
   }
 }

@@ -3,7 +3,7 @@ import {DndState} from '../../dnd.state';
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, Effect, ofType} from '@ngrx/effects';
 import {map, take, tap} from 'rxjs/operators';
-import {PcActions} from '../../dnd/character/player/pc.actions';
+import {PcActions} from '../../dnd/character/pc/pc.actions';
 import {fromEvent} from 'rxjs';
 import {StoreSyncUpdateAction} from './store-sync.actions';
 import {StoreState} from './store-sync.service';
@@ -16,7 +16,7 @@ export class LocalStorageSyncEffect {
 
   private readonly toSToreActionTypes = ofType(
     NpcActions.EditNPC, NpcActions.RemoveNPC,
-    PcActions.EditPlayer, PcActions.RemovePlayer,
+    PcActions.EditPC, PcActions.RemovePC,
   );
 
   onToStoreAction = createEffect(() => this.actions$.pipe(

@@ -1,6 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MapService} from 'src/app/shared/map/map.service';
-import {Basemaps} from 'src/app/shared/map/map.layers';
+import {Maps} from 'src/app/shared/map/maps';
+import Basemaps = Maps.Layers.Basemaps;
+import BasemapStore = Maps.Layers.BasemapStore;
 
 
 @Component({
@@ -9,31 +11,21 @@ import {Basemaps} from 'src/app/shared/map/map.layers';
   styleUrls: ['./map-layer-switcher.component.scss']
 })
 export class MapLayerSwitcherComponent implements OnInit, OnDestroy {
-  readonly baseMaps = Basemaps;
+  readonly basemaps = BasemapStore;
 
   basemap: string;
 
-  constructor(private map: MapService) {
+  constructor(private mapService: MapService) {
   }
 
   ngOnInit(): void {
-    this.basemap = this.baseMaps[0];
+    this.basemap = this.basemaps[0].id;
   }
 
   ngOnDestroy(): void {
   }
 
   changeBasemap() {
-    this.map.changeBasemap(this.basemap);
-  }
-
-  basemapName(b: any) {
-    return b
-      .replace('/assets/layers', '')
-      .split('.')[0]
-      .split('/')
-      .filter(it => !!it)
-      .map(it => `${it[0].toUpperCase()}${it.substr(1).toLocaleLowerCase()}`)
-      .join(' ');
+    this.mapService.changeBasemap(this.basemap);
   }
 }

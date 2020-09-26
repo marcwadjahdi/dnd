@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MapService} from 'src/app/shared/map/map.service';
+import {MapInteractionService} from '../../shared/map/interactions/map-interaction.service';
 
 
 @Component({
@@ -9,15 +10,15 @@ import {MapService} from 'src/app/shared/map/map.service';
 })
 export class MapComponent implements OnInit, OnDestroy {
 
-  constructor(private service: MapService) {
+  constructor(private mapService: MapService, private mapInteractionService: MapInteractionService) {
   }
 
   ngOnInit(): void {
-    this.service.initialize();
+    this.mapService.initialize();
+    this.mapInteractionService.initialize(this.mapService.getMap());
   }
 
   ngOnDestroy(): void {
   }
-
 
 }

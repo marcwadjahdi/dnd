@@ -3,9 +3,10 @@ import {Store} from '@ngrx/store';
 import {NpcSelectors} from './npc.selectors';
 import {NpcActions} from './npc.actions';
 import {DndState} from 'src/app/shared/store/dnd.state';
-import {Character} from 'src/app/shared/models/character/character';
-import {ChallengeRating} from 'src/app/shared/models/character/challenge-rating';
-import {CreatureType} from 'src/app/shared/models/character/creature-type';
+import {Character} from 'src/app/shared/dnd/character/character.model';
+import {ChallengeRating} from 'src/app/shared/dnd/character/enums/challenge-rating.enum';
+import {CreatureType} from 'src/app/shared/dnd/character/enums/creature-type.enum';
+import {Characters} from '../../../../dnd/character/characters';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,8 @@ export class NpcFacade {
     this.store.dispatch(NpcActions.OpenEditNPC({npc}));
   }
 
-  saveNPC(npc: Character) {
+  saveNPC(character: Character) {
+    const npc = Characters.saveCharacter(character);
     this.store.dispatch(NpcActions.EditNPC({npc}));
   }
 

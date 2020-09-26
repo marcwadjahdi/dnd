@@ -1,5 +1,5 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {BattleCharacter} from 'src/app/shared/models/battle/battle';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {BattleCharacter} from 'src/app/shared/dnd/battle/battle';
 
 @Component({
   selector: 'dnd-battle-character-item',
@@ -8,6 +8,9 @@ import {BattleCharacter} from 'src/app/shared/models/battle/battle';
 })
 export class BattleCharacterItemComponent implements OnInit, OnDestroy {
 
+  @Input()
+  deleteCallback: (character: BattleCharacter) => void;
+  @Input()
   character: BattleCharacter;
 
   constructor() {
@@ -17,5 +20,15 @@ export class BattleCharacterItemComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+  }
+
+  removeFromBattle() {
+    if (this.deleteCallback) {
+      this.deleteCallback(this.character);
+    }
+  }
+
+  iconClass(character: BattleCharacter) {
+    return `${character.characterClass.name}-icon`;
   }
 }

@@ -50,6 +50,18 @@
       margin: 0.5rem 0;
     }
 
+    #npcHP {
+      display: grid;
+      grid-template-columns: 1fr 1rem 1fr;
+
+      strong {
+        place-items: center;
+        margin: auto;
+        display: flex;
+        height: 100%;
+      }
+    }
+
     .attributes {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;

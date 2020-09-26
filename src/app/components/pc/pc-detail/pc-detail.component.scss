@@ -1,21 +1,18 @@
 @import 'src/variables';
 
-.player-form {
+.pc-form {
   display: grid;
   grid-template-rows: 4rem 1fr 5rem;
 
   padding: 1rem;
 
+  background-repeat: no-repeat;
+  background-position: bottom right;
+
   header {
     position: relative;
     top: 0;
     left: 0;
-
-    .close {
-      position: absolute;
-      top: -20px;
-      right: 0;
-    }
 
     #playerName {
       height: 2.5rem;
@@ -32,6 +29,7 @@
 
   main {
     min-height: 15rem;
+    width: 75%;
 
     label {
       font-weight: bold;
@@ -39,6 +37,18 @@
 
     input, select {
       margin: 0.5rem 0;
+    }
+
+    #pcHP {
+      display: grid;
+      grid-template-columns: 1fr 1rem 1fr;
+
+      strong {
+        place-items: center;
+        margin: auto;
+        display: flex;
+        height: 100%;
+      }
     }
 
     .attributes {
@@ -71,4 +81,53 @@
       padding: 0.5rem;
     }
   }
+}
+
+
+.Barbarian-bg {
+  background-image: url('~src/assets/images/class/barbarian_character.png');
+}
+
+.Bard-bg {
+  background-image: url('~src/assets/images/class/bard_character.png');
+}
+
+.Cleric-bg {
+  background-image: url('~src/assets/images/class/cleric_character.png');
+}
+
+.Druid-bg {
+  background-image: url('~src/assets/images/class/druid_character.png');
+}
+
+.Fighter-bg {
+  background-image: url('~src/assets/images/class/fighter_character.png');
+}
+
+.Monk-bg {
+  background-image: url('~src/assets/images/class/monk_character.png');
+}
+
+.Paladin-bg {
+  background-image: url('~src/assets/images/class/paladin_character.png');
+}
+
+.Ranger-bg {
+  background-image: url('~src/assets/images/class/ranger_character.png');
+}
+
+.Rogue-bg {
+  background-image: url('~src/assets/images/class/rogue_character.png');
+}
+
+.Sorcerer-bg {
+  background-image: url('~src/assets/images/class/sorcerer_character.png');
+}
+
+.Warlock-bg {
+  background-image: url('~src/assets/images/class/warlock_character.png');
+}
+
+.Wizard-bg {
+  background-image: url('~src/assets/images/class/wizard_character.png');
 }

@@ -1,5 +1,5 @@
 import {createAction, props} from '@ngrx/store';
-import {Character} from 'src/app/shared/models/character/character';
+import {Character} from 'src/app/shared/dnd/character/character.model';
 
 const prefix = '[NPCCharacter]';
 

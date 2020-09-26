@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {PcFacade} from 'src/app/shared/store/dnd/character/player/pc.facade';
-import {Character} from 'src/app/shared/models/character/character';
+import {PcFacade} from 'src/app/shared/store/dnd/character/pc/pc.facade';
+import {Character} from 'src/app/shared/dnd/character/character.model';
 
 @Component({
   selector: 'dnd-players-list',

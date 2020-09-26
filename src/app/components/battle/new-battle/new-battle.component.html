@@ -1,8 +1,25 @@
-<section class="aa">
+<section class="new-battle-form">
   <header>
     <h2>New battle</h2>
   </header>
   <main>
-    <input type="number" class="initiative" min="0" max="30" [(ngModel)]="character.initiative" />
+    <article class="form-row">
+      <label for="basemap">Basemap</label>
+      <select [(ngModel)]="basemap" id="basemap" name="basemap">
+        <option *ngFor="let b of basemaps" [value]="b.id">{{b.label}}</option>
+      </select>
+    </article>
+    <br/>
+    <article class="form-row">
+      <label for="characters">Player Characters</label>
+      <div id="characters" *ngFor="let character of values(characters)">
+        <dnd-battle-character-item [deleteCallback]="removeCharacter" [character]="character"></dnd-battle-character-item>
+      </div>
+    </article>
   </main>
+  <footer>
+    <a (click)="startBattle()" class="btn">
+      <fa-icon [icon]="'play'"></fa-icon>
+    </a>
+  </footer>
 </section>

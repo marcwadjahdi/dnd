@@ -17,6 +17,7 @@ export class DialogService {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(DialogComponent);
     const dialogRef = componentFactory.create(this.injector);
     dialogRef.instance.childComponentType = componentType;
+    dialogRef.instance.doClose = () => this.close();
 
     const hostView = dialogRef.hostView;
     this.appRef.attachView(hostView);

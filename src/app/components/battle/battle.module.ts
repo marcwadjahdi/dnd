@@ -19,6 +19,7 @@ import {BattleCharacterItemComponent} from './active-battle/battle-character-ite
   ],
   imports: [
     CommonModule,
+    FormsModule,
     FontAwesomeModule,
     RouterModule.forRoot([
       {

@@ -1,10 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
-import {PcFacade} from 'src/app/shared/store/dnd/character/player/pc.facade';
+import {PcFacade} from 'src/app/shared/store/dnd/character/pc/pc.facade';
 import {deepCopy} from 'src/app/shared/util/deep-copy';
-import {CharacterClasses} from 'src/app/shared/models/character/character-class';
-import {Character} from 'src/app/shared/models/character/character';
-import {randomId} from 'src/app/shared/models/common/identified';
+import {CharacterClasses} from 'src/app/shared/dnd/character/enums/character-class.enum';
+import {Character} from 'src/app/shared/dnd/character/character.model';
+import {randomId} from 'src/app/shared/dnd/common/identified';
+import {ChallengeRating} from '../../../shared/dnd/character/enums/challenge-rating.enum';
 
 @Component({
   selector: 'dnd-player-detail',
@@ -15,9 +16,10 @@ export class PcDetailComponent implements OnInit, OnDestroy {
 
   private subs: Subscription[] = [];
 
-  playerClasses = Object.values(CharacterClasses);
+  readonly keys = Object.keys;
+  readonly characterClasses = CharacterClasses;
 
-  player: Character;
+  pc: Character;
 
   constructor(private facade: PcFacade) {
   }
@@ -26,10 +28,10 @@ export class PcDetailComponent implements OnInit, OnDestroy {
     this.subs.push(
       this.facade.player$.subscribe(h => {
         if (h) {
-          this.player = deepCopy(h);
-          this.player.characterClass = h.characterClass;
+          this.pc = deepCopy(h);
+          this.pc.characterClass = this.characterClasses[this.pc.characterClass.name];
         } else {
-          this.player = undefined;
+          this.pc = undefined;
         }
       }),
     );
@@ -48,17 +50,28 @@ export class PcDetailComponent implements OnInit, OnDestroy {
     if (!this.isPlayerValid()) {
       return;
     }
-    if (!this.player.id) {
-      this.player.id = randomId();
+    if (!this.pc.id) {
+      this.pc.id = randomId();
+    }
+    if (!this.pc.hp) {
+      this.pc.hp = this.pc.maxHP;
     }
 
-    this.facade.savePlayer(this.player);
+    this.facade.savePC(this.pc);
   }
 
   isPlayerValid() {
-    return this.player.name && this.player.characterClass
-      && this.player.level && this.player.level >= 1 && this.player.level <= 20
-      && this.player.attributes.strength && this.player.attributes.dexterity && this.player.attributes.constitution
-      && this.player.attributes.intelligence && this.player.attributes.wisdom && this.player.attributes.charisma;
+    return this.pc.name && this.pc.maxHP
+      && this.pc.characterClass
+      && this.pc.level && this.pc.level >= 1 && this.pc.level <= 20
+      && this.pc.attributes.strength && this.pc.attributes.dexterity && this.pc.attributes.constitution
+      && this.pc.attributes.intelligence && this.pc.attributes.wisdom && this.pc.attributes.charisma;
+  }
+
+  classBackground() {
+    if (this.pc) {
+      return `${this.pc.characterClass.name}-bg`;
+    }
+    return '';
   }
 }

@@ -6,6 +6,7 @@
   grid-template-rows: 2rem;
   place-items: center;
   margin: 1rem;
+  padding: 1rem;
 
   .name {
     height: 2.5rem;
@@ -81,4 +82,8 @@
   input, span, a {
     margin: 0 0.5rem;
   }
+}
+
+.active-character {
+  border: 3px dashed darkgoldenrod;
 }

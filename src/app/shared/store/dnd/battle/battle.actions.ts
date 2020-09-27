@@ -1,6 +1,6 @@
 import {createAction, props} from '@ngrx/store';
 import {Character} from 'src/app/shared/dnd/character/character.model';
-import {BattleTurn} from 'src/app/shared/dnd/battle/battle';
+import {BattleCharacter, BattleTurn} from 'src/app/shared/dnd/battle/battle';
 
 const prefix = '[Battle]';
 
@@ -17,9 +17,9 @@ export const BattleActions = {
   NextTurnReady: createAction(`${prefix} Next Turn ready`,  props<{ turn: BattleTurn }>()),
 
   OpenAddCharacter: createAction(`${prefix} Open Add Character`),
-  AddCharacter: createAction(`${prefix} Add Character`, props<{ character: Character }>()),
+  AddCharacter: createAction(`${prefix} Add Character`, props<{ character: BattleCharacter }>()),
 
-  EditCharacter: createAction(`${prefix} Add Character`, props<{ character: Character }>()),
+  EditCharacter: createAction(`${prefix} Add Character`, props<{ character: BattleCharacter }>()),
 
   RemoveCharacter: createAction(`${prefix} Remove Character`, props<{ id: number }>()),
 };

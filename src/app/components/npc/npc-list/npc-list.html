@@ -18,7 +18,7 @@
       <article *ngFor="let npc of npcs$ | async" class="npc-tile">
         <header>
           <span>{{npc.name}}</span>
-          <span class="cr-badge" [class]="hostileBadgeCls(npc)">{{enumChallengeRating[npc.cr]}}</span>
+          <span class="cr-badge" [class]="hostileBadgeCls(npc)">{{npc.cr}}</span>
         </header>
         <main>
           <span class="attributes">

@@ -2,18 +2,22 @@ import {Character} from 'src/app/shared/dnd/character/character.model';
 import {CharacterClasses} from 'src/app/shared/dnd/character/enums/character-class.enum';
 import {randomId} from '../../common/identified';
 import {CharacterType} from '../enums/character-type.enum';
+import {CharacterSize} from '../enums/character-size.enum';
+import {CreatureType} from '../enums/creature-type.enum';
 
 function newPlayer(options): Character {
   return {
+    id: randomId(),
     characterType: CharacterType.PC,
+    characterSize: CharacterSize.Medium,
+    creatureType: CreatureType.Humanoid,
     hostile: false,
     ...options
   };
 }
 
-export const pcs: Character[] = [
+export const PlayersCharacters: Character[] = [
   newPlayer({
-    id: randomId(),
     level: 4,
     characterClass: CharacterClasses.Rogue,
     name: 'Lokee',
@@ -29,7 +33,6 @@ export const pcs: Character[] = [
     }
   }),
   newPlayer({
-    id: randomId(),
     level: 3,
     characterClass: CharacterClasses.Sorcerer,
     name: 'Zalkas Eärendil',
@@ -45,7 +48,6 @@ export const pcs: Character[] = [
     }
   }),
   newPlayer({
-    id: randomId(),
     level: 3,
     characterClass: CharacterClasses.Druid,
     name: 'Nauthime Mario',
@@ -61,7 +63,6 @@ export const pcs: Character[] = [
     }
   }),
   newPlayer({
-    id: randomId(),
     level: 3,
     characterClass: CharacterClasses.Cleric,
     name: 'Augustin',

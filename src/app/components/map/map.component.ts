@@ -1,6 +1,6 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy} from '@angular/core';
 import {MapService} from 'src/app/shared/map/map.service';
-import {MapInteractionService} from '../../shared/map/interactions/map-interaction.service';
+import {Maps} from 'src/app/shared/map/maps';
 
 
 @Component({
@@ -8,17 +8,18 @@ import {MapInteractionService} from '../../shared/map/interactions/map-interacti
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit, OnDestroy {
+export class MapComponent implements AfterViewInit, OnDestroy {
 
-  constructor(private mapService: MapService, private mapInteractionService: MapInteractionService) {
+  constructor(private mapService: MapService) {
   }
 
-  ngOnInit(): void {
-    this.mapService.initialize();
-    this.mapInteractionService.initialize(this.mapService.getMap());
+  ngAfterViewInit(): void {
+    this.mapService.getMap().setTarget(Maps.battleMapID);
   }
 
   ngOnDestroy(): void {
+    this.mapService.getMap().setTarget(Maps.battleMapHolder);
   }
+
 
 }

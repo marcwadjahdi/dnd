@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Battle, BattleCharacter, BattleTurn} from 'src/app/shared/dnd/battle/battle';
 import {Observable} from 'rxjs';
 import {BattleFacade} from 'src/app/shared/store/dnd/battle/battle.facade';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'dnd-active-battle',
@@ -40,14 +41,22 @@ export class ActiveBattleComponent implements OnInit, OnDestroy {
   }
 
   nextTurn() {
-  this.facade.nextTurn();
+    this.facade.nextTurn();
   }
 
   openAddToBattle() {
     this.facade.openAddCharacter();
   }
 
-  removeFromBattle(character: BattleCharacter) {
-    this.facade.removeCharacter(character.id);
+  removeFromBattle() {
+    return (character) => this.facade.removeCharacter(character.id);
+  }
+
+  battleStarted(): Observable<boolean> {
+    return this.battle$.pipe(map(it => !!it));
+  }
+
+  onTurn0(): Observable<boolean> {
+    return this.turn$.pipe(map(it => !!it && it.id === 0));
   }
 }

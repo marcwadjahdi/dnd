@@ -10,11 +10,14 @@ import Static from 'ol/source/ImageStatic';
 import {Vector as VectorSource} from 'ol/source';
 import {Vector as VectorLayer} from 'ol/layer';
 import {Circle as CircleStyle, Fill, Stroke, Style} from 'ol/style';
-
+import {Modify, Select, Snap} from 'ol/interaction';
+import Transform from 'ol-ext/interaction/Transform';
+import {click} from 'ol/events/condition';
 
 export namespace Maps {
 
   export const battleMapID = 'battle_map';
+  export const battleMapHolder = 'battle_map_holder';
 
   export const extent: Extent = [0, 0, 1920, 1920];
 
@@ -75,8 +78,24 @@ export namespace Maps {
       return `${pathPrefix}${url}`;
     }
 
-    export function getLayerByTitle(map: Map, title: string): BaseLayer {
+    function getLayerByTitle(map: Map, title: string): BaseLayer {
       return map.getLayers().getArray().find(it => it.get(Layers.properties.title) === title);
+    }
+
+    export function getBasemapLayer(map: Map) {
+      return getLayerByTitle(map, config.basemap.title) as ImageLayer;
+    }
+
+    export function getGridLayer(map: Map) {
+      return getLayerByTitle(map, config.hexGrid.title) as ImageLayer;
+    }
+
+    export function getCharacterLayer(map: Map) {
+      return (getLayerByTitle(map, config.characters.title) as VectorLayer);
+    }
+
+    export function getEnvironmentLayer(map: Map) {
+      return (getLayerByTitle(map, config.environment.title) as VectorLayer);
     }
 
     export function newImageSource(conf: { url: string, extent?: Extent }) {
@@ -138,7 +157,40 @@ export namespace Maps {
     });
   }
 
+  export namespace Ineractions {
+
+    export function transformInteraction(layer: VectorLayer) {
+      return new Transform({
+        enableRotatedTransform: true,
+        layers: [layer],
+        hitTolerance: 2,
+        translateFeature: true,
+        scale: true,
+        rotate: true,
+        keepAspectRatio: (evt) => true,
+        translate: true,
+        stretch: true,
+      });
+    }
+
+    export function eraserInteraction(layer: VectorLayer) {
+      const eraser = new Select({
+        layers: [layer],
+        condition: (mapBrowserEvent) => click(mapBrowserEvent),
+      });
+      eraser.on('select', event => {
+        if (event.selected && event.selected.length !== 0) {
+          event.selected.forEach(feature => {
+            layer.getSource().removeFeature(feature);
+          });
+        }
+      });
+      return eraser;
+    }
+  }
+
   export namespace Initializer {
+
     function createBasemapLayer() {
       return new ImageLayer({
         source: Layers.newImageSource({url: Layers.Basemaps[0]}),
@@ -149,6 +201,7 @@ export namespace Maps {
     function createGridLayer() {
       return new ImageLayer({
         source: Layers.newImageSource({url: Layers.HexGridImage}),
+        opacity: 0,
         ...Layers.config.hexGrid
       });
     }
@@ -171,11 +224,22 @@ export namespace Maps {
     export function initialize() {
       const basemapLayer = createBasemapLayer();
       const gridLayer = createGridLayer();
-      const environmentLayer = createEnvironmentLayer();
-      const characterLayer = createCharacterLayer();
 
-      return new Map({
-        target: battleMapID,
+      const characterLayer = createCharacterLayer();
+      const characterSource = characterLayer.getSource();
+      const charactersInteractions = {
+        snap: new Snap({source: characterSource}),
+        modify: new Modify({source: characterSource}),
+      };
+
+      const environmentLayer = createEnvironmentLayer();
+      const environmenInteractions = {
+        snap: new Snap({source: environmentLayer.getSource()}),
+        edit: Maps.Ineractions.transformInteraction(environmentLayer),
+        eraser: Maps.Ineractions.eraserInteraction(environmentLayer),
+      };
+
+      const map = new Map({
         layers: [
           basemapLayer,
           gridLayer,
@@ -190,7 +254,13 @@ export namespace Maps {
           maxZoom,
         }),
         controls: [],
+        target: battleMapHolder,
       });
+
+      map.addInteraction(charactersInteractions.snap);
+      map.addInteraction(charactersInteractions.modify);
+
+      return {map, interactions: {characters: charactersInteractions, environment: environmenInteractions}};
     }
   }
 }

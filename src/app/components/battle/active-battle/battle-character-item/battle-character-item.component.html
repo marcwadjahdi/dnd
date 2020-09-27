@@ -1,4 +1,4 @@
-<article class="character-row">
+<article class="character-row" [class.active-character]="character.active">
   <span class="class-icon" [class]="iconClass(character)"></span>
   <input class="initiative" type="number" min="0" max="30" [(ngModel)]="character.initiative"/>
   <input class="name" type="text" [(ngModel)]="character.name" placeholder="Character's name"/>

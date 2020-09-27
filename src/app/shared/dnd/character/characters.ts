@@ -4,10 +4,10 @@ import {randomId} from '../common/identified';
 
 export namespace Characters {
   export function isValid(character: Character) {
-    const hasValidAttributes = character.attributes.strength && character.attributes.dexterity && character.attributes.constitution
-      && character.attributes.intelligence && character.attributes.wisdom && character.attributes.charisma;
+    const hasValidAttributes = !!character.attributes.strength && !!character.attributes.dexterity && !!character.attributes.constitution
+      && !!character.attributes.intelligence && !!character.attributes.wisdom && !!character.attributes.charisma;
 
-    const hasValidIdentity = character.name && character.maxHP;
+    const hasValidIdentity = !!character.name && !!character.maxHP;
 
     const hasValidSpecific = character.characterType === CharacterType.PC ? isValidPC(character) : isValidNPC(character);
 
@@ -15,14 +15,14 @@ export namespace Characters {
   }
 
   function isValidPC(character: Character) {
-    return character.characterClass && character.level && character.level >= 1 && character.level <= 20;
+    return !!character.characterClass && !!character.level && character.level >= 1 && character.level <= 20;
   }
 
   function isValidNPC(character: Character) {
     return !!character.cr;
   }
 
-  export function saveCharacter(character: Character) {
+  export function saveCharacter<T extends Character>(character: T): T {
     const id = character.id || randomId();
     const hp = character.hp || character.maxHP;
     return {id, hp, ...character};

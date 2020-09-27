@@ -7,14 +7,14 @@
     <article class="form-row">
       <label for="npcType">Type</label>
       <select id="npcType" [(ngModel)]="npc.creatureType">
-        <option *ngFor="let type of keys(enumCreatureType)" [ngValue]="type">{{enumCreatureType[type]}}</option>
+        <option *ngFor="let type of keys(enumCreatureType)" [ngValue]="enumCreatureType[type]">{{enumCreatureType[type]}}</option>
       </select>
     </article>
 
     <article class="form-row">
       <label for="npcCR">Challenge Rating</label>
       <select id="npcCR" [(ngModel)]="npc.cr">
-        <option *ngFor="let cr of keys(enumChallengeRating)" [ngValue]="cr">{{enumChallengeRating[cr]}}</option>
+        <option *ngFor="let cr of keys(enumChallengeRating)" [ngValue]="enumChallengeRating[cr]">{{enumChallengeRating[cr]}}</option>
       </select>
     </article>
 

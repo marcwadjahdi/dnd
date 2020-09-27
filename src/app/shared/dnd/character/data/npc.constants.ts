@@ -1,4 +1,32 @@
-export const npcs = [
+import {Character} from '../character.model';
+import {CharacterType} from '../enums/character-type.enum';
+import {CharacterSize} from '../enums/character-size.enum';
+import {CreatureType} from '../enums/creature-type.enum';
+import {randomId} from '../../common/identified';
+import {ChallengeRating} from '../enums/challenge-rating.enum';
+
+function toNPC(data: { name: string; cr: string; type: string; size: string; ac: string; hp: string; speed: string; alignment: string; }): Character {
+  const name = data.name;
+  const cr = ChallengeRating[`CR_${data.cr.replace('/', '_')}`];
+  const creatureType = CreatureType[`${data.type[0].toUpperCase()}${data.type.split(' ')[0].substr(1)}`];
+  const characterSize = CharacterSize[`${data.size[0].toUpperCase()}${data.size.substr(1)}`];
+  const hp = parseInt(data.hp, 10);
+  return {
+    id: randomId(),
+    characterType: CharacterType.NPC,
+    characterSize,
+    creatureType,
+    hostile: true,
+    cr,
+    name,
+    hp,
+    maxHP: hp,
+    attributes: {strength: 1, dexterity: 1, constitution: 1, intelligence: 1, wisdom: 1, charisma: 1},
+  };
+}
+
+
+export const NonPlayerCharacters: Character[] = [
   {name: 'Aarakocra', cr: '1/4', type: 'humanoid (aarakocra)', size: 'Medium', ac: '12', hp: '13', speed: 'fly', alignment: 'neutral good'},
   {name: 'Aboleth', cr: '10', type: 'aberration', size: 'Large', ac: '17', hp: '135', speed: 'swim', alignment: 'lawful evil'},
   {name: 'Abominable Yeti', cr: '9', type: 'monstrosity', size: 'Huge', ac: '15', hp: '137', speed: '', alignment: 'chaotic evil'},
@@ -427,4 +455,4 @@ export const npcs = [
   {name: 'Yuan-ti Malison', cr: '3', type: 'monstrosity (shapechanger, yuan-ti)', size: 'Medium', ac: '12', hp: '66', speed: '', alignment: 'neutral evil'},
   {name: 'Yuan-ti Pureblood', cr: '1', type: 'humanoid (yuan-ti)', size: 'Medium', ac: '11', hp: '40', speed: '', alignment: 'neutral evil'},
   {name: 'Zombie', cr: '1/4', type: 'undead', size: 'Medium', ac: '8', hp: '22', speed: '', alignment: 'neutral evil'},
-];
+].map(toNPC);

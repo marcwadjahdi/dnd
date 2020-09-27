@@ -1,4 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
+import {DndState} from '../../store/dnd.state';
+import {Store} from '@ngrx/store';
+import {StoreState} from '../../store/util/sync';
+import {take} from 'rxjs/operators';
 
 @Component({
   selector: 'dnd-main',
@@ -7,10 +11,14 @@ import {Component, OnInit} from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() {
+  constructor(private store: Store<DndState>) {
   }
 
   ngOnInit() {
   }
 
+  @HostListener('window:unload')
+  unloadHandler() {
+    this.store.select(state => state).pipe(take(1)).subscribe(StoreState);
+  }
 }

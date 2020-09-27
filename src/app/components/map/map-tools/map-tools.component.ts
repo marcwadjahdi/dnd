@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MapInteractionService} from 'src/app/shared/map/interactions/map-interaction.service';
 import {Maps} from 'src/app/shared/map/maps';
+import {MapService} from 'src/app/shared/map/map.service';
 
 
 @Component({
@@ -14,7 +14,7 @@ export class MapToolsComponent implements OnInit, OnDestroy {
 
   private currentTool: string;
 
-  constructor(private interactions: MapInteractionService) {
+  constructor(private mapService: MapService) {
   }
 
   ngOnInit(): void {
@@ -24,10 +24,10 @@ export class MapToolsComponent implements OnInit, OnDestroy {
   }
 
   useTool(tool: string) {
-    this.interactions.deactivateInteractions();
+    this.mapService.deactivateInteractions();
     this.currentTool = this.isCurrentTool(tool) ? null : tool;
     if (!this.currentTool) {
-      this.interactions.activateCharactersInteractions();
+      this.mapService.activateCharactersInteractions();
       return;
     }
     switch (tool) {
@@ -35,17 +35,18 @@ export class MapToolsComponent implements OnInit, OnDestroy {
       case this.Tools.line:
       case this.Tools.polygon:
       case this.Tools.circle:
-        this.interactions.draw(tool);
+        this.mapService.draw(tool);
         break;
       case this.Tools.edit :
-        this.interactions.edit();
+        this.mapService.edit();
         break;
       case this.Tools.eraser :
-        this.interactions.eraser();
+        this.mapService.eraser();
         break;
       case this.Tools.trash:
-        this.interactions.deleteAllEnvironment();
+        this.mapService.deleteAllEnvironment();
         this.currentTool = null;
+        this.mapService.activateCharactersInteractions();
         break;
     }
   }

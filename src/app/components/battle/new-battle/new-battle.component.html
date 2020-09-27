@@ -13,7 +13,7 @@
     <article class="form-row">
       <label for="characters">Player Characters</label>
       <div id="characters" *ngFor="let character of values(characters)">
-        <dnd-battle-character-item [deleteCallback]="removeCharacter" [character]="character"></dnd-battle-character-item>
+        <dnd-battle-character-item [deleteCallback]="removeCharacter()" [character]="character"></dnd-battle-character-item>
       </div>
     </article>
   </main>

@@ -7,6 +7,8 @@ import {Character} from 'src/app/shared/dnd/character/character.model';
 import {ChallengeRating} from 'src/app/shared/dnd/character/enums/challenge-rating.enum';
 import {CreatureType} from 'src/app/shared/dnd/character/enums/creature-type.enum';
 import {Characters} from '../../../../dnd/character/characters';
+import {CharacterType} from '../../../../dnd/character/enums/character-type.enum';
+import {CharacterSize} from '../../../../dnd/character/enums/character-size.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -22,9 +24,11 @@ export class NpcFacade {
   openCreation() {
     this.store.dispatch(NpcActions.OpenEditNPC({
       npc: {
+        characterType: CharacterType.NPC,
+        characterSize: CharacterSize.Medium,
+        creatureType: CreatureType.Humanoid,
         hostile: true,
         cr: ChallengeRating.CR_0,
-        creatureType: CreatureType.Humanoid,
         attributes: {strength: 1, dexterity: 1, constitution: 1, intelligence: 1, wisdom: 1, charisma: 1},
       }
     }));

@@ -1,9 +1,10 @@
 import {createReducer, on} from '@ngrx/store';
 import {PcActions} from './pc.actions';
 import {PCAdatapter} from './pc.state';
+import {PlayersCharacters} from '../../../../dnd/character/data/pc.constants';
 
 function initialState() {
-  return PCAdatapter.getInitialState({pc: null});
+  return PCAdatapter.addMany(PlayersCharacters, PCAdatapter.getInitialState({pc: null}));
 }
 
 const setPC = (state, {pc}) => Object.assign({}, state, {pc});

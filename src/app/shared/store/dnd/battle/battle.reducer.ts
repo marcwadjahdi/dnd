@@ -12,18 +12,24 @@ function initialState() {
   };
 }
 
-const startBattle = (state, turn0) => {
+const startBattle = (state, {turn}) => {
   const start = {start: new Date()};
+  const initiative = sortInitiative(turn);
+  const currentTurn = {
+    id: 0,
+    initiative,
+    active: initiative[0],
+    ...deepCopy(turn),
+  };
+  currentTurn.characters[currentTurn.active].active = true;
+
   return {
     ...endBattle(state),
     active: {
       ...start,
       id: randomId(),
-      currentTurn: {
-        id: 0,
-        initiative: sortInitiative(turn0.active.currentTurn),
-        ...turn0,
-      }
+      turns: [],
+      currentTurn,
     },
   };
 };
@@ -49,22 +55,22 @@ const previousTurn = (state) => {
   const newState = deepCopy(state);
   const previousId = currentTurnId - 1;
   newState.active.currentTurn = {...newState.active.turns[previousId]};
-  delete newState.active.turns[previousId];
+  newState.active.turns.pop();
   return newState;
 };
 
-const nextTurn = (state, turn) => {
+const nextTurn = (state, {turn}) => {
   const currentTurnId = turn.id;
+  const newTurn = deepCopy(turn);
+  newTurn.id = currentTurnId + 1;
+  newTurn.characters[newTurn.active].active = false;
+  const activeIndex = _.indexOf(newTurn.initiative, newTurn.active);
+  newTurn.active = activeIndex + 1 === newTurn.initiative.length ? newTurn.initiative[0] : newTurn.initiative[activeIndex + 1];
+  newTurn.characters[newTurn.active].active = true;
+
   const newState = deepCopy(state);
-  newState.active.turns[currentTurnId] = deepCopy(turn);
-
-  turn.id++;
-  turn.characters[turn.active].active = false;
-  const activeIndex = _.indexOf(turn.initiative, turn.active);
-  turn.active = activeIndex + 1 === turn.initiative.length ? 0 : turn.initiative[activeIndex + 1];
-  turn.characters[turn.active].active = true;
-
-  newState.active.currentTurn = turn;
+  newState.active.turns[currentTurnId] = turn;
+  newState.active.currentTurn = newTurn;
   return newState;
 };
 
@@ -82,14 +88,12 @@ const removeCharacter = (state, id) => {
   return newState;
 };
 
-
 function sortInitiative(turn: BattleTurn) {
-  _.orderBy(turn.characters).map(it => it.id);
+  return _.orderBy(turn.characters).map(it => it.id);
 }
 
-
 const reducer = createReducer(initialState(),
-  on(BattleActions.BattleStarted, startBattle),
+  on(BattleActions.StartBattle, startBattle),
   on(BattleActions.EndBattle, endBattle),
 
   on(BattleActions.PreviousTurn, previousTurn),

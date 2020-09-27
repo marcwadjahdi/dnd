@@ -16,6 +16,8 @@ export interface Character extends Identified, Named {
   hp?: number;
   maxHP?: number;
 
+  ac?: number;
+
   attributes?: Attributes;
 
   /* PC */

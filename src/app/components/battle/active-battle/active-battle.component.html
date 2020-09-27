@@ -1,34 +1,27 @@
-<section class="npcs">
+<section class="active-battle">
   <header>
     <h2>Active Battle</h2>
     <nav class="actions">
-      <a (click)="openAddToBattle()" class="btn" *ngIf="!!(battle$ | async)">
+      <a (click)="openAddToBattle()" class="btn" *ngIf="battleStarted() | async">
         <fa-icon [icon]="'user-plus'"></fa-icon>
       </a>
-      <a (click)="previousTurn()" class="btn" *ngIf="!!(battle$ | async)?.start">
+      <a (click)="previousTurn()" class="btn" *ngIf="(battleStarted() | async) && !(onTurn0() | async)">
         <fa-icon [icon]="'step-backward'"></fa-icon>
       </a>
-      <a (click)="nextTurn()" class="btn" *ngIf="!!(battle$ | async)?.start">
+      <a (click)="nextTurn()" class="btn" *ngIf="battleStarted() | async">
         <fa-icon [icon]="'step-forward'"></fa-icon>
       </a>
-      <a (click)="endBattle()" class="btn" *ngIf="!!(battle$ | async)?.start">
+      <a (click)="endBattle()" class="btn" *ngIf="battleStarted() | async">
         <fa-icon [icon]="'stop'"></fa-icon>
       </a>
-      <a (click)="newBattle()" class="btn" *ngIf="!(battle$ | async)">
+      <a (click)="newBattle()" class="btn" *ngIf="!(battleStarted() | async)">
         <fa-icon [icon]="'dice-d20'"></fa-icon>
       </a>
     </nav>
   </header>
   <main>
     <section class="characters-list">
-      <article *ngFor="let character of characters$ | async" class="character-row">
-        <input type="number" class="initiative" min="0" max="30" [(ngModel)]="character.initiative"/>
-        <span class="initiative">{{character.name}}</span>
-        <input type="number" class="hp" min="0" max="{{character.maxHP}}" [(ngModel)]="character.hp"/>
-        <a (click)="removeFromBattle(character)">
-          <fa-icon [icon]="'trash'"></fa-icon>
-        </a>
-      </article>
+      <dnd-battle-character-item *ngFor="let character of characters$ | async" [deleteCallback]="removeFromBattle()" [character]="character"></dnd-battle-character-item>
     </section>
   </main>
 </section>

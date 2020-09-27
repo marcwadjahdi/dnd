@@ -21,7 +21,7 @@
   </header>
   <main>
     <section class="characters-list">
-      <dnd-battle-character-item *ngFor="let character of characters$ | async" [deleteCallback]="removeFromBattle()" [character]="character"></dnd-battle-character-item>
+      <dnd-battle-character-item *ngFor="let character of characters$ | async" [character]="character" [allowEdition]="false" ></dnd-battle-character-item>
     </section>
   </main>
 </section>

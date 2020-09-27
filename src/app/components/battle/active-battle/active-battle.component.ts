@@ -48,10 +48,6 @@ export class ActiveBattleComponent implements OnInit, OnDestroy {
     this.facade.openAddCharacter();
   }
 
-  removeFromBattle() {
-    return (character) => this.facade.removeCharacter(character.id);
-  }
-
   battleStarted(): Observable<boolean> {
     return this.battle$.pipe(map(it => !!it));
   }

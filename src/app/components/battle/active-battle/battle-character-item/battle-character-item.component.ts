@@ -9,7 +9,11 @@ import {BattleCharacter} from 'src/app/shared/dnd/battle/battle';
 export class BattleCharacterItemComponent implements OnInit, OnDestroy {
 
   @Input()
+  allowEdition = true;
+
+  @Input()
   deleteCallback: (character: BattleCharacter) => void;
+
   @Input()
   character: BattleCharacter;
 

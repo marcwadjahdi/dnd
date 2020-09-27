@@ -11,7 +11,6 @@ function newPlayer(options): Character {
     characterType: CharacterType.PC,
     characterSize: CharacterSize.Medium,
     creatureType: CreatureType.Humanoid,
-    hostile: false,
     ...options
   };
 }
@@ -21,8 +20,8 @@ export const PlayersCharacters: Character[] = [
     level: 4,
     characterClass: CharacterClasses.Rogue,
     name: 'Lokee',
-    actualHealth: 29,
-    maxHealth: 29,
+    hp: 29,
+    maxHp: 29,
     attributes: {
       strength: 10,
       dexterity: 19,
@@ -36,8 +35,8 @@ export const PlayersCharacters: Character[] = [
     level: 3,
     characterClass: CharacterClasses.Sorcerer,
     name: 'Zalkas Eärendil',
-    actualHealth: 22,
-    maxHealth: 22,
+    hp: 22,
+    maxHp: 22,
     attributes: {
       strength: 9,
       dexterity: 15,
@@ -51,8 +50,8 @@ export const PlayersCharacters: Character[] = [
     level: 3,
     characterClass: CharacterClasses.Druid,
     name: 'Nauthime Mario',
-    actualHealth: 27,
-    maxHealth: 27,
+    hp: 27,
+    maxHp: 27,
     attributes: {
       strength: 11,
       dexterity: 15,
@@ -66,8 +65,8 @@ export const PlayersCharacters: Character[] = [
     level: 3,
     characterClass: CharacterClasses.Cleric,
     name: 'Augustin',
-    actualHealth: 24,
-    maxHealth: 24,
+    hp: 24,
+    maxHp: 24,
     attributes: {
       strength: 11,
       dexterity: 12,

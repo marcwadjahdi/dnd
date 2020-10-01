@@ -2,32 +2,93 @@
 
 .new-battle-form {
   display: grid;
-  grid-template-rows: 4rem 1fr 5rem;
-
-  padding: 1rem;
+  grid-template-rows: 5rem 1fr 5rem;
 
   header {
-    position: relative;
-    top: 0;
-    left: 0;
+    padding: 1rem 0 .5rem 1rem;
   }
 
   main {
-    min-height: 15rem;
-
     label {
       font-weight: bold;
     }
 
-    input, select, #characters {
+    input, select, .characters {
       margin: 0.5rem 0;
+    }
+
+    .basemaps, .players-characters, .non-players-characters {
+      overflow: auto;
+      overflow-x: hidden;
+
+      min-height: 7.5rem;
+      max-height: 15rem;
+      padding: 1rem 0rem;
+    }
+
+    .basemaps {
+      padding: 1rem 5rem;
+    }
+
+    .players-characters::-webkit-scrollbar,
+    .non-players-characters::-webkit-scrollbar {
+      width: 0.25rem;
+    }
+
+    .players-characters::-webkit-scrollbar-track,
+    .non-players-characters::-webkit-scrollbar-track {
+      background: $bg-overlay;
+    }
+
+    .players-characters::-webkit-scrollbar-thumb,
+    .non-players-characters::-webkit-scrollbar-thumb {
+      background: $bg-dark;
+    }
+
+    .npc-actions {
+      display: grid;
+      grid-template-columns: 1fr 3rem;
+      grid-template-rows: 1.5rem;
+      margin: 0;
+      padding: 0 5rem;
+
+      input {
+        margin: 0 0.5rem;
+      }
+
+      ::ng-deep .dropdown-menu {
+        display: flex;
+        flex-direction: column;
+        width: calc(100% - 13rem);
+
+        .dropdown-item {
+          border: none;
+        }
+
+        .dropdown-item {
+          background-color: $bg-dark;
+          color: $font-color;
+        }
+
+        .dropdown-item.active, .dropdown-item:hover {
+          color: $link-color;
+        }
+      }
+
+      .btn {
+        height: 1.5rem;
+        width: 1.5rem;
+        margin-left: 1rem;
+      }
     }
   }
 
   footer {
     display: flex;
     flex-direction: row;
-    place-content: flex-start;
+    place-content: flex-end;
+
+    padding: 0 .5rem 1rem 0;
 
     .btn {
       background-color: $bg-x-light;

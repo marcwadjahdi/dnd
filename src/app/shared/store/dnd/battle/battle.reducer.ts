@@ -89,7 +89,7 @@ const removeCharacter = (state, id) => {
 };
 
 function sortInitiative(turn: BattleTurn) {
-  return _.orderBy(turn.characters).map(it => it.id);
+ return _.orderBy(turn.characters, 'initiative', 'desc').map(it => it.id);
 }
 
 const reducer = createReducer(initialState(),

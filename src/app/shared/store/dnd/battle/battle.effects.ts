@@ -34,6 +34,12 @@ export class BattleEffects {
     map(action => BattleActions.BattleEnded()),
   ));
 
+  onPreviousTurn = createEffect(() => this.actions$.pipe(
+    ofType(BattleActions.PreviousTurn),
+    withLatestFrom(this.battleFacade.turn$),
+    tap(([action, turn]) => this.setTurn(turn)),
+  ), dontDispatch);
+
   onNextTurn = createEffect(() => this.actions$.pipe(
     ofType(BattleActions.NextTurn),
     withLatestFrom(this.battleFacade.turn$),

@@ -1,5 +1,6 @@
-import {ApplicationRef, ComponentFactoryResolver, ComponentRef, EmbeddedViewRef, Injectable, Injector, Type,} from '@angular/core';
+import {ApplicationRef, ComponentFactoryResolver, ComponentRef, EmbeddedViewRef, Injectable, Injector, Type} from '@angular/core';
 import {DialogComponent} from './dialog.component';
+import {Closeable} from '../../util/closeable';
 
 @Injectable({providedIn: 'root'})
 export class DialogService {
@@ -13,7 +14,7 @@ export class DialogService {
   ) {
   }
 
-  public open(componentType: Type<any>) {
+  public open<T extends Closeable>(componentType: Type<T>) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(DialogComponent);
     const dialogRef = componentFactory.create(this.injector);
     dialogRef.instance.childComponentType = componentType;

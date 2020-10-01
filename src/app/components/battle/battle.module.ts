@@ -8,7 +8,9 @@ import {FormsModule} from '@angular/forms';
 import {ActiveBattleComponent} from './active-battle/active-battle.component';
 import {NewBattleComponent} from './new-battle/new-battle.component';
 import {AddBattleCharacterComponent} from './add-battle-character/add-battle-character.component';
-import {BattleCharacterItemComponent} from './active-battle/battle-character-item/battle-character-item.component';
+import {BattleCharacterItemComponent} from './battle-character-item/battle-character-item.component';
+import {SharedModule} from '../../shared/shared.module';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import {BattleCharacterItemComponent} from './active-battle/battle-character-ite
       },
     ]),
     FormsModule,
+    SharedModule,
+    NgbModule,
   ]
 })
 export class BattleModule {

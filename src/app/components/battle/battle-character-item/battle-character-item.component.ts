@@ -1,5 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {BattleCharacter} from 'src/app/shared/dnd/battle/battle';
+import {CharacterType} from '../../../shared/dnd/character/enums/character-type.enum';
 
 @Component({
   selector: 'dnd-battle-character-item',
@@ -33,6 +34,8 @@ export class BattleCharacterItemComponent implements OnInit, OnDestroy {
   }
 
   iconClass(character: BattleCharacter) {
-    return `${character.characterClass.name}-icon`;
+    const isPC = character.characterType === CharacterType.PC;
+    const prefix = isPC ? character.characterClass.name : (character.hostile ? 'hostile' : 'firlendly');
+    return `${prefix}-icon`;
   }
 }

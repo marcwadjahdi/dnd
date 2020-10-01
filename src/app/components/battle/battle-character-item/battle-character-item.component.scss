@@ -2,14 +2,16 @@
 
 .character-row {
   display: grid;
-  grid-template-columns: 2.5rem 2.5rem 1fr 2.5rem 2.5rem;
-  grid-template-rows: 2rem;
+  grid-template-columns: 5rem 3rem 1fr 3rem 3rem;
   place-items: center;
-  margin: 1rem;
-  padding: 1rem;
+  margin: 0;
+  padding: .5rem;
+  background-color: $bg-dark;
+
+    border: 1px dashed $bg-x-light;
 
   .name {
-    height: 2.5rem;
+    height: 2rem;
     width: 50%;
     margin: auto;
 
@@ -18,7 +20,7 @@
     border: none;
 
     font-family: 'Krona One';
-    font-size: 1.75rem;
+    font-size: 1.25rem;
   }
 
   .class-icon {
@@ -37,7 +39,7 @@
 
   .Bard-icon {
     background-image: url('~src/assets/images/class/bard_icon.jpeg');
-   }
+  }
 
   .Cleric-icon {
     background-image: url('~src/assets/images/class/cleric_icon.jpeg');

@@ -12,6 +12,8 @@ import {TabComponent} from './tabs/tab.component';
 import {TabsComponent} from './tabs/tabs.component';
 import {DialogComponent} from './dialog/dialog.component';
 import {DialogDirective} from './dialog/dialog.directive';
+import {WizardComponent} from './wizard/wizard.component';
+import {WizardStepComponent} from './wizard/wizard-step.component';
 
 @NgModule({
   imports: [
@@ -21,14 +23,22 @@ import {DialogDirective} from './dialog/dialog.directive';
     FormsModule
   ],
   declarations: [
-    MainComponent,
-    NavbarComponent,
-    FooterComponent,
-    ErrorComponent,
-    TabsComponent,
-    TabComponent,
     DialogComponent,
     DialogDirective,
+    ErrorComponent,
+    FooterComponent,
+    MainComponent,
+    NavbarComponent,
+    TabsComponent,
+    TabComponent,
+    WizardComponent,
+    WizardStepComponent,
+  ],
+  exports: [
+    TabsComponent,
+    TabComponent,
+    WizardComponent,
+    WizardStepComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

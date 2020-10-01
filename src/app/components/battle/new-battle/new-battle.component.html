@@ -3,19 +3,32 @@
     <h2>New battle</h2>
   </header>
   <main>
-    <article class="form-row">
-      <label for="basemap">Basemap</label>
-      <select [(ngModel)]="basemap" id="basemap" name="basemap">
-        <option *ngFor="let b of basemaps" [value]="b.id">{{b.label}}</option>
-      </select>
-    </article>
-    <br/>
-    <article class="form-row">
-      <label for="characters">Player Characters</label>
-      <div id="characters" *ngFor="let character of values(characters)">
-        <dnd-battle-character-item [deleteCallback]="removeCharacter()" [character]="character"></dnd-battle-character-item>
-      </div>
-    </article>
+    <dnd-tabs class="form-row">
+      <dnd-tab [tabTitle]="'Basemap'">
+        <article class="basemaps">
+          <label for="basemap">Pick a Basemap</label>
+          <select [(ngModel)]="basemap" id="basemap" name="basemap">
+            <option *ngFor="let b of basemaps" [value]="b.id">{{b.label}}</option>
+          </select>
+        </article>
+      </dnd-tab>
+      <dnd-tab [tabTitle]="'Players'" >
+        <article class="players-characters">
+          <dnd-battle-character-item *ngFor="let pc of values(playersCharacters)" [deleteCallback]="removePC()" [character]="pc"></dnd-battle-character-item>
+        </article>
+      </dnd-tab>
+      <dnd-tab [tabTitle]="'Non-Players'">
+        <article class="non-players-characters">
+          <nav class="npc-actions">
+            <input id="npc-picker" type="text" [(ngModel)]="npc" [ngbTypeahead]="searchNPC"  [resultFormatter]="formatter" [inputFormatter]="formatter" placeholder="Enter a NPC's name"/>
+            <a (click)="addNPC()" class="btn" [hidden]="!!npc">
+              <fa-icon [icon]="'user-plus'"></fa-icon>
+            </a>
+          </nav>
+          <dnd-battle-character-item *ngFor="let npc of values(nonPlayersCharacters)" [deleteCallback]="removeNPC()" [character]="npc"></dnd-battle-character-item>
+        </article>
+      </dnd-tab>
+    </dnd-tabs>
   </main>
   <footer>
     <a (click)="startBattle()" class="btn">

@@ -14,7 +14,11 @@
       </dnd-tab>
       <dnd-tab [tabTitle]="'Players'" >
         <article class="players-characters">
-          <dnd-battle-character-item *ngFor="let pc of values(playersCharacters)" [deleteCallback]="removePC()" [character]="pc"></dnd-battle-character-item>
+          <dnd-battle-character-item *ngFor="let pc of values(playersCharacters)"  [character]="pc">
+            <a class="remove" (click)="removePC(pc)">
+              <fa-icon [icon]="'trash'"></fa-icon>
+            </a>
+          </dnd-battle-character-item>
         </article>
       </dnd-tab>
       <dnd-tab [tabTitle]="'Non-Players'">
@@ -25,7 +29,11 @@
               <fa-icon [icon]="'user-plus'"></fa-icon>
             </a>
           </nav>
-          <dnd-battle-character-item *ngFor="let npc of values(nonPlayersCharacters)" [deleteCallback]="removeNPC()" [character]="npc"></dnd-battle-character-item>
+          <dnd-battle-character-item *ngFor="let npc of values(nonPlayersCharacters)" [character]="npc">
+            <a class="remove" (click)="removeNPC(npc)">
+              <fa-icon [icon]="'trash'"></fa-icon>
+            </a>
+          </dnd-battle-character-item>
         </article>
       </dnd-tab>
     </dnd-tabs>

@@ -21,7 +21,7 @@ export const PlayersCharacters: Character[] = [
     characterClass: CharacterClasses.Rogue,
     name: 'Lokee',
     hp: 29,
-    maxHp: 29,
+    maxHP: 29,
     attributes: {
       strength: 10,
       dexterity: 19,
@@ -36,7 +36,7 @@ export const PlayersCharacters: Character[] = [
     characterClass: CharacterClasses.Sorcerer,
     name: 'Zalkas Eärendil',
     hp: 22,
-    maxHp: 22,
+    maxHP: 22,
     attributes: {
       strength: 9,
       dexterity: 15,
@@ -51,7 +51,7 @@ export const PlayersCharacters: Character[] = [
     characterClass: CharacterClasses.Druid,
     name: 'Nauthime Mario',
     hp: 27,
-    maxHp: 27,
+    maxHP: 27,
     attributes: {
       strength: 11,
       dexterity: 15,
@@ -66,7 +66,7 @@ export const PlayersCharacters: Character[] = [
     characterClass: CharacterClasses.Cleric,
     name: 'Augustin',
     hp: 24,
-    maxHp: 24,
+    maxHP: 24,
     attributes: {
       strength: 11,
       dexterity: 12,

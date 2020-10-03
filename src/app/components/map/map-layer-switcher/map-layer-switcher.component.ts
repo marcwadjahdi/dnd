@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MapService} from 'src/app/shared/map/map.service';
 import {Maps} from 'src/app/shared/map/maps';
-import Basemaps = Maps.Layers.Basemaps;
 import BasemapStore = Maps.Layers.BasemapStore;
 
 

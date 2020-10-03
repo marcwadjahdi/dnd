@@ -65,12 +65,12 @@ export class NewBattleComponent implements OnInit, OnDestroy, Closeable {
         : this.npcs.filter(npc => npc.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
   );
 
-  removePC() {
-    return (character) => delete this.playersCharacters[character.id];
+  removePC(character) {
+     delete this.playersCharacters[character.id];
   }
 
-  removeNPC() {
-    return (character) => delete this.nonPlayersCharacters[character.id];
+  removeNPC(character) {
+    delete this.nonPlayersCharacters[character.id];
   }
 
   addNPC() {

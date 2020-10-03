@@ -13,6 +13,7 @@ import getBasemapLayer = Maps.Layers.getBasemapLayer;
 import getEnvironmentLayer = Maps.Layers.getEnvironmentLayer;
 import getCharacterLayer = Maps.Layers.getCharacterLayer;
 import getGridLayer = Maps.Layers.getGridLayer;
+import {BattleFacade} from '../store/dnd/battle/battle.facade';
 
 
 @Injectable({
@@ -35,11 +36,12 @@ export class MapService {
     };
   };
 
-  constructor() {
+  constructor(private battleFacade: BattleFacade) {
   }
 
   initialize() {
     Object.assign(this, Maps.Initializer.initialize());
+    this.battleFacade.sync();
   }
 
   /* Layers */

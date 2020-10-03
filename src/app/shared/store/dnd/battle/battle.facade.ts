@@ -55,4 +55,8 @@ export class BattleFacade {
   removeCharacter(id: number) {
     this.store.dispatch(BattleActions.RemoveCharacter({id}));
   }
+
+  sync() {
+    this.store.dispatch(BattleActions.SyncMap());
+  }
 }

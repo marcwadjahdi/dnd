@@ -2,26 +2,14 @@
 
 .character-row {
   display: grid;
-  grid-template-columns: 5rem 3rem 1fr 3rem 3rem;
+  grid-template-columns: 4rem 1fr 6rem 6rem 1fr;
   place-items: center;
   margin: 0;
   padding: .5rem;
   background-color: $bg-dark;
 
-    border: 1px dashed $bg-x-light;
+  border: 1px dashed $bg-x-light;
 
-  .name {
-    height: 2rem;
-    width: 50%;
-    margin: auto;
-
-    background-color: transparent;
-    color: $font-color;
-    border: none;
-
-    font-family: 'Krona One';
-    font-size: 1.25rem;
-  }
 
   .class-icon {
     height: 2rem;
@@ -30,7 +18,6 @@
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 2rem;
-    margin-right: 2rem;
   }
 
   .Barbarian-icon {
@@ -81,8 +68,37 @@
     background-image: url('~src/assets/images/class/wizard_icon.jpeg');
   }
 
-  input, span, a {
-    margin: 0 0.5rem;
+  .friendly-icon {
+    background-image: url('~src/assets/images/icons/friendly.png');
+    background-color: #ffffff99;
+  }
+
+  .hostile-icon {
+    background-image: url('~src/assets/images/icons/hostile.png');
+    background-color: #6f6b6b99;
+  }
+
+  .name, .initiative {
+    height: 2rem;
+    padding: 0 1rem;
+
+    background-color: transparent;
+    color: $font-color;
+    border: none;
+
+    font-family: 'Krona One';
+    font-size: 1rem;
+  }
+
+  .initiative {
+    text-align: center;
+  }
+
+  .character-actions {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    place-content: flex-end;
   }
 }
 

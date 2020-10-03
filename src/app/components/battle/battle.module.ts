@@ -11,6 +11,7 @@ import {AddBattleCharacterComponent} from './add-battle-character/add-battle-cha
 import {BattleCharacterItemComponent} from './battle-character-item/battle-character-item.component';
 import {SharedModule} from '../../shared/shared.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {LayoutsModule} from '../../shared/layouts/layouts.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
   imports: [
     CommonModule,
     FormsModule,
+    SharedModule,
+    NgbModule,
     FontAwesomeModule,
     RouterModule.forRoot([
       {
@@ -29,9 +32,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
         component: ActiveBattleComponent,
       },
     ]),
-    FormsModule,
-    SharedModule,
-    NgbModule,
   ]
 })
 export class BattleModule {

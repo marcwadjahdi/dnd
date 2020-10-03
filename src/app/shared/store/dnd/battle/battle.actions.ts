@@ -22,4 +22,6 @@ export const BattleActions = {
   EditCharacter: createAction(`${prefix} Add Character`, props<{ character: BattleCharacter }>()),
 
   RemoveCharacter: createAction(`${prefix} Remove Character`, props<{ id: number }>()),
+
+  SyncMap: createAction(`${prefix} Sync Map`),
 };

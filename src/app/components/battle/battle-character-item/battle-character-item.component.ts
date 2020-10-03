@@ -13,9 +13,6 @@ export class BattleCharacterItemComponent implements OnInit, OnDestroy {
   allowEdition = true;
 
   @Input()
-  deleteCallback: (character: BattleCharacter) => void;
-
-  @Input()
   character: BattleCharacter;
 
   constructor() {
@@ -27,15 +24,9 @@ export class BattleCharacterItemComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  removeFromBattle() {
-    if (this.deleteCallback) {
-      this.deleteCallback(this.character);
-    }
-  }
-
   iconClass(character: BattleCharacter) {
     const isPC = character.characterType === CharacterType.PC;
-    const prefix = isPC ? character.characterClass.name : (character.hostile ? 'hostile' : 'firlendly');
+    const prefix = isPC ? character.characterClass.name : (character.hostile ? 'hostile' : 'friendly');
     return `${prefix}-icon`;
   }
 }

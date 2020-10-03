@@ -14,6 +14,8 @@ import {DialogComponent} from './dialog/dialog.component';
 import {DialogDirective} from './dialog/dialog.directive';
 import {WizardComponent} from './wizard/wizard.component';
 import {WizardStepComponent} from './wizard/wizard-step.component';
+import {HpFormatterPipe} from '../dnd/character/util/hp/hp-formatter.pipe';
+import {HpFormatterDirective} from '../dnd/character/util/hp/hp-formatter.directive';
 
 @NgModule({
   imports: [
@@ -33,12 +35,20 @@ import {WizardStepComponent} from './wizard/wizard-step.component';
     TabComponent,
     WizardComponent,
     WizardStepComponent,
+    HpFormatterPipe,
+    HpFormatterDirective,
   ],
   exports: [
     TabsComponent,
     TabComponent,
     WizardComponent,
     WizardStepComponent,
+    DialogDirective,
+    HpFormatterDirective,
+    HpFormatterPipe,
+  ],
+  providers: [
+    HpFormatterPipe,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

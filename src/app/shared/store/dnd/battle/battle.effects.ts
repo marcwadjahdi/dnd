@@ -10,6 +10,8 @@ import {MapService} from '../../../map/map.service';
 import {BattleTurn} from '../../../dnd/battle/battle';
 import {BattleFacade} from './battle.facade';
 import {deepCopy} from '../../../util/deep-copy';
+import {StoreSyncUpdateAction} from '../../util/sync/store-sync.actions';
+import {INIT} from '@ngrx/store';
 
 @Injectable()
 export class BattleEffects {
@@ -63,6 +65,11 @@ export class BattleEffects {
     tap(action => this.mapService.addCharacter(action.character))
   ), dontDispatch);
 
+  onSync = createEffect(() => this.actions$.pipe(
+    ofType(BattleActions.SyncMap),
+    withLatestFrom(this.battleFacade.turn$),
+    tap(([action, turn]) => this.setTurn(turn)),
+  ), dontDispatch);
 
   constructor(private actions$: Actions,
               private battleFacade: BattleFacade,

@@ -9,6 +9,7 @@ import {CreatureType} from 'src/app/shared/dnd/character/enums/creature-type.enu
 import {Characters} from '../../../../dnd/character/characters';
 import {CharacterType} from '../../../../dnd/character/enums/character-type.enum';
 import {CharacterSize} from '../../../../dnd/character/enums/character-size.enum';
+import {CharacterClasses} from '../../../../dnd/character/enums/character-class.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,7 @@ export class NpcFacade {
         characterSize: CharacterSize.Medium,
         creatureType: CreatureType.Humanoid,
         hostile: true,
+        characterClass: CharacterClasses.HostileNPC,
         cr: ChallengeRating.CR_0,
         attributes: {strength: 1, dexterity: 1, constitution: 1, intelligence: 1, wisdom: 1, charisma: 1},
       }

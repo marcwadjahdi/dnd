@@ -6,6 +6,7 @@ import {ChallengeRating} from 'src/app/shared/dnd/character/enums/challenge-rati
 import {CreatureType} from 'src/app/shared/dnd/character/enums/creature-type.enum';
 import {Character} from 'src/app/shared/dnd/character/character.model';
 import {Characters} from '../../../shared/dnd/character/characters';
+import {CharacterClasses} from '../../../shared/dnd/character/enums/character-class.enum';
 
 @Component({
   selector: 'dnd-npc-detail',
@@ -54,9 +55,10 @@ export class NpcDetailComponent implements OnInit, OnDestroy {
 
   changeHostility() {
     this.npc.hostile = !this.npc.hostile;
+    this.npc.characterClass = CharacterClasses[`${this.npc.hostile ? 'Hostile' : 'Friendly'}NPC`];
   }
 
   hostilityIcon() {
-    return this.npc.hostile ? 'skull-crossbones' : 'heart';
+    return this.npc.hostile ? 'hangry' : 'happy';
   }
 }

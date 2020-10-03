@@ -4,6 +4,7 @@ import {CharacterSize} from '../enums/character-size.enum';
 import {CreatureType} from '../enums/creature-type.enum';
 import {randomId} from '../../common/identified';
 import {ChallengeRating} from '../enums/challenge-rating.enum';
+import {CharacterClasses} from '../enums/character-class.enum';
 
 function toNPC(data: { name: string; cr: string; type: string; size: string; ac: string; hp: string; speed: string; alignment: string; }): Character {
   const name = data.name;
@@ -17,6 +18,7 @@ function toNPC(data: { name: string; cr: string; type: string; size: string; ac:
     characterSize,
     creatureType,
     hostile: true,
+    characterClass: CharacterClasses.HostileNPC,
     cr,
     name,
     hp,

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {map, tap, withLatestFrom} from 'rxjs/operators';
+import {filter, map, tap, withLatestFrom} from 'rxjs/operators';
 import {DialogService} from 'src/app/shared/layouts/dialog/dialog.service';
 import {dontDispatch} from 'src/app/shared/store/util/effects';
 import {BattleActions} from './battle.actions';
@@ -10,8 +10,6 @@ import {MapService} from '../../../map/map.service';
 import {BattleTurn} from '../../../dnd/battle/battle';
 import {BattleFacade} from './battle.facade';
 import {deepCopy} from '../../../util/deep-copy';
-import {StoreSyncUpdateAction} from '../../util/sync/store-sync.actions';
-import {INIT} from '@ngrx/store';
 
 @Injectable()
 export class BattleEffects {
@@ -25,6 +23,7 @@ export class BattleEffects {
     ofType(BattleActions.StartBattle),
     tap(action => this.dialogs.close()),
     tap(action => this.mapService.showGrid()),
+    tap(action => this.mapService.setBattleZooms()),
     tap(action => this.setTurn(action.turn)),
     map(action => BattleActions.BattleStarted()),
   ));
@@ -33,6 +32,7 @@ export class BattleEffects {
     ofType(BattleActions.EndBattle),
     tap(action => this.mapService.deleteAll()),
     tap(action => this.mapService.hideGrid()),
+    tap(action => this.mapService.setDefaultZooms()),
     map(action => BattleActions.BattleEnded()),
   ));
 
@@ -68,6 +68,9 @@ export class BattleEffects {
   onSync = createEffect(() => this.actions$.pipe(
     ofType(BattleActions.SyncMap),
     withLatestFrom(this.battleFacade.turn$),
+    filter(([action, turn]) => !!turn),
+    tap(([action, turn]) => this.mapService.showGrid()),
+    tap(action => this.mapService.setBattleZooms()),
     tap(([action, turn]) => this.setTurn(turn)),
   ), dontDispatch);
 

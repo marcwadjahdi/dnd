@@ -12,6 +12,13 @@ function toPlayerClass(name: string): CharacterClass {
   };
 }
 
+function toNpcClass(name: string): CharacterClass {
+  return {
+    type: CharacterType.NPC,
+    name
+  };
+}
+
 export const CharacterClasses = {
   Barbarian: toPlayerClass('Barbarian'),
   Bard: toPlayerClass('Bard'),
@@ -25,17 +32,7 @@ export const CharacterClasses = {
   Sorcerer: toPlayerClass('Sorcerer'),
   Warlock: toPlayerClass('Warlock'),
   Wizard: toPlayerClass('Wizard'),
-};
-
-function toNpcClass(name: string): { [name: string]: CharacterClass } {
-  return {
-    [name]: {
-      type: CharacterType.NPC,
-      name
-    }
-  };
-}
-
-export const MonsterClasses = {
-  ...toNpcClass('Goblin')
+  FriendlyNPC: toNpcClass('FriendlyNPC'),
+  Neutral: toNpcClass('NeutralNPC'),
+  HostileNPC: toNpcClass('HostileNPC'),
 };

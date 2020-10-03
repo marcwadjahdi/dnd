@@ -34,7 +34,7 @@ export const PlayersCharacters: Character[] = [
   newPlayer({
     level: 3,
     characterClass: CharacterClasses.Sorcerer,
-    name: 'Zalkas Eärendil',
+    name: 'Zalkas',
     hp: 22,
     maxHP: 22,
     attributes: {
@@ -49,7 +49,7 @@ export const PlayersCharacters: Character[] = [
   newPlayer({
     level: 3,
     characterClass: CharacterClasses.Druid,
-    name: 'Nauthime Mario',
+    name: 'Nauthime',
     hp: 27,
     maxHP: 27,
     attributes: {

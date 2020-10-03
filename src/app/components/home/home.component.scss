@@ -1,8 +1,25 @@
+@import '~src/variables';
+
 .home {
   padding: 1.5rem 2.5rem;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
   section {
     article {
       margin-bottom: 3rem;
+
+      textarea {
+        height: 10rem;
+        width: 100%;
+      }
+
+      .btn {
+        background-color: $bg-x-light;
+        width: auto;
+        padding: .5rem 1rem;
+      }
     }
   }
 }

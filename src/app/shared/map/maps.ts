@@ -9,10 +9,12 @@ import ImageLayer from 'ol/layer/Image';
 import Static from 'ol/source/ImageStatic';
 import {Vector as VectorSource} from 'ol/source';
 import {Vector as VectorLayer} from 'ol/layer';
-import {Circle as CircleStyle, Fill, Stroke, Style} from 'ol/style';
+import {Circle as CircleStyle, Fill, RegularShape, Stroke, Style, Text} from 'ol/style';
 import {Modify, Select, Snap} from 'ol/interaction';
 import Transform from 'ol-ext/interaction/Transform';
 import {click} from 'ol/events/condition';
+import {Characters} from '../dnd/character/characters';
+import {Character} from '../dnd/character/character.model';
 
 export namespace Maps {
 
@@ -29,6 +31,7 @@ export namespace Maps {
 
   export const minZoom = 1;
   export const maxZoom = 8;
+  export const battleZoom = 4;
 
   export function getExtent(map: Map) {
     return map.getView().calculateExtent();
@@ -118,29 +121,64 @@ export namespace Maps {
   }
 
   export namespace Styles {
-    const defaultPointRadius = 15;
+    const defaultPointRadius = 25;
     const defaultFill = '#cccccc99';
     const defaultStroke = '#ffcc33';
 
-    export const friendlyNPC = new CircleStyle({
-      radius: defaultPointRadius,
-      fill: new Fill({color: '#33ff3333'}),
-      stroke: new Stroke({color: '#33ff33', width: 2})
-    });
+    const colors = {
+      Barbarian: '#d48369',
+      Bard: '#b087b1',
+      Cleric: '#a2a3a5',
+      Druid: '#889253',
+      Fighter: '#6e4e43',
+      Monk: '#78bcd6',
+      Paladin: '#c7b47d',
+      Ranger: '#2d8558',
+      Rogue: '#555650',
+      Sorcerer: '#cd7c7b',
+      Warlock: '#7745ac',
+      Wizard: '#376abc',
+      FriendlyNPC: '#33ff33',
+      Neutral: '#ffd333',
+      HostileNPC: '#ff3333',
+    };
 
-    export const hostileNPC = new CircleStyle({
-      radius: defaultPointRadius,
-      fill: new Fill({color: '#ff333333'}),
-      stroke: new Stroke({color: '#ff3333', width: 2})
-    });
+    export function fronCharacter(character: Character) {
+      const color = colors[character.characterClass.name];
+      const text = new Text({
+        font: '16px Calibri,sans-serif',
+        fill: new Fill({color: '#000000'}),
+        stroke: new Stroke({
+          color: '#fff', width: 5
+        }),
+        offsetX: 0,
+        offsetY: 0,
+        textBaseline: 'bottom',
+        text: character.name
+      });
+      const shape = new RegularShape({
+        fill: new Fill({color}),
+        stroke: new Stroke({color: '#000000aa', width: 2}),
+        points: 6,
+        radius: defaultPointRadius,
+        angle: 0,
+      });
+      return new Style({
+        image: shape,
+        text,
+      });
+    }
 
     export const Point = new Style({
-      image: new CircleStyle({
-        radius: defaultPointRadius,
+      image: new RegularShape({
         fill: new Fill({color: defaultFill}),
-        stroke: new Stroke({color: defaultStroke, width: 2})
+        stroke: new Stroke({color: defaultStroke, width: 2}),
+        points: 6,
+        radius: defaultPointRadius,
+        angle: 0,
       })
     });
+
     export const LineString = new Style({
       fill: new Fill({color: defaultFill}),
       stroke: new Stroke({color: defaultStroke, width: 2}),

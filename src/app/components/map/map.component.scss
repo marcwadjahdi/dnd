@@ -1,5 +1,8 @@
 @import '~src/variables';
 
+$map-height: calc(100vh - 5.5rem);
+$map-width: 100vw;
+
 .map {
   margin: 0;
   padding: 0;
@@ -7,8 +10,14 @@
   width: 100%;
 
   #battle_map {
-    height: calc(100vh - 4.5rem);
-    width: 100vw;
+    height: $map-height;
+    max-height: $map-height;
+    width: $map-width;
+    max-width: $map-width;
+    position: relative;
+    top: 0;
+    left: 0;
+    overflow: hidden;
   }
 }
 

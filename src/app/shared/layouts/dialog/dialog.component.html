@@ -1,5 +1,5 @@
-<section class="dialog-overlay" (click)="contentCliked($event)">
-  <article class="dialog-content" (click)="contentCliked($event)">
+<section (click)="contentCliked($event)" class="dialog-overlay">
+  <article (click)="contentCliked($event)" class="dialog-content">
     <ng-template dndDialog></ng-template>
   </article>
 </section>

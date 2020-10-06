@@ -23,7 +23,6 @@ export class BattleEffects {
     ofType(BattleActions.StartBattle),
     tap(action => this.dialogs.close()),
     tap(action => this.mapService.showGrid()),
-    tap(action => this.mapService.setBattleZooms()),
     tap(action => this.setTurn(action.turn)),
     map(action => BattleActions.BattleStarted()),
   ));
@@ -32,7 +31,6 @@ export class BattleEffects {
     ofType(BattleActions.EndBattle),
     tap(action => this.mapService.deleteAll()),
     tap(action => this.mapService.hideGrid()),
-    tap(action => this.mapService.setDefaultZooms()),
     map(action => BattleActions.BattleEnded()),
   ));
 
@@ -65,12 +63,17 @@ export class BattleEffects {
     tap(action => this.mapService.addCharacter(action.character))
   ), dontDispatch);
 
+  editCharacter = createEffect(() => this.actions$.pipe(
+    ofType(BattleActions.EditCharacter),
+    tap(action => this.mapService.renderCharacter(action.character))
+  ), dontDispatch);
+
+
   onSync = createEffect(() => this.actions$.pipe(
     ofType(BattleActions.SyncMap),
     withLatestFrom(this.battleFacade.turn$),
     filter(([action, turn]) => !!turn),
     tap(([action, turn]) => this.mapService.showGrid()),
-    tap(action => this.mapService.setBattleZooms()),
     tap(([action, turn]) => this.setTurn(turn)),
   ), dontDispatch);
 

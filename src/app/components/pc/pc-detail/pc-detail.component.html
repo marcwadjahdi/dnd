@@ -1,53 +1,53 @@
-<section class="pc-form" *ngIf="!!pc" [class]="classBackground()">
+<section *ngIf="!!pc" [class]="classBackground()" class="pc-form">
   <header>
-    <input type="text" id="playerName" [(ngModel)]="pc.name" placeholder="Player's name"/>
+    <input [(ngModel)]="pc.name" id="playerName" placeholder="Player's name" type="text"/>
   </header>
   <main>
     <article class="form-row">
       <label for="playerClass">Class</label>
-      <select id="playerClass" [(ngModel)]="pc.characterClass">
+      <select [(ngModel)]="pc.characterClass" id="playerClass">
         <option *ngFor="let playerClass of keys(characterClasses)" [ngValue]="characterClasses[playerClass]">{{characterClasses[playerClass]?.name}}</option>
       </select>
     </article>
 
     <article class="form-row">
       <label for="playerLevel">Level</label>
-      <input type="number" id="playerLevel" min="1" max="20" [(ngModel)]="pc.level"/>
+      <input [(ngModel)]="pc.level" id="playerLevel" max="20" min="1" type="number"/>
     </article>
 
     <article class="form-row">
       <label for="pcHP">Health Points</label>
       <div id="pcHP">
-        <input type="number" min="1" [(ngModel)]="pc.hp" placeholder="current HP"/>
+        <input [(ngModel)]="pc.hp" min="1" placeholder="current HP" type="number"/>
         <strong>/</strong>
-        <input type="number" min="1" [(ngModel)]="pc.maxHP" placeholder="max HP"/>
+        <input [(ngModel)]="pc.maxHP" min="1" placeholder="max HP" type="number"/>
       </div>
     </article>
 
     <article class="form-row attributes">
       <div class="attribute">
         <label for="playerStr">STR</label>
-        <input type="number" id="playerStr" min="0" max="20" [(ngModel)]="pc.attributes.strength"/>
+        <input [(ngModel)]="pc.attributes.strength" id="playerStr" max="20" min="0" type="number"/>
       </div>
       <div class="attribute">
         <label for="playerDex">DEX</label>
-        <input type="number" id="playerDex" min="0" max="20" [(ngModel)]="pc.attributes.dexterity"/>
+        <input [(ngModel)]="pc.attributes.dexterity" id="playerDex" max="20" min="0" type="number"/>
       </div>
       <div class="attribute">
         <label for="playerCon">CON</label>
-        <input type="number" id="playerCon" min="0" max="20" [(ngModel)]="pc.attributes.constitution"/>
+        <input [(ngModel)]="pc.attributes.constitution" id="playerCon" max="20" min="0" type="number"/>
       </div>
       <div class="attribute">
         <label for="playerInt">INT</label>
-        <input type="number" id="playerInt" min="0" max="20" [(ngModel)]="pc.attributes.intelligence"/>
+        <input [(ngModel)]="pc.attributes.intelligence" id="playerInt" max="20" min="0" type="number"/>
       </div>
       <div class="attribute">
         <label for="playerWis">WIS</label>
-        <input type="number" id="playerWis" min="0" max="20" [(ngModel)]="pc.attributes.wisdom"/>
+        <input [(ngModel)]="pc.attributes.wisdom" id="playerWis" max="20" min="0" type="number"/>
       </div>
       <div class="attribute">
         <label for="playerCha">CHA</label>
-        <input type="number" id="playerCha" min="0" max="20" [(ngModel)]="pc.attributes.charisma"/>
+        <input [(ngModel)]="pc.attributes.charisma" id="playerCha" max="20" min="0" type="number"/>
       </div>
     </article>
   </main>

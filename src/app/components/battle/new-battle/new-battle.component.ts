@@ -66,7 +66,7 @@ export class NewBattleComponent implements OnInit, OnDestroy, Closeable {
   );
 
   removePC(character) {
-     delete this.playersCharacters[character.id];
+    delete this.playersCharacters[character.id];
   }
 
   removeNPC(character) {

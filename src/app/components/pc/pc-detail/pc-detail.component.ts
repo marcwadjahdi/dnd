@@ -13,12 +13,10 @@ import {Characters} from '../../../shared/dnd/character/characters';
 })
 export class PcDetailComponent implements OnInit, OnDestroy {
 
-  private subs: Subscription[] = [];
-
   readonly keys = Object.keys;
   readonly characterClasses = CharacterClasses;
-
   pc: Character;
+  private subs: Subscription[] = [];
 
   constructor(private facade: PcFacade) {
   }

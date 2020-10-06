@@ -14,9 +14,6 @@ import getBasemapLayer = Maps.Layers.getBasemapLayer;
 import getEnvironmentLayer = Maps.Layers.getEnvironmentLayer;
 import getCharacterLayer = Maps.Layers.getCharacterLayer;
 import getGridLayer = Maps.Layers.getGridLayer;
-import battleZoom = Maps.battleZoom;
-import minZoom = Maps.minZoom;
-import maxZoom = Maps.maxZoom;
 
 
 @Injectable({
@@ -67,10 +64,16 @@ export class MapService {
     const feature = new Feature({
       geometry: new Point(character.position),
       name: character.name,
+      character,
     });
-    feature.setStyle(Maps.Styles.fronCharacter(character));
+    feature.setStyle(Maps.Styles.fronCharacter(this.map.getView()));
     feature.setId(character.id);
     this.getCharSource().addFeature(feature);
+  }
+
+  renderCharacter(character: BattleCharacter) {
+    this.getCharSource().getFeatures().find(it => it.getId() === character.id).setProperties({character});
+    getCharacterLayer(this.map).changed();
   }
 
   characterPosition(id: number) {
@@ -113,6 +116,17 @@ export class MapService {
     this.getEnvSource().clear();
   }
 
+  getMap(): Map {
+    return this.map;
+  }
+
+  getEnvSource() {
+    return getEnvironmentLayer(this.map).getSource();
+  }
+
+
+  /* Utils */
+
   private addInteractions(interactions: any[]) {
     interactions.forEach(this.addInteraction, this);
   }
@@ -134,27 +148,7 @@ export class MapService {
     }
   }
 
-  /* Utils */
-
-  getMap(): Map {
-    return this.map;
-  }
-
   private getCharSource() {
     return getCharacterLayer(this.map).getSource();
-  }
-
-  getEnvSource() {
-    return getEnvironmentLayer(this.map).getSource();
-  }
-
-  setBattleZooms() {
-    this.map.getView().setMinZoom(battleZoom);
-    this.map.getView().setMaxZoom(battleZoom);
-  }
-
-  setDefaultZooms() {
-    this.map.getView().setMinZoom(minZoom);
-    this.map.getView().setMaxZoom(maxZoom);
   }
 }

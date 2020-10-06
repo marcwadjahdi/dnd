@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {DndState} from 'src/app/shared/store/dnd.state';
 import {BattleActions} from './battle.actions';
-import {BattleTurn} from 'src/app/shared/dnd/battle/battle';
+import {BattleCharacter, BattleTurn} from 'src/app/shared/dnd/battle/battle';
 import {Character} from 'src/app/shared/dnd/character/character.model';
 import {BattleSelectors} from './battle.selectors';
 
@@ -48,7 +48,7 @@ export class BattleFacade {
     this.store.dispatch(BattleActions.AddCharacter({character}));
   }
 
-  editCharacter(character: Character) {
+  editCharacter(character: BattleCharacter) {
     this.store.dispatch(BattleActions.EditCharacter({character}));
   }
 

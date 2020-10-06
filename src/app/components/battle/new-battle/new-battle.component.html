@@ -12,10 +12,10 @@
           </select>
         </article>
       </dnd-tab>
-      <dnd-tab [tabTitle]="'Players'" >
+      <dnd-tab [tabTitle]="'Players'">
         <article class="players-characters">
-          <dnd-battle-character-item *ngFor="let pc of values(playersCharacters)"  [character]="pc">
-            <a class="remove" (click)="removePC(pc)">
+          <dnd-battle-character-item *ngFor="let pc of values(playersCharacters)" [character]="pc">
+            <a (click)="removePC(pc)" class="remove">
               <fa-icon [icon]="'trash'"></fa-icon>
             </a>
           </dnd-battle-character-item>
@@ -24,13 +24,13 @@
       <dnd-tab [tabTitle]="'Non-Players'">
         <article class="non-players-characters">
           <nav class="npc-actions">
-            <input id="npc-picker" type="text" [(ngModel)]="npc" [ngbTypeahead]="searchNPC"  [resultFormatter]="formatter" [inputFormatter]="formatter" placeholder="Enter a NPC's name"/>
-            <a (click)="addNPC()" class="btn" [hidden]="!!npc">
+            <input [(ngModel)]="npc" [inputFormatter]="formatter" [ngbTypeahead]="searchNPC" [resultFormatter]="formatter" id="npc-picker" placeholder="Enter a NPC's name" type="text"/>
+            <a (click)="addNPC()" [hidden]="!!npc" class="btn">
               <fa-icon [icon]="'user-plus'"></fa-icon>
             </a>
           </nav>
           <dnd-battle-character-item *ngFor="let npc of values(nonPlayersCharacters)" [character]="npc">
-            <a class="remove" (click)="removeNPC(npc)">
+            <a (click)="removeNPC(npc)" class="remove">
               <fa-icon [icon]="'trash'"></fa-icon>
             </a>
           </dnd-battle-character-item>

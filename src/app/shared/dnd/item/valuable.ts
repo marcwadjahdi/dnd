@@ -1,4 +1,4 @@
 export interface Valubable {
-    buyingValue?: number;
-    sellValue?: number;
+  buyingValue?: number;
+  sellValue?: number;
 }

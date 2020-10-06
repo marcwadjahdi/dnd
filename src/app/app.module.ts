@@ -1,4 +1,4 @@
-import {APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, HostListener, NgModule} from '@angular/core';
+import {APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 // DnD Modules
 import {SharedModule} from 'src/app/shared/shared.module';

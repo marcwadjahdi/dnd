@@ -92,9 +92,9 @@ fa-icon svg {
 input, select {
   padding: 0px;
   margin: 0;
-  border:0;
+  border: 0;
 
-  font-family:inherit;
+  font-family: inherit;
   font-size: inherit;
 
   text-indent: 0.3rem;
@@ -105,3 +105,19 @@ input, select {
   border: 2px solid #eee;
 }
 
+
+.hp-dead {
+  color: #757272 !important;
+}
+
+.hp-danger {
+  color: #a96060 !important;
+}
+
+.hp-warning {
+  color: #a99760 !important;
+}
+
+.hp-healthy {
+  color: #60a964 !important;
+}

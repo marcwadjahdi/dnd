@@ -8,7 +8,7 @@ import {ChallengeRating} from 'src/app/shared/dnd/character/enums/challenge-rati
 import {CreatureType} from 'src/app/shared/dnd/character/enums/creature-type.enum';
 import {Characters} from '../../../../dnd/character/characters';
 import {CharacterType} from '../../../../dnd/character/enums/character-type.enum';
-import {CharacterSize} from '../../../../dnd/character/enums/character-size.enum';
+import {CharacterSizes} from '../../../../dnd/character/enums/character-size.model';
 import {CharacterClasses} from '../../../../dnd/character/enums/character-class.enum';
 
 @Injectable({
@@ -26,7 +26,7 @@ export class NpcFacade {
     this.store.dispatch(NpcActions.OpenEditNPC({
       npc: {
         characterType: CharacterType.NPC,
-        characterSize: CharacterSize.Medium,
+        characterSize: CharacterSizes.Medium,
         creatureType: CreatureType.Humanoid,
         hostile: true,
         characterClass: CharacterClasses.HostileNPC,

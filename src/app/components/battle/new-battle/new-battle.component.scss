@@ -68,6 +68,7 @@
         .dropdown-item {
           background-color: $bg-dark;
           color: $font-color;
+          font-size: $font-size-base;
         }
 
         .dropdown-item.active, .dropdown-item:hover {

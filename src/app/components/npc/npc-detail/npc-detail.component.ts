@@ -15,13 +15,11 @@ import {CharacterClasses} from '../../../shared/dnd/character/enums/character-cl
 })
 export class NpcDetailComponent implements OnInit, OnDestroy {
 
-  private subs: Subscription[] = [];
-
   readonly keys = Object.keys;
   readonly enumChallengeRating = ChallengeRating;
   readonly enumCreatureType = CreatureType;
-
   npc: Character;
+  private subs: Subscription[] = [];
 
   constructor(private facade: NpcFacade) {
   }

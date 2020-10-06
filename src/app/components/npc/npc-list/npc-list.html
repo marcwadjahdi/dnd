@@ -9,16 +9,16 @@
     </nav>
   </header>
   <nav class="filters">
-    <span class="hostility"><fa-icon [icon]="'skull-crossbones'" (click)="hostileFilter()"></fa-icon></span>
-    <span class="hostility"><fa-icon [icon]="'heart'" (click)="friendlyFilter()"></fa-icon></span>
-    <input type="text" placeholder="Search by Name" class="form-control" (change)="nameFilter($event)"/>
+    <span class="hostility"><fa-icon (click)="hostileFilter()" [icon]="'skull-crossbones'"></fa-icon></span>
+    <span class="hostility"><fa-icon (click)="friendlyFilter()" [icon]="'heart'"></fa-icon></span>
+    <input (change)="nameFilter($event)" class="form-control" placeholder="Search by Name" type="text"/>
   </nav>
   <main>
     <section class="npcs-tiles">
       <article *ngFor="let npc of npcs$ | async" class="npc-tile">
         <header>
           <span>{{npc.name}}</span>
-          <span class="cr-badge" [class]="hostileBadgeCls(npc)">{{npc.cr}}</span>
+          <span [class]="hostileBadgeCls(npc)" class="cr-badge">{{npc.cr}}</span>
         </header>
         <main>
           <span class="attributes">

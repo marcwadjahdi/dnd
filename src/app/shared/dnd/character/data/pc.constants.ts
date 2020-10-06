@@ -2,14 +2,14 @@ import {Character} from 'src/app/shared/dnd/character/character.model';
 import {CharacterClasses} from 'src/app/shared/dnd/character/enums/character-class.enum';
 import {randomId} from '../../common/identified';
 import {CharacterType} from '../enums/character-type.enum';
-import {CharacterSize} from '../enums/character-size.enum';
+import {CharacterSizes} from '../enums/character-size.model';
 import {CreatureType} from '../enums/creature-type.enum';
 
 function newPlayer(options): Character {
   return {
     id: randomId(),
     characterType: CharacterType.PC,
-    characterSize: CharacterSize.Medium,
+    characterSize: CharacterSizes.Medium,
     creatureType: CreatureType.Humanoid,
     ...options
   };

@@ -1,7 +1,7 @@
-import {INIT, Store} from '@ngrx/store';
+import {Store} from '@ngrx/store';
 import {DndState} from '../../dnd.state';
 import {Injectable} from '@angular/core';
-import {Actions, createEffect, Effect, ofType, ROOT_EFFECTS_INIT} from '@ngrx/effects';
+import {Actions, createEffect, Effect, ofType} from '@ngrx/effects';
 import {map, take, tap} from 'rxjs/operators';
 import {PcActions} from '../../dnd/character/pc/pc.actions';
 import {fromEvent} from 'rxjs';
@@ -15,13 +15,18 @@ import {dontDispatch} from '../effects';
 export class LocalStorageSyncEffect {
 
   private readonly STORAGE_EVENT = 'storage';
-
+  @Effect()
+  onChange = fromEvent<StorageEvent>(window, this.STORAGE_EVENT).pipe(
+    map(evt => StoreSyncUpdateAction()),
+    tap(action => {
+      this.store.dispatch(BattleActions.SyncMap());
+    }),
+  );
   private readonly toSToreActionTypes = ofType(
     NpcActions.EditNPC, NpcActions.RemoveNPC,
     PcActions.EditPC, PcActions.RemovePC,
     BattleActions.BattleStarted, BattleActions.BattleEnded, BattleActions.NextTurnReady, BattleActions.PreviousTurn, BattleActions.EditCharacter, BattleActions.RemoveCharacter, BattleActions.AddCharacter,
   );
-
   onToStoreAction = createEffect(() => this.actions$.pipe(
     this.toSToreActionTypes,
     tap(action => {
@@ -30,14 +35,6 @@ export class LocalStorageSyncEffect {
         .subscribe(state => StoreState(state));
     }),
   ), dontDispatch);
-
-  @Effect()
-  onChange = fromEvent<StorageEvent>(window, this.STORAGE_EVENT).pipe(
-    map(evt => StoreSyncUpdateAction()),
-    tap(action => {
-      this.store.dispatch(BattleActions.SyncMap());
-    }),
-  );
 
   constructor(private actions$: Actions, private store: Store<DndState>) {
   }

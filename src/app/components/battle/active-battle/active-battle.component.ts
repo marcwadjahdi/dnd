@@ -3,6 +3,8 @@ import {Battle, BattleCharacter, BattleTurn} from 'src/app/shared/dnd/battle/bat
 import {Observable} from 'rxjs';
 import {BattleFacade} from 'src/app/shared/store/dnd/battle/battle.facade';
 import {map} from 'rxjs/operators';
+import {CharacterSizes} from '../../../shared/dnd/character/enums/character-size.model';
+import {deepCopy} from '../../../shared/util/deep-copy';
 
 @Component({
   selector: 'dnd-active-battle',
@@ -10,6 +12,8 @@ import {map} from 'rxjs/operators';
   styleUrls: ['./active-battle.component.scss'],
 })
 export class ActiveBattleComponent implements OnInit, OnDestroy {
+
+  readonly sizes = Object.values(CharacterSizes);
 
   battle$: Observable<Battle>;
   turn$: Observable<BattleTurn>;
@@ -54,5 +58,22 @@ export class ActiveBattleComponent implements OnInit, OnDestroy {
 
   onTurn0(): Observable<boolean> {
     return this.turn$.pipe(map(it => !!it && it.id === 0));
+  }
+
+  onCharacterSizeSelected(character: BattleCharacter, selector) {
+    const size = selector.value;
+    const edited = deepCopy(character);
+    edited.characterSize = {...CharacterSizes[size]};
+    this.facade.editCharacter(edited);
+    selector.value = null;
+  }
+
+  onCharacterHealthKeyPress(character: BattleCharacter, $event) {
+    if ($event.key.toLowerCase() === 'enter') {
+      const edited = deepCopy(character);
+      edited.hp = parseInt(edited.hp, 10)  + parseInt($event.target.value, 10);
+      this.facade.editCharacter(edited);
+      $event.target.value = null;
+    }
   }
 }

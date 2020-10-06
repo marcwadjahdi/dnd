@@ -10,12 +10,12 @@ export class HpFormatterPipe implements PipeTransform {
   }
 
   transform(character: Character): string {
-    const hp = character.hp || character.maxHP;
+    const hp = character.hp === undefined || character.hp === null ? character.maxHP : character.hp;
     const {maxHP} = character;
     const hpLevel = hp / maxHP;
-    const hpCls = hpLevel === 0 ? 'dead'
+    const hpCls = hpLevel <= 0 ? 'dead'
       : (hpLevel > 0.5 ? 'healthy' : (hpLevel > 0.25 ? 'warning' : 'danger'));
-    return `<span class="hp hp-${hpCls}">${hp}${SEPARATOR}${maxHP}</span>`;
+    return `<span class="hp-${hpCls}">${hp}${SEPARATOR}${maxHP}</span>`;
   }
 
   parse(str: string): number {

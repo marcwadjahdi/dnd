@@ -32,13 +32,6 @@ export class DialogComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  private createContent(componentType: Type<any>) {
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentType);
-    const viewContainerRef = this.dialogContent.viewContainerRef;
-    viewContainerRef.clear();
-    this.componentRef = viewContainerRef.createComponent(componentFactory);
-  }
-
   contentCliked($event: MouseEvent) {
     $event.stopPropagation();
   }
@@ -49,5 +42,12 @@ export class DialogComponent implements AfterViewInit, OnDestroy {
     } else if (this.doClose) {
       this.doClose();
     }
+  }
+
+  private createContent(componentType: Type<any>) {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentType);
+    const viewContainerRef = this.dialogContent.viewContainerRef;
+    viewContainerRef.clear();
+    this.componentRef = viewContainerRef.createComponent(componentFactory);
   }
 }

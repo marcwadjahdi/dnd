@@ -10,7 +10,7 @@ import Static from 'ol/source/ImageStatic';
 import {Vector as VectorSource} from 'ol/source';
 import {Vector as VectorLayer} from 'ol/layer';
 import {Circle as CircleStyle, Fill, RegularShape, Stroke, Style, Text} from 'ol/style';
-import {Modify, Select, Snap} from 'ol/interaction';
+import {defaults as DefaultInteractions, Modify, PinchZoom, Select, Snap} from 'ol/interaction';
 import Transform from 'ol-ext/interaction/Transform';
 import {click} from 'ol/events/condition';
 import {Characters} from '../dnd/character/characters';
@@ -29,9 +29,8 @@ export namespace Maps {
     extent,
   });
 
-  export const minZoom = 1;
-  export const maxZoom = 8;
-  export const battleZoom = 4;
+  export const minZoom = 2;
+  export const maxZoom = 7;
 
   export function getExtent(map: Map) {
     return map.getView().calculateExtent();
@@ -52,7 +51,7 @@ export namespace Maps {
     export const Basemaps = [
       'Irrandia.png',
       'magamar/angmar/keep/keep_catacombs.jpg',
-      'magamar/angmar/keep/keep_groud_floor.jpg',
+      'magamar/angmar/keep/keep_ground_floor.jpg',
       'magamar/angmar/keep/keep_first_floor.jpg',
       'magamar/angmar/mines/west_mine.png',
       'magamar/angmar/mines/north_mine.png',
@@ -121,6 +120,14 @@ export namespace Maps {
   }
 
   export namespace Styles {
+    const radiusByZoom = {
+      2: 8,
+      3: 15,
+      4: 28,
+      5: 55,
+      6: 100,
+      7: 200,
+    };
     const defaultPointRadius = 25;
     const defaultFill = '#cccccc99';
     const defaultStroke = '#ffcc33';
@@ -143,39 +150,50 @@ export namespace Maps {
       HostileNPC: '#ff3333',
     };
 
-    export function fronCharacter(character: Character) {
+    export function fronCharacter(view: View) {
+      return (feature, resolution) => {
+        const character = feature.getProperties().character;
+        const zoom = Math.round(view.getZoomForResolution(resolution));
+        const text = characterTextAtZoom(character, zoom);
+        const image = characterShapeAtZoom(character, zoom);
+        return new Style({image, text});
+      };
+    }
+
+    function characterShapeAtZoom(character: Character, zoom: number) {
+      const radius = radiusByZoom[zoom] * character.characterSize.ratio;
       const color = colors[character.characterClass.name];
-      const text = new Text({
-        font: '16px Calibri,sans-serif',
+      return new RegularShape({
+        fill: new Fill({color: `${color}aa`}),
+        stroke: new Stroke({color: '#000000aa', width: 2}),
+        points: 6,
+        radius,
+        angle: 0,
+      });
+    }
+
+    function characterTextAtZoom(character: Character, zoom: number) {
+      const fontSize = 14 + ((zoom - 4) * 2);
+      const text = zoom < 4 ? character.name[0] : character.name.split(' ')[0];
+
+      return new Text({
+        font: `${fontSize}px Calibri,sans-serif`,
         fill: new Fill({color: '#000000'}),
         stroke: new Stroke({
           color: '#fff', width: 5
         }),
         offsetX: 0,
-        offsetY: 0,
+        offsetY: 5,
         textBaseline: 'bottom',
-        text: character.name
-      });
-      const shape = new RegularShape({
-        fill: new Fill({color}),
-        stroke: new Stroke({color: '#000000aa', width: 2}),
-        points: 6,
-        radius: defaultPointRadius,
-        angle: 0,
-      });
-      return new Style({
-        image: shape,
         text,
       });
     }
 
     export const Point = new Style({
-      image: new RegularShape({
-        fill: new Fill({color: defaultFill}),
-        stroke: new Stroke({color: defaultStroke, width: 2}),
-        points: 6,
+      image: new CircleStyle({
         radius: defaultPointRadius,
-        angle: 0,
+        fill: new Fill({color: defaultFill}),
+        stroke: new Stroke({color: defaultStroke, width: 2})
       })
     });
 
@@ -278,6 +296,7 @@ export namespace Maps {
       };
 
       const map = new Map({
+        interactions: DefaultInteractions().extend([new PinchZoom()]), // + constrainResolution allow to zoom on integer levels only
         layers: [
           basemapLayer,
           gridLayer,
@@ -290,10 +309,13 @@ export namespace Maps {
           zoom: maxZoom / 2,
           minZoom,
           maxZoom,
+          constrainResolution: true,
         }),
         controls: [],
         target: battleMapHolder,
       });
+
+      // map.on('moveend', (event) => console.log(map.getView().getZoom()));
 
       map.addInteraction(charactersInteractions.snap);
       map.addInteraction(charactersInteractions.modify);

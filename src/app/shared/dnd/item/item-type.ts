@@ -1,5 +1,5 @@
 export enum ItemType {
-    WEAPON,
-    ARMOR,
-    CONSUMABLE
+  WEAPON,
+  ARMOR,
+  CONSUMABLE
 }

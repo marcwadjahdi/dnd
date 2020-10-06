@@ -1,7 +1,5 @@
-import {AfterViewInit, Directive, HostListener, OnDestroy, Self} from '@angular/core';
-import {NgControl, NgModel} from '@angular/forms';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {AfterViewInit, Directive, HostListener, Self} from '@angular/core';
+import {NgModel} from '@angular/forms';
 import {HpFormatterPipe} from './hp-formatter.pipe';
 
 @Directive({selector: '[dndHpFormatter]'})

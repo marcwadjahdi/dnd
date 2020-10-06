@@ -1,6 +1,6 @@
 import {Character} from '../character.model';
 import {CharacterType} from '../enums/character-type.enum';
-import {CharacterSize} from '../enums/character-size.enum';
+import {CharacterSizes} from '../enums/character-size.model';
 import {CreatureType} from '../enums/creature-type.enum';
 import {randomId} from '../../common/identified';
 import {ChallengeRating} from '../enums/challenge-rating.enum';
@@ -10,7 +10,7 @@ function toNPC(data: { name: string; cr: string; type: string; size: string; ac:
   const name = data.name;
   const cr = ChallengeRating[`CR_${data.cr.replace('/', '_')}`];
   const creatureType = CreatureType[`${data.type[0].toUpperCase()}${data.type.split(' ')[0].substr(1)}`];
-  const characterSize = CharacterSize[`${data.size[0].toUpperCase()}${data.size.substr(1)}`];
+  const characterSize = CharacterSizes[`${data.size[0].toUpperCase()}${data.size.substr(1)}`];
   const hp = parseInt(data.hp, 10);
   return {
     id: randomId(),

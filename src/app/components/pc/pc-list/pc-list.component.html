@@ -13,7 +13,7 @@
       <article *ngFor="let player of players$ | async" class="pc-tile">
         <header>
           <span>{{player.name}}</span>
-          <span class="level-badge" [class]="classBadgeCls(player)">{{player.level}}</span>
+          <span [class]="classBadgeCls(player)" class="level-badge">{{player.level}}</span>
         </header>
         <main>
           <span class="attributes">

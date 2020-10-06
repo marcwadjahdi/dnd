@@ -11,7 +11,6 @@ import {AddBattleCharacterComponent} from './add-battle-character/add-battle-cha
 import {BattleCharacterItemComponent} from './battle-character-item/battle-character-item.component';
 import {SharedModule} from '../../shared/shared.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {LayoutsModule} from '../../shared/layouts/layouts.module';
 
 @NgModule({
   declarations: [

@@ -4,6 +4,7 @@ import {BattleActions} from './battle.actions';
 import {randomId} from 'src/app/shared/dnd/common/identified';
 import {deepCopy} from '../../../util/deep-copy';
 import {BattleTurn} from '../../../dnd/battle/battle';
+import {CharacterType} from '../../../dnd/character/enums/character-type.enum';
 
 function initialState() {
   return {
@@ -64,8 +65,24 @@ const nextTurn = (state, {turn}) => {
   const newTurn = deepCopy(turn);
   newTurn.id = currentTurnId + 1;
   newTurn.characters[newTurn.active].active = false;
+
   const activeIndex = _.indexOf(newTurn.initiative, newTurn.active);
-  newTurn.active = activeIndex + 1 === newTurn.initiative.length ? newTurn.initiative[0] : newTurn.initiative[activeIndex + 1];
+  let nextIndex = activeIndex;
+  const next = () => nextIndex + 1 === newTurn.initiative.length ? 0 : nextIndex + 1;
+  nextIndex = next();
+
+  newTurn.active = newTurn.initiative[nextIndex];
+  let character = newTurn.characters[newTurn.active];
+
+  while (nextIndex !== activeIndex) {
+    if (character.hp > 0 || character.characterType === CharacterType.PC) {
+      break;
+    }
+    nextIndex = next();
+    newTurn.active = newTurn.initiative[nextIndex];
+    character = newTurn.characters[newTurn.active];
+  }
+
   newTurn.characters[newTurn.active].active = true;
 
   const newState = deepCopy(state);
@@ -74,10 +91,16 @@ const nextTurn = (state, {turn}) => {
   return newState;
 };
 
-const addOrEditCharacter = (state, character) => {
+const addOrEditCharacter = (state, {character}) => {
   const newState = deepCopy(state);
-  newState.active.currentTurn.characters[character.id] = deepCopy(character);
-  state.active.currentTurn.initiative = sortInitiative(newState.active.currentTurn);
+  const characters = deepCopy(state.active.currentTurn.characters);
+  characters[character.id] = deepCopy(character);
+
+  newState.active.currentTurn = {
+    ...newState.active.currentTurn,
+    initiative: sortInitiative(newState.active.currentTurn),
+    characters,
+  };
   return newState;
 };
 
@@ -89,7 +112,7 @@ const removeCharacter = (state, id) => {
 };
 
 function sortInitiative(turn: BattleTurn) {
- return _.orderBy(turn.characters, 'initiative', 'desc').map(it => it.id);
+  return _.orderBy(Object.values(turn.characters), 'initiative', 'desc').map(it => it.id);
 }
 
 const reducer = createReducer(initialState(),

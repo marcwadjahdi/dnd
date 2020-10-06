@@ -6,7 +6,7 @@ import {DndState} from 'src/app/shared/store/dnd.state';
 import {Character} from 'src/app/shared/dnd/character/character.model';
 import {Characters} from '../../../../dnd/character/characters';
 import {CharacterType} from '../../../../dnd/character/enums/character-type.enum';
-import {CharacterSize} from '../../../../dnd/character/enums/character-size.enum';
+import {CharacterSizes} from '../../../../dnd/character/enums/character-size.model';
 import {CreatureType} from '../../../../dnd/character/enums/creature-type.enum';
 
 @Injectable({
@@ -24,7 +24,7 @@ export class PcFacade {
     this.store.dispatch(PcActions.OpenEditPC({
       pc: {
         characterType: CharacterType.PC,
-        characterSize: CharacterSize.Medium,
+        characterSize: CharacterSizes.Medium,
         creatureType: CreatureType.Humanoid,
         attributes: {strength: 1, dexterity: 1, constitution: 1, intelligence: 1, wisdom: 1, charisma: 1},
       }

@@ -1,19 +1,19 @@
-<section class="npc-form" *ngIf="!!npc">
+<section *ngIf="!!npc" class="npc-form">
   <header>
-    <input type="text" id="npcName" [(ngModel)]="npc.name" placeholder="npc's name"/>
-    <fa-icon class="hostility" [icon]="hostilityIcon()" (click)="changeHostility()"></fa-icon>
+    <input [(ngModel)]="npc.name" id="npcName" placeholder="npc's name" type="text"/>
+    <fa-icon (click)="changeHostility()" [icon]="hostilityIcon()" class="hostility"></fa-icon>
   </header>
   <main>
     <article class="form-row">
       <label for="npcType">Type</label>
-      <select id="npcType" [(ngModel)]="npc.creatureType">
+      <select [(ngModel)]="npc.creatureType" id="npcType">
         <option *ngFor="let type of keys(enumCreatureType)" [ngValue]="enumCreatureType[type]">{{enumCreatureType[type]}}</option>
       </select>
     </article>
 
     <article class="form-row">
       <label for="npcCR">Challenge Rating</label>
-      <select id="npcCR" [(ngModel)]="npc.cr">
+      <select [(ngModel)]="npc.cr" id="npcCR">
         <option *ngFor="let cr of keys(enumChallengeRating)" [ngValue]="enumChallengeRating[cr]">{{enumChallengeRating[cr]}}</option>
       </select>
     </article>
@@ -21,36 +21,36 @@
     <article class="form-row">
       <label for="npcHP">Health Points</label>
       <div id="npcHP">
-        <input type="number" min="1" [(ngModel)]="npc.hp" placeholder="current HP"/>
+        <input [(ngModel)]="npc.hp" min="1" placeholder="current HP" type="number"/>
         <strong>/</strong>
-        <input type="number" min="1" [(ngModel)]="npc.maxHP" placeholder="max HP"/>
+        <input [(ngModel)]="npc.maxHP" min="1" placeholder="max HP" type="number"/>
       </div>
     </article>
 
     <article class="form-row attributes">
       <div class="attribute">
         <label for="npcStr">STR</label>
-        <input type="number" id="npcStr" min="0" max="20" [(ngModel)]="npc.attributes.strength"/>
+        <input [(ngModel)]="npc.attributes.strength" id="npcStr" max="20" min="0" type="number"/>
       </div>
       <div class="attribute">
         <label for="npcDex">DEX</label>
-        <input type="number" id="npcDex" min="0" max="20" [(ngModel)]="npc.attributes.dexterity"/>
+        <input [(ngModel)]="npc.attributes.dexterity" id="npcDex" max="20" min="0" type="number"/>
       </div>
       <div class="attribute">
         <label for="npcCon">CON</label>
-        <input type="number" id="npcCon" min="0" max="20" [(ngModel)]="npc.attributes.constitution"/>
+        <input [(ngModel)]="npc.attributes.constitution" id="npcCon" max="20" min="0" type="number"/>
       </div>
       <div class="attribute">
         <label for="npcInt">INT</label>
-        <input type="number" id="npcInt" min="0" max="20" [(ngModel)]="npc.attributes.intelligence"/>
+        <input [(ngModel)]="npc.attributes.intelligence" id="npcInt" max="20" min="0" type="number"/>
       </div>
       <div class="attribute">
         <label for="npcWis">WIS</label>
-        <input type="number" id="npcWis" min="0" max="20" [(ngModel)]="npc.attributes.wisdom"/>
+        <input [(ngModel)]="npc.attributes.wisdom" id="npcWis" max="20" min="0" type="number"/>
       </div>
       <div class="attribute">
         <label for="npcCha">CHA</label>
-        <input type="number" id="npcCha" min="0" max="20" [(ngModel)]="npc.attributes.charisma"/>
+        <input [(ngModel)]="npc.attributes.charisma" id="npcCha" max="20" min="0" type="number"/>
       </div>
     </article>
   </main>

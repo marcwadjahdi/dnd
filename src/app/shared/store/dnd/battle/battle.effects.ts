@@ -38,7 +38,8 @@ export class BattleEffects {
     ofType(BattleActions.PreviousTurn),
     withLatestFrom(this.battleFacade.turn$),
     tap(([action, turn]) => this.setTurn(turn)),
-  ), dontDispatch);
+    map(action => BattleActions.CharacterEdited()),
+  ));
 
   onNextTurn = createEffect(() => this.actions$.pipe(
     ofType(BattleActions.NextTurn),
@@ -60,14 +61,19 @@ export class BattleEffects {
 
   addCharacter = createEffect(() => this.actions$.pipe(
     ofType(BattleActions.AddCharacter),
-    tap(action => this.mapService.addCharacter(action.character))
-  ), dontDispatch);
+    tap(action => this.mapService.addCharacter(action.character)),
+    map(action => BattleActions.CharacterAdded()),
+  ));
 
   editCharacter = createEffect(() => this.actions$.pipe(
     ofType(BattleActions.EditCharacter),
-    tap(action => this.mapService.renderCharacter(action.character))
-  ), dontDispatch);
-
+    withLatestFrom(this.battleFacade.characters$),
+    tap(([action, characters]) => {
+      const character = characters.find(it => it.id === action.id);
+      this.mapService.renderCharacter(character);
+    }),
+    map(([action, characters]) => BattleActions.CharacterEdited()),
+  ));
 
   onSync = createEffect(() => this.actions$.pipe(
     ofType(BattleActions.SyncMap),

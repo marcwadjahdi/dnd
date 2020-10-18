@@ -61,18 +61,15 @@ export class ActiveBattleComponent implements OnInit, OnDestroy {
   }
 
   onCharacterSizeSelected(character: BattleCharacter, selector) {
-    const size = selector.value;
-    const edited = deepCopy(character);
-    edited.characterSize = {...CharacterSizes[size]};
-    this.facade.editCharacter(edited);
+    const characterSize = {...CharacterSizes[selector.value]};
+    this.facade.editCharacter(character.id, {characterSize});
     selector.value = null;
   }
 
   onCharacterHealthKeyPress(character: BattleCharacter, $event) {
     if ($event.key.toLowerCase() === 'enter') {
-      const edited = deepCopy(character);
-      edited.hp = parseInt(edited.hp, 10)  + parseInt($event.target.value, 10);
-      this.facade.editCharacter(edited);
+      const hp = character.hp  + parseInt($event.target.value, 10);
+      this.facade.editCharacter(character.id, {hp});
       $event.target.value = null;
     }
   }

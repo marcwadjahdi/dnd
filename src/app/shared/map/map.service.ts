@@ -9,6 +9,8 @@ import {BattleCharacter} from '../dnd/battle/battle';
 import Feature from 'ol/Feature';
 import {Point} from 'ol/geom';
 import {BattleFacade} from '../store/dnd/battle/battle.facade';
+import {ModifyEvent} from 'ol/interaction/Modify';
+import {deepCopy} from '../util/deep-copy';
 import newImageSource = Maps.Layers.newImageSource;
 import getBasemapLayer = Maps.Layers.getBasemapLayer;
 import getEnvironmentLayer = Maps.Layers.getEnvironmentLayer;
@@ -41,6 +43,15 @@ export class MapService {
 
   initialize() {
     Object.assign(this, Maps.Initializer.initialize());
+    this.interactions.characters.modify.on('modifyend', (evt: ModifyEvent) => {
+      this.map.getFeaturesAtPixel(evt.mapBrowserEvent.pixel).forEach(feature => {
+        const character = feature.getProperties()?.character;
+        if (!!character) {
+          const position = (feature.getGeometry() as Point)?.getCoordinates();
+          this.battleFacade.editCharacter(character.id, {position});
+        }
+      });
+    });
     this.battleFacade.sync();
   }
 

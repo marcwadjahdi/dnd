@@ -15,20 +15,26 @@ import {dontDispatch} from '../effects';
 export class LocalStorageSyncEffect {
 
   private readonly STORAGE_EVENT = 'storage';
+
   @Effect()
-  onChange = fromEvent<StorageEvent>(window, this.STORAGE_EVENT).pipe(
+  onStoreEvent = fromEvent<StorageEvent>(window, this.STORAGE_EVENT).pipe(
     map(evt => StoreSyncUpdateAction()),
-    tap(action => {
-      this.store.dispatch(BattleActions.SyncMap());
-    }),
   );
-  private readonly toSToreActionTypes = ofType(
-    NpcActions.EditNPC, NpcActions.RemoveNPC,
-    PcActions.EditPC, PcActions.RemovePC,
-    BattleActions.BattleStarted, BattleActions.BattleEnded, BattleActions.NextTurnReady, BattleActions.PreviousTurn, BattleActions.EditCharacter, BattleActions.RemoveCharacter, BattleActions.AddCharacter,
-  );
+
+  @Effect()
+  afterStoreSync = createEffect(() => this.actions$.pipe(
+    ofType(StoreSyncUpdateAction),
+    map(action => BattleActions.SyncMap()),
+  ));
+
   onToStoreAction = createEffect(() => this.actions$.pipe(
-    this.toSToreActionTypes,
+    ofType(
+      NpcActions.EditNPC, NpcActions.RemoveNPC,
+      PcActions.EditPC, PcActions.RemovePC,
+      BattleActions.BattleStarted, BattleActions.BattleEnded,
+      BattleActions.NextTurnReady, BattleActions.PreviousTurnReady,
+      BattleActions.CharacterAdded, BattleActions.CharacterEdited, BattleActions.CharacterRemoved,
+    ),
     tap(action => {
       this.store.select(state => state)
         .pipe(take(1))

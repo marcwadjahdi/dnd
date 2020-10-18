@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {DndState} from 'src/app/shared/store/dnd.state';
 import {BattleActions} from './battle.actions';
-import {BattleCharacter, BattleTurn} from 'src/app/shared/dnd/battle/battle';
+import {BattleTurn} from 'src/app/shared/dnd/battle/battle';
 import {Character} from 'src/app/shared/dnd/character/character.model';
 import {BattleSelectors} from './battle.selectors';
 
@@ -19,6 +19,14 @@ export class BattleFacade {
 
   constructor(private store: Store<DndState>) {
   }
+
+  /* Selectors */
+
+  selectCharacter(id: number) {
+    this.store.select(BattleSelectors.SelectCharacter(id));
+  }
+
+  /* Actions */
 
   openNewBattle() {
     this.store.dispatch(BattleActions.OpenNewBattle());
@@ -48,8 +56,8 @@ export class BattleFacade {
     this.store.dispatch(BattleActions.AddCharacter({character}));
   }
 
-  editCharacter(character: BattleCharacter) {
-    this.store.dispatch(BattleActions.EditCharacter({character}));
+  editCharacter(id: number, modification: any) {
+    this.store.dispatch(BattleActions.EditCharacter({id, modification}));
   }
 
   removeCharacter(id: number) {

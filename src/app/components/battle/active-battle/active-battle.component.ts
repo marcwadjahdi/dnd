@@ -49,7 +49,7 @@ export class ActiveBattleComponent implements OnInit, OnDestroy {
   }
 
   openAddToBattle() {
-    this.facade.openAddCharacter();
+    this.facade.openAddCharacters();
   }
 
   battleStarted(): Observable<boolean> {

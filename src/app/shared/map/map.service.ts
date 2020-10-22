@@ -10,7 +10,6 @@ import Feature from 'ol/Feature';
 import {Point} from 'ol/geom';
 import {BattleFacade} from '../store/dnd/battle/battle.facade';
 import {ModifyEvent} from 'ol/interaction/Modify';
-import {deepCopy} from '../util/deep-copy';
 import newImageSource = Maps.Layers.newImageSource;
 import getBasemapLayer = Maps.Layers.getBasemapLayer;
 import getEnvironmentLayer = Maps.Layers.getEnvironmentLayer;
@@ -71,7 +70,16 @@ export class MapService {
     getGridLayer(this.map).setOpacity(this.gridHidden);
   }
 
+  addCharacters(characters: BattleCharacter[]) {
+    if (characters) {
+      characters.forEach(this.addCharacter, this);
+    }
+  }
+
   addCharacter(character: BattleCharacter) {
+    if (!character) {
+      return;
+    }
     const feature = new Feature({
       geometry: new Point(character.position),
       name: character.name,

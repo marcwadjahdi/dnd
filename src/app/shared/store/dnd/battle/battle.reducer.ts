@@ -91,16 +91,13 @@ const nextTurn = (state, {turn}) => {
   return newState;
 };
 
-const addCharacter = (state, {character}) => {
+const addCharacters = (state, {characters}) => {
   const newState = deepCopy(state);
-  const characters = deepCopy(state.active.currentTurn.characters);
-  characters[character.id] = deepCopy(character);
-
-  newState.active.currentTurn = {
-    ...newState.active.currentTurn,
-    initiative: sortInitiative(newState.active.currentTurn),
-    characters,
-  };
+  const currentTurn = deepCopy(state.active.currentTurn);
+  characters.filter(it => !currentTurn.characters[it.id])
+    .forEach(it => currentTurn.characters[it.id] = deepCopy(it));
+  currentTurn.initiative = sortInitiative(currentTurn);
+  newState.active.currentTurn = currentTurn;
   return newState;
 };
 
@@ -136,7 +133,7 @@ const reducer = createReducer(initialState(),
   on(BattleActions.PreviousTurn, previousTurn),
   on(BattleActions.NextTurnReady, nextTurn),
 
-  on(BattleActions.AddCharacter, addCharacter),
+  on(BattleActions.AddCharacters, addCharacters),
   on(BattleActions.EditCharacter, editCharacter),
   on(BattleActions.RemoveCharacter, removeCharacter),
 );

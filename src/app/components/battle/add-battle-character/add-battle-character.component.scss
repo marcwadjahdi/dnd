@@ -1,142 +1,101 @@
 @import 'src/variables';
 
-.npcs {
-  padding: 1rem 0 0 1rem;
-  margin: 0;
-
+.add-characters-form {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 5rem 3rem 1fr;
+  grid-template-rows: 5rem 1fr 5rem;
 
-  height: calc(100% - #{$footer-height});
-
-  > header {
-    margin: 0;
-    padding: 0 0 2rem 2rem;
-    border-bottom: 1px solid $bg-x-light;
-
-    display: flex;
-    flex-direction: row;
-
-    > nav {
-      display: flex;
-      flex-direction: row;
-      place-content: flex-end;
-
-      width: 100%;
-      padding: 0 2rem;
-
-      .btn {
-        background-color: $bg-x-light;
-
-        margin: 0.5rem;
-        padding: 0.75rem;
-
-        height: 1rem;
-        font-size: 1rem;
-        width: auto;
-
-        cursor: pointer;
-
-        fa-icon {
-          position: relative;
-          top: -3px;
-        }
-
-        span {
-          margin-left: 0.5rem;
-        }
-      }
-    }
-
+  header {
+    padding: 1rem 0 .5rem 1rem;
   }
 
   main {
-    display: grid;
-    grid-template-columns:1fr;
-    grid-template-rows: 1rem 1fr;
-
-
-    .npcs-tiles {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      padding: 1rem;
+    label {
+      font-weight: bold;
     }
 
-    .npc-tile {
-      flex: 1;
+    input, select, .characters {
+      margin: 0.5rem 0;
+    }
 
+    .players-characters, .non-players-characters {
+      overflow: auto;
+      overflow-x: hidden;
+
+      min-height: 7.5rem;
+      max-height: 15rem;
+      padding: 1rem 0rem;
+    }
+
+    .basemaps {
+      padding: 1rem 5rem;
+    }
+
+    .players-characters::-webkit-scrollbar,
+    .non-players-characters::-webkit-scrollbar {
+      width: 0.25rem;
+    }
+
+    .players-characters::-webkit-scrollbar-track,
+    .non-players-characters::-webkit-scrollbar-track {
+      background: $bg-overlay;
+    }
+
+    .players-characters::-webkit-scrollbar-thumb,
+    .non-players-characters::-webkit-scrollbar-thumb {
+      background: $bg-dark;
+    }
+
+    .npc-actions {
       display: grid;
-      grid-template-rows: 2.5rem 6rem 1.5rem;
+      grid-template-columns: 1fr 3rem;
+      grid-template-rows: 1.5rem;
+      margin: 0;
+      padding: 0 5rem;
 
-      min-width: 17rem;
-      max-width: 17rem;
-      min-height: 10rem;
-      max-height: 10rem;
-
-      margin: 1rem;
-      padding: 1rem;
-
-      background-color: $bg-dark;
-
-      header {
-        font-family: 'Krona One';
-        font-size: $font-size-base * 1.1;
-        position: relative;
-        top: 0;
-        left: 0;
-
-        .cr-badge {
-          position: absolute;
-          right: 0;
-          top: -1.5rem;
-
-          font-weight: bold;
-          padding: 0.2rem 0.1rem 0.4rem 0.1rem;
-          color: $bg-light;
-        }
-
-        .friendly-badge {
-          background-color: #255a25;
-        }
-
-        .hostile-badge {
-          background-color: #642626;
-        }
+      input {
+        margin: 0 0.5rem;
       }
 
-      main {
-        .attributes {
-          display: grid;
-          grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-          grid-template-rows: 3.5rem;
-
-          .attribute {
-            display: flex;
-
-            flex-direction: column;
-            text-align: center;
-
-            width: 2rem;
-
-            margin: 0 0.2rem;
-
-            border: 2px dotted $bg-x-light;
-          }
-        }
-      }
-
-      footer {
+      ::ng-deep .dropdown-menu {
         display: flex;
-        flex-direction: row;
-        place-content: flex-end;
+        flex-direction: column;
+        width: calc(100% - 13rem);
 
-        > a {
-          margin: 0 0.5rem;
+        .dropdown-item {
+          border: none;
         }
+
+        .dropdown-item {
+          background-color: $bg-dark;
+          color: $font-color;
+          font-size: $font-size-base;
+        }
+
+        .dropdown-item.active, .dropdown-item:hover {
+          color: $link-color;
+        }
+      }
+
+      .btn {
+        height: 1.5rem;
+        width: 1.5rem;
+        margin-left: 1rem;
       }
     }
+  }
 
+  footer {
+    display: flex;
+    flex-direction: row;
+    place-content: flex-end;
+
+    padding: 0 .5rem 1rem 0;
+
+    .btn {
+      background-color: $bg-x-light;
+      font-size: $font-size-base * 1.5;
+      margin: 0.5rem;
+      padding: 0.5rem;
+    }
   }
 }

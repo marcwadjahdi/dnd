@@ -55,14 +55,15 @@ export class BattleEffects {
   ));
 
   openAddCharacter = createEffect(() => this.actions$.pipe(
-    ofType(BattleActions.OpenAddCharacter),
+    ofType(BattleActions.OpenAddCharacters),
     tap(action => this.dialogs.open(AddBattleCharacterComponent))
   ), dontDispatch);
 
   addCharacter = createEffect(() => this.actions$.pipe(
-    ofType(BattleActions.AddCharacter),
-    tap(action => this.mapService.addCharacter(action.character)),
-    map(action => BattleActions.CharacterAdded()),
+    ofType(BattleActions.AddCharacters),
+    tap(action => this.mapService.addCharacters(action.characters)),
+    map(action => BattleActions.CharactersAdded()),
+    tap(action => this.dialogs.close()),
   ));
 
   editCharacter = createEffect(() => this.actions$.pipe(
@@ -92,6 +93,6 @@ export class BattleEffects {
   private setTurn(turn: BattleTurn) {
     this.mapService.changeBasemap(turn.basemap);
     this.mapService.deleteAll();
-    Object.values(turn.characters).forEach(this.mapService.addCharacter, this.mapService);
+    this.mapService.addCharacters(Object.values(turn.characters));
   }
 }

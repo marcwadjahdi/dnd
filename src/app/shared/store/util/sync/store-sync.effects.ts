@@ -33,7 +33,7 @@ export class LocalStorageSyncEffect {
       PcActions.EditPC, PcActions.RemovePC,
       BattleActions.BattleStarted, BattleActions.BattleEnded,
       BattleActions.NextTurnReady, BattleActions.PreviousTurnReady,
-      BattleActions.CharacterAdded, BattleActions.CharacterEdited, BattleActions.CharacterRemoved,
+      BattleActions.CharactersAdded, BattleActions.CharacterEdited, BattleActions.CharacterRemoved,
     ),
     tap(action => {
       this.store.select(state => state)

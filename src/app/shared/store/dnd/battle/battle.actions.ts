@@ -17,9 +17,9 @@ export const BattleActions = {
   NextTurn: createAction(`${prefix} Next Turn`),
   NextTurnReady: createAction(`${prefix} Next Turn ready`, props<{ turn: BattleTurn }>()),
 
-  OpenAddCharacter: createAction(`${prefix} Open Add Character`),
-  AddCharacter: createAction(`${prefix} Add Character`, props<{ character: BattleCharacter }>()),
-  CharacterAdded: createAction(`${prefix} Character Added`),
+  OpenAddCharacters: createAction(`${prefix} Open Add Characters`),
+  AddCharacters: createAction(`${prefix} Add Characters`, props<{ characters: BattleCharacter[] }>()),
+  CharactersAdded: createAction(`${prefix} Characters Added`),
 
   EditCharacter: createAction(`${prefix} Edit Character`, props<{ id: number; modification: any }>()),
   CharacterEdited: createAction(`${prefix} Character Edited`),

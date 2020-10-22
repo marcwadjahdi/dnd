@@ -14,6 +14,7 @@ import {Observable} from 'rxjs';
 import {DialogService} from '../../../shared/layouts/dialog/dialog.service';
 import {Closeable} from '../../../shared/util/closeable';
 import BasemapStore = Maps.Layers.BasemapStore;
+import {randomId} from '../../../shared/dnd/common/identified';
 
 @Component({
   selector: 'dnd-new-battle',
@@ -75,8 +76,8 @@ export class NewBattleComponent implements OnInit, OnDestroy, Closeable {
 
   addNPC() {
     const battleNPC = this.toBattleCharacter(this.npc);
+    battleNPC.id = randomId();
     this.nonPlayersCharacters[battleNPC.id] = battleNPC;
-    this.npc = null;
   }
 
   startBattle() {
@@ -90,6 +91,10 @@ export class NewBattleComponent implements OnInit, OnDestroy, Closeable {
         },
       });
     }
+  }
+
+  close(): void {
+    this.dialogService.close();
   }
 
   /* Random Position */
@@ -108,9 +113,5 @@ export class NewBattleComponent implements OnInit, OnDestroy, Closeable {
     const y = (Dice.rollD20() + Dice.rollD12() + Dice.rollD8()) * (Dice.rollD6() > 3 ? 1 : -1);
     const center = this.mapService.getMap().getView().getCenter();
     return [center[0] + x, center[1] + y];
-  }
-
-  close(): void {
-    this.dialogService.close();
   }
 }

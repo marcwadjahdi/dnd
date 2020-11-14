@@ -76,6 +76,16 @@ export class BattleEffects {
     map(([action, characters]) => BattleActions.CharacterEdited()),
   ));
 
+  environementEvt = createEffect(() => this.actions$.pipe(
+    ofType(BattleActions.AddFeature, BattleActions.EditFeature, BattleActions.RemoveFeature),
+    map(action => BattleActions.NewEnv({environment: this.mapService.environment()})),
+  ));
+
+  newEnvironment = createEffect(() => this.actions$.pipe(
+    ofType(BattleActions.NewEnv),
+    map(action => BattleActions.EnvRenewed()),
+  ));
+
   onSync = createEffect(() => this.actions$.pipe(
     ofType(BattleActions.SyncMap),
     withLatestFrom(this.battleFacade.turn$),
@@ -93,6 +103,7 @@ export class BattleEffects {
   private setTurn(turn: BattleTurn) {
     this.mapService.changeBasemap(turn.basemap);
     this.mapService.deleteAll();
+    this.mapService.addEnvironment(turn.environment);
     this.mapService.addCharacters(Object.values(turn.characters));
   }
 }

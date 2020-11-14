@@ -34,6 +34,7 @@ export class LocalStorageSyncEffect {
       BattleActions.BattleStarted, BattleActions.BattleEnded,
       BattleActions.NextTurnReady, BattleActions.PreviousTurnReady,
       BattleActions.CharactersAdded, BattleActions.CharacterEdited, BattleActions.CharacterRemoved,
+      BattleActions.EnvRenewed,
     ),
     tap(action => {
       this.store.select(state => state)

@@ -3,7 +3,6 @@ import {Store} from '@ngrx/store';
 import {DndState} from 'src/app/shared/store/dnd.state';
 import {BattleActions} from './battle.actions';
 import {BattleCharacter, BattleTurn} from 'src/app/shared/dnd/battle/battle';
-import {Character} from 'src/app/shared/dnd/character/character.model';
 import {BattleSelectors} from './battle.selectors';
 
 @Injectable({
@@ -62,6 +61,18 @@ export class BattleFacade {
 
   removeCharacter(id: number) {
     this.store.dispatch(BattleActions.RemoveCharacter({id}));
+  }
+
+  addFeature(feature: any) {
+    this.store.dispatch(BattleActions.AddFeature());
+  }
+
+  editFeature(feature: any) {
+    this.store.dispatch(BattleActions.EditFeature());
+  }
+
+  removeFeature(feature: any) {
+    this.store.dispatch(BattleActions.RemoveFeature());
   }
 
   sync() {

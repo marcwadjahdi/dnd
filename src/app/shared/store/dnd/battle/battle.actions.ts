@@ -27,5 +27,20 @@ export const BattleActions = {
   RemoveCharacter: createAction(`${prefix} Remove Character`, props<{ id: number }>()),
   CharacterRemoved: createAction(`${prefix} Character Removed`),
 
+  ChangeBasemap: createAction(`${prefix} Change Basemap`, props<{ basemap: string }>()),
+  BasemapChanged: createAction(`${prefix} Basemap Changed`),
+
+  NewEnv: createAction(`${prefix} New Env`, props<{ environment: any }>()),
+  EnvRenewed: createAction(`${prefix} Env Renewed`),
+
+  AddFeature: createAction(`${prefix} Add Feature`),
+  FeatureAdded: createAction(`${prefix} Feature Added`),
+
+  EditFeature: createAction(`${prefix} Edit Feature`),
+  FeatureEdited: createAction(`${prefix} Feature Edited`),
+
+  RemoveFeature: createAction(`${prefix} Remove Feature`),
+  FeatureRemoved: createAction(`${prefix} Feature Removed`),
+
   SyncMap: createAction(`${prefix} Sync Map`),
 };

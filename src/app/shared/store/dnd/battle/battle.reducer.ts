@@ -126,6 +126,14 @@ function sortInitiative(turn: BattleTurn) {
   return _.orderBy(Object.values(turn.characters), 'initiative', 'desc').map(it => it.id);
 }
 
+const newEnv = (state, {environment}) => {
+  const newState = deepCopy(state);
+  if (newState.active) {
+    newState.active.currentTurn.environment = deepCopy(environment);
+  }
+  return newState;
+};
+
 const reducer = createReducer(initialState(),
   on(BattleActions.StartBattle, startBattle),
   on(BattleActions.EndBattle, endBattle),
@@ -136,6 +144,8 @@ const reducer = createReducer(initialState(),
   on(BattleActions.AddCharacters, addCharacters),
   on(BattleActions.EditCharacter, editCharacter),
   on(BattleActions.RemoveCharacter, removeCharacter),
+
+  on(BattleActions.NewEnv, newEnv),
 );
 
 export const BattleReducer = ((state, action) => reducer(state, action));

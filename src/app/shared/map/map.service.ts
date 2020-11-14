@@ -3,13 +3,17 @@ import {Injectable} from '@angular/core';
 import Map from 'ol/Map';
 import {Maps} from './maps';
 import {Draw, Modify, Select, Snap} from 'ol/interaction';
-import {Transform} from 'ol/transform';
+import Transform from 'ol-ext/interaction/Transform';
 import GeometryType from 'ol/geom/GeometryType';
-import {BattleCharacter} from '../dnd/battle/battle';
+import {BattleCharacter, EnvironmentItem} from '../dnd/battle/battle';
 import Feature from 'ol/Feature';
 import {Point} from 'ol/geom';
 import {BattleFacade} from '../store/dnd/battle/battle.facade';
 import {ModifyEvent} from 'ol/interaction/Modify';
+import {randomId} from '../dnd/common/identified';
+import Polygon from 'ol/geom/Polygon';
+import Circle from 'ol/geom/Circle';
+import LineString from 'ol/geom/LineString';
 import newImageSource = Maps.Layers.newImageSource;
 import getBasemapLayer = Maps.Layers.getBasemapLayer;
 import getEnvironmentLayer = Maps.Layers.getEnvironmentLayer;
@@ -100,7 +104,56 @@ export class MapService {
   }
 
   environment() {
-    return this.getEnvSource().getFeatures().map(it => it.getGeometry());
+    return this.getEnvSource().getFeatures().map(it => it.getGeometry()).map(geom => {
+      const type = geom.getType();
+      switch (type) {
+        case GeometryType.CIRCLE:
+          const circle = (geom as Circle);
+          return {type, data: {center: circle.getCenter(), radius: circle.getRadius()}};
+        case GeometryType.LINE_STRING:
+          return {type, data: (geom as LineString).getCoordinates()};
+        case GeometryType.POINT:
+          return {type, data: (geom as Point).getCoordinates()};
+        case GeometryType.POLYGON:
+          return {type, data: (geom as Polygon).getCoordinates()};
+        case GeometryType.MULTI_LINE_STRING:
+        case GeometryType.MULTI_POINT:
+        case GeometryType.MULTI_POLYGON:
+        case GeometryType.LINEAR_RING:
+        case GeometryType.GEOMETRY_COLLECTION:
+        default:
+          return {type};
+          break;
+      }
+    });
+  }
+
+  addEnvironment(items: EnvironmentItem[] = []) {
+    const envSource = this.getEnvSource();
+    items
+      .map(this.envItemToGeometry)
+      .map(geometry => new Feature({geometry}))
+      .forEach(feature => envSource.addFeature(feature));
+  }
+
+  private envItemToGeometry(item: EnvironmentItem) {
+    switch (item.type) {
+      case GeometryType.CIRCLE:
+        return new Circle(item.data.center, item.data.radius);
+      case GeometryType.LINE_STRING:
+        return new LineString(item.data);
+      case GeometryType.POINT:
+        return new Point(item.data);
+      case GeometryType.POLYGON:
+        return new Polygon(item.data);
+      case GeometryType.MULTI_LINE_STRING:
+      case GeometryType.MULTI_POINT:
+      case GeometryType.MULTI_POLYGON:
+      case GeometryType.LINEAR_RING:
+      case GeometryType.GEOMETRY_COLLECTION:
+      default:
+        return null;
+    }
   }
 
   /* Interactions */
@@ -116,14 +169,31 @@ export class MapService {
 
   draw(type: GeometryType) {
     this.interactions.environment.draw = this.addInteraction(new Draw({source: this.getEnvSource(), type}));
+    this.interactions.environment.draw.on('drawend', (evt) => {
+      evt.feature.setId(randomId());
+      setTimeout(() => this.battleFacade.addFeature(evt.feature), 50);
+    });
   }
 
   edit() {
     this.addInteraction(this.interactions.environment.edit);
+    ['rotateend', 'translateend', 'scaleend'].forEach(evtName =>
+      this.interactions.environment.edit.on(evtName, (evt: { feature: Feature }) => {
+        setTimeout(() => this.battleFacade.editFeature(evt.feature), 50);
+      })
+    );
+
   }
 
   eraser() {
     this.addInteraction(this.interactions.environment.eraser);
+    this.interactions.environment.eraser.on('select', (evt: any) => {
+      if (evt.selected && evt.selected.length !== 0) {
+        evt.selected.forEach(feature => {
+          setTimeout(() => this.battleFacade.removeFeature(feature.getId()), 50);
+        });
+      }
+    });
   }
 
   deleteAllEnvironment() {
